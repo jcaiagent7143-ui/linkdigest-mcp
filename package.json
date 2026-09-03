@@ -1,0 +1,23 @@
+{
+  "name": "linkdigest-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for LinkDigest — turn a Xiaohongshu, Douyin, TikTok, YouTube or X link into LLM-ready text: transcript, on-screen text, image descriptions, caption and metadata.",
+  "homepage": "https://linkdigest.dev",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "xiaohongshu",
+    "rednote",
+    "douyin",
+    "tiktok",
+    "transcript",
+    "ocr",
+    "llm"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp.git"
+  }
+}

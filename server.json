@@ -1,0 +1,22 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "dev.linkdigest/linkdigest",
+  "title": "LinkDigest",
+  "description": "Xiaohongshu, Douyin, YouTube, TikTok and X links as LLM-ready text",
+  "websiteUrl": "https://linkdigest.dev",
+  "version": "1.0.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://linkdigest.dev/mcp",
+      "headers": [
+        {
+          "name": "Authorization",
+          "description": "Bearer token \u2014 an API key issued at https://linkdigest.dev/app/keys",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ]
+}
