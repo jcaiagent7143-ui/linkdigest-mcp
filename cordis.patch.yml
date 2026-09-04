@@ -1,0 +1,30 @@
+# dsh-linkdigest: the LinkDigest MCP endpoint as a DeepSeek Harness bundle.
+#
+# Inserts one row that connects to the hosted LinkDigest MCP server
+# (https://linkdigest.dev/mcp, Streamable HTTP) through the mcp-client bridge the
+# dsh CLI ships with (@deepseek-ai/dsh-mcp-client). The server exposes a single
+# tool, registered on ctx.tools under the `linkdigest` namespace:
+#   mcp__linkdigest__digest_url
+#
+# Auth: LinkDigest uses a bearer API key. Three digests are free; get a key at
+# https://linkdigest.dev/app/keys. Set LINKDIGEST_API_KEY in the environment or in
+# $DSH_HOME/.credentials.yaml. The headers expression attaches it only when the
+# variable is present, so an unset key falls back cleanly instead of sending a
+# bogus header.
+#
+# toolCallTimeoutMs is 180s deliberately, not copied from a template. Measured
+# against the live service: a Xiaohongshu note with 17 images takes 119 seconds
+# because every image is described and OCR'd, and a YouTube video is around 150.
+# The default 60s would time out on exactly the content this plugin exists for.
+#
+# Override per deployment from a later layer (profile cordis.patch.yml or
+# --patch) by referencing this row's id WITHOUT `insert`.
+- insert:
+    - id: mcp-linkdigest
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: linkdigest
+        transport: streamable-http
+        url: https://linkdigest.dev/mcp
+        headers: !!js 'process.env.LINKDIGEST_API_KEY ? { Authorization: "Bearer " + process.env.LINKDIGEST_API_KEY } : {}'
+        toolCallTimeoutMs: 180000

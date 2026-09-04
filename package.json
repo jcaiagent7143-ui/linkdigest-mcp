@@ -1,23 +1,36 @@
 {
-  "name": "linkdigest-mcp",
+  "name": "dsh-linkdigest",
   "version": "1.0.0",
-  "description": "MCP server for LinkDigest — turn a Xiaohongshu, Douyin, TikTok, YouTube or X link into LLM-ready text: transcript, on-screen text, image descriptions, caption and metadata.",
+  "description": "LinkDigest for DeepSeek Harness: mounts the remote LinkDigest MCP (https://linkdigest.dev/mcp) via the in-box @deepseek-ai/dsh-mcp-client bridge — turn a Xiaohongshu, Douyin, TikTok, YouTube or X link into text an agent can read.",
   "homepage": "https://linkdigest.dev",
   "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp.git"
+  },
+  "files": [
+    "cordis.patch.yml",
+    "server.json",
+    "README.md",
+    "skills"
+  ],
   "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "cordis",
     "mcp",
     "mcp-server",
-    "model-context-protocol",
     "xiaohongshu",
     "rednote",
     "douyin",
     "tiktok",
     "transcript",
-    "ocr",
-    "llm"
+    "ocr"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp.git"
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
   }
 }
