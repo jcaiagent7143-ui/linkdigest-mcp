@@ -125,6 +125,10 @@ Measured, not estimated:
   deleted before the request returns; only the text digest is kept.
 - A blocked or removed post returns an error, not a description of the error page.
 
+## Dify
+
+The same tool as a Dify plugin lives in [`dify/`](dify/) — source, manifest and privacy policy. Install it from the Dify Marketplace and paste your API key into the provider credential.
+
 ## Also available
 
 A REST API (`POST https://linkdigest.dev/api/v1/digest`), a web app, and Apify

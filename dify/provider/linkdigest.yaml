@@ -1,0 +1,29 @@
+identity:
+  author: jcaiagent7143-ui
+  name: linkdigest
+  label:
+    en_US: LinkDigest
+    zh_Hans: LinkDigest
+  description:
+    en_US: "Turn a Xiaohongshu, Douyin, TikTok, YouTube or X link into text: transcript with timecodes, on-screen text, every image described and OCR'd, caption and metadata."
+    zh_Hans: "把小红书、抖音、TikTok、YouTube 或 X 链接转成文本：带时间戳的转写、屏幕文字、逐图描述与 OCR、正文与元数据。"
+  icon: icon.png
+credentials_for_provider:
+  api_key:
+    type: secret-input
+    required: true
+    label:
+      en_US: API Key
+      zh_Hans: API 密钥
+    placeholder:
+      en_US: ld_live_...
+      zh_Hans: ld_live_...
+    help:
+      en_US: Issue a key at linkdigest.dev/app/keys. Three digests are free, no card.
+      zh_Hans: 在 linkdigest.dev/app/keys 创建密钥。前三次免费，无需信用卡。
+    url: https://linkdigest.dev/app/keys
+tools:
+  - tools/digest_url.yaml
+extra:
+  python:
+    source: provider/linkdigest.py

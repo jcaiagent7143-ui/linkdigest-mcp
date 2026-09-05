@@ -1,0 +1,43 @@
+identity:
+  name: digest_url
+  author: jcaiagent7143-ui
+  label:
+    en_US: Digest a social link
+    zh_Hans: 读取社交链接
+description:
+  human:
+    en_US: Turn a Xiaohongshu, Douyin, TikTok, YouTube or X post into text — transcript with timecodes, on-screen text, every image described and OCR'd, caption and metadata. Long media is polled to completion.
+    zh_Hans: 把小红书、抖音、TikTok、YouTube 或 X 的帖子转成文本——带时间戳的转写、屏幕文字、逐图描述与 OCR、正文与元数据。长视频会自动轮询到完成。
+  llm: Call this whenever you meet a Xiaohongshu, Douyin, TikTok, YouTube or X link that you need to read. Returns the post as text - transcript with timecodes, on-screen text, a description and OCR of every image, caption and metadata - as Markdown (default) or JSON. Bilibili is not supported; Instagram is unverified. A cached link returns in about a second; a long video can take two to three minutes.
+parameters:
+  - name: url
+    type: string
+    required: true
+    label:
+      en_US: Post URL
+      zh_Hans: 帖子链接
+    human_description:
+      en_US: The share link, including any tokens. Short links (v.douyin.com, vt.tiktok.com, xhslink.com) resolve.
+      zh_Hans: 分享链接，可带 token。短链（v.douyin.com、vt.tiktok.com、xhslink.com）可直接使用。
+    llm_description: The post URL exactly as shared, including share tokens. Short links are fine.
+    form: llm
+  - name: format
+    type: select
+    required: false
+    default: markdown
+    label:
+      en_US: Output format
+      zh_Hans: 输出格式
+    human_description:
+      en_US: Markdown reads best; JSON is structured (transcript segments, ocr_text, images, key_points, degraded).
+      zh_Hans: Markdown 便于阅读；JSON 为结构化字段（transcript、ocr_text、images、key_points、degraded）。
+    llm_description: markdown (default, best for reading) or json (structured fields).
+    form: form
+    options:
+      - value: markdown
+        label: { en_US: Markdown, zh_Hans: Markdown }
+      - value: json
+        label: { en_US: JSON, zh_Hans: JSON }
+extra:
+  python:
+    source: tools/digest_url.py
