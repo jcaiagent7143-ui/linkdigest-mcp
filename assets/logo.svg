@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 32 32">
+  <!-- The product's mark: one tangled source line resolving into three clean lines
+       of structured output. Same geometry as the site favicon (web/src/app/icon.tsx). -->
+  <rect width="32" height="32" rx="7" fill="#5b4be8"/>
+  <g transform="translate(5 5)" fill="none" stroke-linecap="round">
+    <path d="M3 6h7" stroke="#ff9f8a" stroke-width="2.6"/>
+    <path d="M11.5 6h2.5a4 4 0 0 1 4 4v0a4 4 0 0 1-4 4h-1" stroke="#ffffff" stroke-width="2.2" opacity="0.55"/>
+    <path d="M9 18h12M13 14h8M15 22h6" stroke="#ffffff" stroke-width="2.6"/>
+  </g>
+</svg>

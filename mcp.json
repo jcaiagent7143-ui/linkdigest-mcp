@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "linkdigest": {
+      "type": "streamable-http",
+      "url": "https://linkdigest.dev/mcp",
+      "headers": {
+        "Authorization": "Bearer ${LINKDIGEST_API_KEY}"
+      }
+    }
+  }
+}

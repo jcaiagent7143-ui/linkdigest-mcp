@@ -1,0 +1,15 @@
+{
+  "name": "linkdigest",
+  "displayName": "LinkDigest — Xiaohongshu, Douyin, TikTok, YouTube to text",
+  "version": "1.0.2",
+  "description": "Turns a Xiaohongshu, Douyin, TikTok, YouTube or X link into text the agent can read: transcript with timecodes, on-screen text, a description and OCR of every image, caption and metadata. One tool, digest_url. Hosted; nothing runs locally.",
+  "author": {
+    "name": "LinkDigest",
+    "url": "https://linkdigest.dev"
+  },
+  "homepage": "https://linkdigest.dev",
+  "repository": "https://github.com/jcaiagent7143-ui/linkdigest-mcp",
+  "license": "MIT",
+  "keywords": ["mcp", "xiaohongshu", "rednote", "douyin", "tiktok", "youtube", "transcript", "ocr", "social-media"],
+  "logo": "assets/logo.svg"
+}

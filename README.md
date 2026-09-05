@@ -31,7 +31,17 @@ claude mcp add --transport http linkdigest \
   --header "Authorization: Bearer ld_live_..."
 ```
 
-**Cursor** — `~/.cursor/mcp.json`
+**Cursor, as a plugin** — this repo is a Cursor plugin (`.cursor-plugin/plugin.json` + `mcp.json` + `skills/`).
+Install it from [cursor.directory](https://cursor.directory), then set the key once in your shell:
+
+```
+export LINKDIGEST_API_KEY=ld_live_...
+```
+
+The plugin's `mcp.json` reads `${LINKDIGEST_API_KEY}`; no key is stored in the repo. Without it,
+the tool still lists and `tools/call` returns a 401 that says where to get one.
+
+**Cursor, by hand** — `~/.cursor/mcp.json`
 
 ```json
 {
