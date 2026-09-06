@@ -10,9 +10,10 @@
     "url": "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp.git"
   },
   "files": [
+    "LICENSE",
+    "README.md",
     "cordis.patch.yml",
     "server.json",
-    "README.md",
     "skills"
   ],
   "keywords": [
