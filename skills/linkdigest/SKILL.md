@@ -35,10 +35,17 @@ fine, read it directly — this costs credits and takes longer.
 digest_url(url: "https://v.douyin.com/…")
 ```
 
-`url` is the only required argument. Two others exist:
+`url` is the only required argument. The others:
 
 - `format` — `markdown` (default, best for reading) or `json` (structured fields)
 - `job_id` — collect a digest already running; see below
+- `breakdown` — `true` adds a teardown of how the post is built (爆款拆解): the hook,
+  timed beats, title formula, call to action and a reusable template. Use it when the
+  user wants to learn from or remake a post. +1 credit
+- `translate_to` — a language code (`en`, `ja`, `zh-CN`): adds a translation beside
+  the original. +1 credit
+- `partial_ok` — `true` reads the opening minutes of a video that is too long for the
+  plan, instead of refusing it
 
 ## Long videos need two calls
 
@@ -56,9 +63,11 @@ to two minutes; a YouTube video with captions about two and a half.
 
 ## What comes back
 
-`platform`, `author`, `title`, `posted_at`, `caption`, `transcript` (`{t, text}`
-with timecodes), `ocr_text`, `images` (`{description, ocr}` per image),
-`key_points`, `source_url`, `transcript_source`, `degraded`.
+`platform`, `author`, `title`, `posted_at`, `caption`, `transcript` (`{t, text}`;
+per line for platform captions, per ~170 s segment for speech recognition),
+`ocr_text`, `on_screen` (`{t, text}`, approximate times), `images`
+(`{description, ocr}` per image), `key_points`, `stats`, `tags`, `source_url`,
+`transcript_source`, `degraded` — plus `breakdown` and `translation` when asked for.
 
 Two of those change how you should use the result:
 

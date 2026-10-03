@@ -1,9 +1,13 @@
 # LinkDigest MCP server
 
+**中文文档：[README.zh-CN.md](README.zh-CN.md)** — 抖音、小红书链接转文本，MCP / Python SDK / 命令行，价格以人民币标注。
+
 Turn a social media link into text a language model can read — **transcript,
 on-screen text, image descriptions, caption and metadata**.
 
-Hosted, remote (streamable HTTP). Nothing to install or run.
+Hosted, remote (streamable HTTP). Nothing to install or run. For stdio-only clients and scripts,
+[`python/`](python/) adds a zero-dependency Python SDK, a `linkdigest` command line and a
+`linkdigest-mcp` stdio server that forwards to the hosted endpoint.
 
 **Website:** [linkdigest.dev](https://linkdigest.dev) · **Registry:** `dev.linkdigest/linkdigest`
 
@@ -54,9 +58,39 @@ the tool still lists and `tools/call` returns a 401 that says where to get one.
 }
 ```
 
+**stdio-only clients** — through [mcp-remote](https://github.com/geelen/mcp-remote) (Node.js):
+
+```json
+{
+  "mcpServers": {
+    "linkdigest": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://linkdigest.dev/mcp", "--header", "Authorization:${AUTH_HEADER}"],
+      "env": { "AUTH_HEADER": "Bearer ld_live_..." }
+    }
+  }
+}
+```
+
+or through this repo's Python server (uv and git; the PyPI package `linkdigest-mcp` is not published yet,
+after which `args` becomes `["linkdigest-mcp"]`):
+
+```json
+{
+  "mcpServers": {
+    "linkdigest": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python", "linkdigest-mcp"],
+      "env": { "LINKDIGEST_API_KEY": "ld_live_..." }
+    }
+  }
+}
+```
+
 A key is issued at [linkdigest.dev/app/keys](https://linkdigest.dev/app/keys).
 10 free credits to start, once per account, no card. A post is one credit; video adds one per
-started minute; a viral breakdown or a translation adds one each.
+started minute; a viral breakdown or a translation adds one each. Then $5 once for 250 credits
+(Alipay accepted, settled as ¥36) or $9 a month for 500 (card).
 
 ## The tool
 
@@ -124,11 +158,38 @@ Measured, not estimated:
 
 ## Notes
 
-- Chinese speech is transcribed with SenseVoice, which is materially more
-  accurate on Mandarin than Whisper-class models.
+- Speech is transcribed with Qwen3-ASR. It was kept over whisper-large-v3-turbo
+  after a side-by-side on the same clips, where Whisper misheard Mandarin
+  (创业 → 创意, 900人 → 酒派人).
+- `transcript` is `[{t, text}]`. Platform captions are timed per line. Speech
+  recognition currently returns one segment per ~170 s of audio (a single
+  segment at `t: 0` for a shorter clip); `on_screen` carries approximate,
+  keyframe-level times.
 - Media is never stored or served. It is processed in a temporary directory
   deleted before the request returns; only the text digest is kept.
 - A blocked or removed post returns an error, not a description of the error page.
+
+## Python SDK and command line
+
+In [`python/`](python/): MIT, Python 3.10+, standard library only.
+
+```bash
+pip install "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"
+export LINKDIGEST_API_KEY=ld_live_...
+linkdigest "https://v.douyin.com/xxxx/" --breakdown       # Markdown to stdout
+```
+
+```python
+from linkdigest import LinkDigest
+
+d = LinkDigest().digest("https://xhslink.com/o/xxxx", translate_to="en")
+print(d.title, d.credits, d.cached)
+print(d.markdown)
+```
+
+Long jobs are collected for you (`GET /api/v1/digest/{jobId}?wait=20`); errors are typed
+(`PaymentRequiredError` carries `buy_url`). Examples — Dify, OpenAPI import for Coze-style
+platforms, Feishu Bitable, links to CSV — are in [`examples/`](examples/) (Chinese).
 
 ## Dify
 

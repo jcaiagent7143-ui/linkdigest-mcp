@@ -1,0 +1,78 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+# The distribution is `linkdigest-mcp` so that `uvx linkdigest-mcp` resolves to
+# it; the import package is `linkdigest` (`from linkdigest import LinkDigest`).
+name = "linkdigest-mcp"
+dynamic = ["version"]
+description = "抖音、小红书、TikTok、YouTube、X 链接转 AI 可读文本 — Python SDK, CLI and stdio MCP server for the hosted LinkDigest API"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "LinkDigest", email = "support@linkdigest.dev" }]
+# No runtime dependencies: HTTP is the standard library's urllib.
+dependencies = []
+keywords = [
+  "mcp",
+  "mcp-server",
+  "xiaohongshu",
+  "rednote",
+  "douyin",
+  "tiktok",
+  "youtube",
+  "transcript",
+  "ocr",
+  "小红书",
+  "抖音",
+  "文案提取",
+  "爆款拆解",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Natural Language :: Chinese (Simplified)",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Internet :: WWW/HTTP",
+  "Topic :: Multimedia :: Video",
+  "Topic :: Text Processing",
+  "Typing :: Typed",
+]
+
+[project.urls]
+Homepage = "https://linkdigest.dev"
+Documentation = "https://github.com/jcaiagent7143-ui/linkdigest-mcp/blob/main/README.zh-CN.md"
+Repository = "https://github.com/jcaiagent7143-ui/linkdigest-mcp"
+Issues = "https://github.com/jcaiagent7143-ui/linkdigest-mcp/issues"
+
+[project.scripts]
+linkdigest = "linkdigest.cli:main"
+linkdigest-mcp = "linkdigest.mcp_server:main"
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+
+[tool.hatch.version]
+path = "src/linkdigest/_version.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/linkdigest"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/linkdigest", "tests", "README.md", "LICENSE", "pyproject.toml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+  "live: calls the real https://linkdigest.dev/mcp — tools/list only, no API key, no credits. Skip offline with -m 'not live'.",
+]
