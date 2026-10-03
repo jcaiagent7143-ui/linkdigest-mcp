@@ -9,8 +9,8 @@ allowed-tools: mcp__linkdigest__digest_url
 Fetching a social media link yourself returns nothing usable. The share URL is
 tokenised (`xsec_token`, `app_code_link`), the content lives in video and images
 rather than HTML, and the server answers with an app-download shell or a login
-wall. On Xiaohongshu that shell is 202 KB whose entire `<title>` is the site
-name.
+wall. On Xiaohongshu that shell is an app page whose `<title>` is the site's
+slogan and which holds none of the note.
 
 This tool resolves the link, fetches the media with a warmed session, transcribes
 the audio, describes and OCRs every image, and hands back text.
@@ -71,13 +71,16 @@ per line for platform captions, per ~170 s segment for speech recognition),
 
 Two of those change how you should use the result:
 
-- **`transcript_source`** is `native_captions`, `asr`, or `none`. Captions the
+- **`transcript_source`** is `native_captions`, `asr`, `gemini_video` (an uncaptioned
+  YouTube video watched by Gemini) or `none`. Captions the
   platform published are exact; speech recognition is not. If you are about to
   quote a number or a name back to the user as fact, and the source was `asr`,
   say where it came from.
-- **`degraded`** lists anything that did not fully work, in plain words, and is
-  empty on a clean run. A digest with entries here is thinner than the post
-  actually is — do not present it as complete.
+- **`degraded`** lists anything that did not fully work, in plain words. It also
+  carries route notes ("read via oEmbed", "read by Gemini watching the video
+  directly") on complete digests. When an entry says something could not be
+  read or failed, the digest is thinner than the post — do not present it as
+  complete.
 
 ## Platforms
 

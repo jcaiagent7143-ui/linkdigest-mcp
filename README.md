@@ -19,11 +19,11 @@ than HTML, and the server sends an app-download shell or a login wall instead of
 the post.
 
 ```
-$ curl -s 'https://xhslink.com/o/1WiQ1QI6Uc0' | grep -o '<title>.*</title>'
-<title>小红书</title>
+$ curl -sL 'https://xhslink.com/o/1WiQ1QI6Uc0' | grep -o '<title>.*</title>'
+<title>小红书 - 你的生活兴趣社区</title>
 ```
 
-That is the whole page. No caption, no images, no text.
+That title belongs to a 36 KB app shell (checked 2026-10-04). No caption, no images, no text of the note.
 
 ## Install
 
@@ -121,10 +121,14 @@ job id; call the tool again with that `job_id` and no `url` to collect it.
 
 Two are worth knowing about:
 
-- **`transcript_source`** — `native_captions`, `asr`, or `none`. Captions the
-  platform already published are exact; speech recognition is not. Treating them
+- **`transcript_source`** — `native_captions`, `asr`, `gemini_video` or `none`. Captions the
+  platform already published are exact; speech recognition is not. `gemini_video`
+  means a YouTube video without captions was watched by Gemini, which wrote the
+  transcript and its times. Treating them
   identically eventually quotes a mis-heard number back at someone as fact.
-- **`degraded`** — what did not fully work, in plain words. Empty on a clean run.
+- **`degraded`** — what did not fully work, in plain words, plus notes on how a
+  complete read was obtained (e.g. "read via oEmbed", "read by Gemini watching the
+  video directly").
   It exists because a digest once returned a well-formed, completely empty result
   during a provider outage and was cached for thirty days.
 

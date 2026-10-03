@@ -89,7 +89,7 @@ claude mcp add --transport http linkdigest https://linkdigest.dev/mcp \
 
 **通义灵码（Qoder CN）**：它的 MCP 文档只给了 SSE 类型的远程示例，Streamable HTTP 加请求头能不能用，我们还没验证过。最稳的是用 stdio：上面的 mcp-remote，或者下面的 `uvx`。
 
-**魔搭 MCP 广场**：上面两段 JSON 就是魔搭解析的格式（远程 `streamable_http` 和 `npx mcp-remote`）。
+**魔搭 MCP 广场**：已上架 https://modelscope.cn/mcp/servers/JCAI714/linkdigest （托管，可直接部署）。上面两段 JSON 也是魔搭解析的格式（远程 `streamable_http` 和 `npx mcp-remote`）。
 
 ### stdio：用 uvx 跑本仓库的 Python 服务器
 
@@ -127,19 +127,19 @@ claude mcp add --transport http linkdigest https://linkdigest.dev/mcp \
 几个值得留意的地方：
 
 - `transcript` 是 `[{t, text}]`。平台自带字幕（YouTube 等）按句带时间；语音识别的逐字稿（抖音等）目前按段返回：170 秒以内的视频是一整段（`t` 为 0），更长的每 170 秒左右一段。想知道内容大概出现在第几秒，看 `on_screen`（画面文字，按关键帧标 ≈）和拆解里的节拍。
-- `transcript_source`：`native_captions`（平台自带字幕，准确）、`asr`（语音识别）或 `none`。拿 ASR 的结果去引用数字或人名时，最好说明来源。
-- `degraded`：哪里没读全，用一句话写明；正常时为空。
+- `transcript_source`：`native_captions`（平台自带字幕，准确）、`asr`（语音识别）、`gemini_video`（没有字幕的 YouTube 视频由 Gemini 看视频写出逐字稿和时间）或 `none`。拿 ASR 的结果去引用数字或人名时，最好说明来源。
+- `degraded`：哪里没读全，用一句话写明；也会记下这次是怎么读完整的（比如 read via oEmbed、read by Gemini watching the video directly），所以不为空不一定是没读全。
 
 ### 为什么不能自己抓
 
 分享链接带 token（`xsec_token`、`app_code_link`），内容在视频和图片里，不在 HTML 里，服务器返回的是下载 App 的引导页或登录墙：
 
 ```
-$ curl -s 'https://xhslink.com/o/1WiQ1QI6Uc0' | grep -o '<title>.*</title>'
-<title>小红书</title>
+$ curl -sL 'https://xhslink.com/o/1WiQ1QI6Uc0' | grep -o '<title>.*</title>'
+<title>小红书 - 你的生活兴趣社区</title>
 ```
 
-整页就这些。没有正文，没有图，没有字。
+这个标题来自一个 36 KB 的 App 引导页（2026-10-04 复查）。笔记的正文、图片、图里的字都不在里面。
 
 ## 工具：`digest_url`
 
@@ -152,13 +152,13 @@ $ curl -s 'https://xhslink.com/o/1WiQ1QI6Uc0' | grep -o '<title>.*</title>'
 | `partial_ok` | `true` 时，视频超出额度或时长上限就读开头能读的部分，而不是拒绝 |
 | `job_id` | 取回还在处理的任务，见下 |
 
-工具说明里写了 `breakdown` 的用途，对 agent 说「拆解这条抖音」，它一般会自己带上 `breakdown: true`。
+工具说明里写了 `breakdown` 的用途，对 agent 说「拆解这条抖音」时它可能会自己带上 `breakdown: true`；没带的话，在提示里直接说「加上 breakdown」。
 
 ### 长视频：分两次调用
 
 一次调用大约 20 秒内返回。20 秒内读不完的内容（长视频、图片很多的图文笔记）不会报错，而是返回一个任务号（job id）；agent 隔 15 秒左右再调一次 `digest_url`，**只传 `job_id`、不传 `url`**，就能取回结果。重新发 `url` 会从头再读一遍。
 
-魔搭这类平台代理的 MCP 有自己的超时，长视频更要靠这个两步调用。Python SDK 和命令行会自动等待，不需要你处理（见下）。
+通过平台代理的 MCP（比如魔搭）可能还有平台自己的超时，长视频更要靠这个两步调用。Python SDK 和命令行会自动等待，不需要你处理（见下）。
 
 ## Python SDK 和命令行
 
@@ -266,7 +266,7 @@ linkdigest --check-key                                     # 校验 Key
 - 不需要你的抖音、小红书账号或 Cookie，不会用你的账号去请求平台。
 - SDK、命令行和 stdio 服务器只连 `linkdigest.dev`（或你用 `LINKDIGEST_BASE_URL` / `LINKDIGEST_MCP_URL` 指定的地址），不打印 Key。
 
-从中国大陆访问：API 和 MCP 都在 `linkdigest.dev` 这一个域名下（CloudFront）。2026-10-03 用 Globalping 的中国大陆探针测试，`/mcp` 15/15 连通，中位约 0.75 秒。
+从中国大陆访问：API 和 MCP 都在 `linkdigest.dev` 这一个域名下（CloudFront）。2026-10-03 用 Globalping 的中国大陆探针测试，`/mcp` 15/15 连通，中位约 0.75 秒（[测量结果](https://api.globalping.io/v1/measurements/2lwssBlFwFu2K3gBp00021FVv)）。
 
 ## 其他接入方式
 
