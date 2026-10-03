@@ -80,6 +80,7 @@ these, say so rather than trying it.
 
 ## Cost
 
-Three digests are free without a card. After that a typical post is one credit
-and video is two credits a minute. Anything anyone has digested before is served
-from cache — free, and back in about a second.
+10 free credits to start, once per account, no card. A typical post is one credit
+and video adds one per started minute. `breakdown: true` (the hook, timed beats and a
+reusable template — 爆款拆解) and `translate_to` add one credit each. Anything anyone
+has digested before is served from cache — free, and back in about a second.

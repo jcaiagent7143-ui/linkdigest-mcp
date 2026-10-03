@@ -67,11 +67,21 @@ class LinkDigestClient:
         if r.status_code == 401:
             raise LinkDigestError("invalid API key — issue one at https://linkdigest.dev/app/keys", 401)
 
-    def digest(self, url: str, fmt: str = "markdown") -> Digest:
+    def digest(
+        self, url: str, fmt: str = "markdown", translate_to: str | None = None, breakdown: bool = False
+    ) -> Digest:
+        body: dict[str, Any] = {"url": url, "format": fmt}
+        if translate_to:
+            # Optional; omitted entirely when unset so the API's cache key for
+            # the plain digest is unaffected.
+            body["translate_to"] = translate_to
+        if breakdown:
+            # 爆款拆解 (+1 credit): sent only when asked, for the same reason.
+            body["breakdown"] = True
         r = self._s.post(
             f"{self._base}/api/v1/digest",
             headers={**self._headers(), "Content-Type": "application/json"},
-            json={"url": url, "format": fmt},
+            json=body,
             timeout=40,
         )
         if r.status_code == 202:
@@ -105,7 +115,16 @@ class LinkDigestClient:
         if r.status_code == 401:
             raise LinkDigestError("invalid API key — issue one at https://linkdigest.dev/app/keys", 401)
         if r.status_code == 402:
-            raise LinkDigestError("free digests used up — upgrade at https://linkdigest.dev/pricing", 402)
+            # The API says why (the free credits are spent, or this link costs
+            # more than is left) and, when buying would help, gives a pay link
+            # that opens checkout for this key's account with no sign-in.
+            try:
+                payload = r.json()
+            except ValueError:
+                payload = {}
+            why = payload.get("error") or "out of credits"
+            pay = payload.get("buy_url") or payload.get("subscribe_url") or "https://linkdigest.dev/pricing"
+            raise LinkDigestError(f"{why} Pay here (no sign-in): {pay}", 402)
         if r.status_code == 429:
             raise LinkDigestError("rate limited; try again shortly", 429)
         if r.status_code >= 400:

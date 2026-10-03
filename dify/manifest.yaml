@@ -1,4 +1,4 @@
-version: 0.1.0
+version: 0.1.3
 type: plugin
 author: jcaiagent7143-ui
 name: linkdigest
@@ -23,7 +23,7 @@ plugins:
   tools:
     - provider/linkdigest.yaml
 meta:
-  version: 0.1.0
+  version: 0.1.3
   arch:
     - amd64
     - arm64

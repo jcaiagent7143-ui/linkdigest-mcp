@@ -19,8 +19,8 @@ credentials_for_provider:
       en_US: ld_live_...
       zh_Hans: ld_live_...
     help:
-      en_US: Issue a key at linkdigest.dev/app/keys. Three digests are free, no card.
-      zh_Hans: 在 linkdigest.dev/app/keys 创建密钥。前三次免费，无需信用卡。
+      en_US: Create a key at linkdigest.dev/app/keys — sign in with Google, then one button. 10 free credits to start, no card.
+      zh_Hans: 在 linkdigest.dev/app/keys 创建密钥（Google 一键登录，再点一个按钮）。注册送 10 个免费额度，无需信用卡。
     url: https://linkdigest.dev/app/keys
 tools:
   - tools/digest_url.yaml

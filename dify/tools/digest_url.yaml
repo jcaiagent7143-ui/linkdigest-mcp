@@ -38,6 +38,29 @@ parameters:
         label: { en_US: Markdown, zh_Hans: Markdown }
       - value: json
         label: { en_US: JSON, zh_Hans: JSON }
+  - name: translate_to
+    type: string
+    required: false
+    label:
+      en_US: Translate to
+      zh_Hans: 翻译为
+    human_description:
+      en_US: Optional language code such as en or pt-BR. Adds a translation block beside the original text for one extra credit; the original is always kept.
+      zh_Hans: 可选的语言代码，如 en 或 pt-BR。在原文之外附加一段译文，额外消耗 1 个额度；原文始终保留。
+    llm_description: Optional BCP-47-ish language code, e.g. en. Adds a translation block (+1 credit); the original text is kept. Leave empty for no translation.
+    form: llm
+  - name: breakdown
+    type: boolean
+    required: false
+    default: false
+    label:
+      en_US: Viral breakdown
+      zh_Hans: 爆款拆解
+    human_description:
+      en_US: Also take the post apart — the hook, timed beats, title formula, cover text, call to action and a reusable template. One extra credit.
+      zh_Hans: 同时拆解这条内容——钩子、带时间的结构节拍、标题公式、封面文字、行动号召和可复用模板。额外消耗 1 个额度。
+    llm_description: true to also get a teardown of how the post is built (hook, timed beats, reusable template), +1 credit. Use when the user wants to learn from or remake a post.
+    form: llm
 extra:
   python:
     source: tools/digest_url.py

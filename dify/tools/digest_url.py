@@ -16,6 +16,8 @@ class DigestUrlTool(Tool):
         fmt = str(tool_parameters.get("format") or "markdown").strip().lower()
         if fmt not in ("markdown", "json"):
             fmt = "markdown"
+        translate_to = str(tool_parameters.get("translate_to") or "").strip() or None
+        breakdown = tool_parameters.get("breakdown") in (True, "true", "True", 1, "1")
 
         if not api_key:
             yield self.create_text_message("LinkDigest API key is not configured")
@@ -25,7 +27,7 @@ class DigestUrlTool(Tool):
             return
 
         try:
-            digest = LinkDigestClient(api_key).digest(url, fmt)
+            digest = LinkDigestClient(api_key).digest(url, fmt, translate_to=translate_to, breakdown=breakdown)
         except LinkDigestError as exc:
             # The API's own message says what went wrong - a dead post, a
             # blocked platform, an exhausted plan. Pass it through unchanged

@@ -4,13 +4,15 @@ Turn a Xiaohongshu, Douyin, TikTok, YouTube or X link into text a workflow can u
 
 Source: https://github.com/jcaiagent7143-ui/linkdigest-mcp · Service: https://linkdigest.dev
 
+[Chinese (zh_Hans)](./README.zh_Hans.md)
+
 ## Why
 
 A workflow node that fetches a Xiaohongshu URL gets an app-download shell, not the post. The content is images and video; there is nothing in the HTML to read. Douyin and TikTok are video with no transcript on the page. LinkDigest does the reading on its servers — resolve the share link, pull the media, transcribe speech, OCR on-screen text, describe every image — and returns text.
 
 ## Setup
 
-1. Issue an API key at https://linkdigest.dev/app/keys. Three digests are free, no card.
+1. Create an API key at https://linkdigest.dev/app/keys — sign in with Google, then one button. 10 free credits when you sign up (once, not monthly), no card.
 2. Install this plugin and paste the key into the provider credential. The plugin validates it against the API without spending a digest.
 
 ## Tool
@@ -36,8 +38,8 @@ Long media exceeds a single request; the plugin polls the job to completion (up 
 
 | | |
 |---|---|
-| Xiaohongshu 小红书 | image and video notes, no login needed |
-| Douyin 抖音 | video posts and 图文 image notes |
+| Xiaohongshu (RedNote) | image and video notes, no login needed |
+| Douyin | video posts, and image-and-text notes |
 | TikTok | short links resolve; rate-limits under load |
 | YouTube | native captions where published, otherwise a watched transcript |
 | X | posts with video or images |
@@ -53,7 +55,7 @@ A 17-image Xiaohongshu note: 17 image descriptions, 381 fragments of on-screen t
 
 ## Pricing
 
-Three digests free. Then $9/month for 500 credits — a typical post is 1 credit, video 2 per started minute. Cached links are always free. Details: https://linkdigest.dev/pricing
+10 free credits to start (once, not monthly), no card. Then $5 once for 250 credits (no subscription, never expire), or $9/month for 500 credits — a typical post is 1 credit, video 1 per started minute. Cached links are always free and never counted. Details: https://linkdigest.dev/pricing
 
 ## Network
 

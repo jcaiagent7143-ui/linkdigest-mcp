@@ -55,17 +55,21 @@ the tool still lists and `tools/call` returns a 401 that says where to get one.
 ```
 
 A key is issued at [linkdigest.dev/app/keys](https://linkdigest.dev/app/keys).
-Three digests are free, no card.
+10 free credits to start, once per account, no card. A post is one credit; video adds one per
+started minute; a viral breakdown or a translation adds one each.
 
 ## The tool
 
-`digest_url(url, format, job_id)` — only `url` is required.
+`digest_url(url, format, job_id, translate_to, breakdown, partial_ok)` — only `url` is required.
 
 | Argument | Notes |
 |---|---|
 | `url` | The post URL, including any share tokens. |
 | `format` | `markdown` (default, best for reading) or `json` (structured). |
 | `job_id` | Collect a digest already running. Pass this instead of `url` — re-sending the url would start the work again. |
+| `breakdown` | `true` adds a viral breakdown (爆款拆解): the hook in its first seconds, the structure as timed beats, the title formula, cover text, call to action, audience and a reusable template. Quotes are checked word for word against the post; engagement and hashtags come from the platform. +1 credit. |
+| `translate_to` | An ISO 639-1 code (`en`, `ja`, `zh-CN`): adds a translation beside the original, and writes the breakdown in that language. +1 credit. |
+| `partial_ok` | `true` reads the opening minutes the budget affords instead of refusing a long video. |
 
 You do not call it yourself. The tool description tells the agent to reach for it
 whenever it meets a social link it cannot read, so it happens mid-task without
@@ -77,8 +81,9 @@ job id; call the tool again with that `job_id` and no `url` to collect it.
 ## What comes back
 
 `platform`, `author`, `title`, `posted_at`, `caption`, `transcript` (`{t, text}`),
-`ocr_text`, `images` (`{description, ocr}`), `key_points`, `raw_markdown`,
-`source_url`, `transcript_source`, `degraded`.
+`ocr_text`, `on_screen` (`{t, text}`), `images` (`{description, ocr}`), `key_points`, `stats`
+(likes, comments, saves, shares, plays), `tags`, `raw_markdown`, `source_url`, `transcript_source`,
+`degraded` — plus `breakdown` and `translation` when asked for.
 
 Two are worth knowing about:
 
