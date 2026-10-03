@@ -289,4 +289,4 @@ pytest                                     # 全部测试；离线：pytest -m "
 
 ## 许可证
 
-MIT
+MIT，见 [LICENSE](LICENSE)。更新记录见 [CHANGELOG.md](CHANGELOG.md)。

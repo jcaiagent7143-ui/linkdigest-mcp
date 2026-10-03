@@ -203,3 +203,7 @@ The same tool as a Dify plugin lives in [`dify/`](dify/) — source, manifest an
 
 A REST API (`POST https://linkdigest.dev/api/v1/digest`), a web app, and Apify
 Store actors for bulk runs. See [linkdigest.dev](https://linkdigest.dev).
+
+## License
+
+MIT — see [LICENSE](LICENSE). Changes are listed in [CHANGELOG.md](CHANGELOG.md).
