@@ -109,7 +109,7 @@ claude mcp add --transport http linkdigest https://linkdigest.dev/mcp \
 }
 ```
 
-需要 [uv](https://docs.astral.sh/uv/) 和 git。PyPI 包名 `linkdigest-mcp` 还没有发布；发布之后 `args` 可以简写成 `["linkdigest-mcp"]`。
+需要 [uv](https://docs.astral.sh/uv/) 和 git。这个包还没有发布到 PyPI，所以从本仓库的 git 地址安装；在本 README 写明之前，PyPI 上叫 `linkdigest-mcp` 的包都不是我们发布的。
 
 ## 它读得出什么
 

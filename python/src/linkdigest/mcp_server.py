@@ -6,7 +6,10 @@ adding your key from LINKDIGEST_API_KEY. Nothing is read or transcribed on
 your machine, so there is nothing to install beyond this file: no ffmpeg, no
 ASR key, no browser, no cookies.
 
-    LINKDIGEST_API_KEY=ld_live_... uvx linkdigest-mcp
+    export LINKDIGEST_API_KEY=ld_live_...
+    uvx --from "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python" linkdigest-mcp
+
+(Not on PyPI yet, so the package is installed from the git repository.)
 
 What it does per method:
 
@@ -284,7 +287,8 @@ def main(argv: Optional[List[str]] = None) -> int:
         description=(
             "Stdio MCP server for LinkDigest: exposes digest_url and forwards calls to the hosted "
             "server (default https://linkdigest.dev/mcp) with the key in LINKDIGEST_API_KEY. "
-            "Meant to be launched by an MCP client, e.g. `uvx linkdigest-mcp`."
+            "Meant to be launched by an MCP client, e.g. "
+            "`uvx --from git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python linkdigest-mcp`."
         ),
     )
     parser.add_argument("--version", action="version", version=f"linkdigest-mcp {__version__}")

@@ -72,8 +72,8 @@ the tool still lists and `tools/call` returns a 401 that says where to get one.
 }
 ```
 
-or through this repo's Python server (uv and git; the PyPI package `linkdigest-mcp` is not published yet,
-after which `args` becomes `["linkdigest-mcp"]`):
+or through this repo's Python server (needs uv and git). It is installed from this git repository because
+it is not on PyPI yet; a `linkdigest-mcp` package on PyPI is not ours until this README says so:
 
 ```json
 {

@@ -3,8 +3,10 @@ requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
 
 [project]
-# The distribution is `linkdigest-mcp` so that `uvx linkdigest-mcp` resolves to
-# it; the import package is `linkdigest` (`from linkdigest import LinkDigest`).
+# The distribution is `linkdigest-mcp` so that, once it is published on PyPI,
+# `uvx linkdigest-mcp` resolves to it. Until then install from git:
+#   uvx --from "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python" linkdigest-mcp
+# The import package is `linkdigest` (`from linkdigest import LinkDigest`).
 name = "linkdigest-mcp"
 dynamic = ["version"]
 description = "抖音、小红书、TikTok、YouTube、X 链接转 AI 可读文本 — Python SDK, CLI and stdio MCP server for the hosted LinkDigest API"

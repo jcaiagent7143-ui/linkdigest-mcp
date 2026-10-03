@@ -1,6 +1,7 @@
 """一列链接 → 一张表：标题、作者、逐字稿、图上文字、要点、钩子，和每条花了几个积分。
 
-    pip install linkdigest-mcp          # 或在仓库里: pip install ./python
+    pip install "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"
+                                        # 或在仓库里: pip install ./python（PyPI 上还没有发布）
     export LINKDIGEST_API_KEY=ld_live_...
     python links_to_csv.py links.txt out.csv            # links.txt 每行一条链接或一段分享文案
     python links_to_csv.py links.txt out.csv --breakdown   # 每条 +1 积分，多出钩子 / 模板列

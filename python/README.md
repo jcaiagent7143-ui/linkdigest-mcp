@@ -17,6 +17,13 @@ nothing is downloaded or transcribed on your machine, and it has **no dependenci
 | `linkdigest <url>` | command line — Markdown to stdout, `--json`, `--breakdown`, `--translate en` |
 | `linkdigest-mcp` | stdio MCP server — the `digest_url` tool, forwarded to `https://linkdigest.dev/mcp` with your key |
 
+Install from this repo (the package is **not on PyPI yet**; a `linkdigest-mcp` package on PyPI
+is not ours until this README says so):
+
+```bash
+pip install "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"
+```
+
 All three read the API key from `LINKDIGEST_API_KEY`. Issue one at
 [linkdigest.dev/app/keys](https://linkdigest.dev/app/keys) — 10 free credits on sign-up, no card.
 
@@ -38,7 +45,7 @@ linkdigest "https://xhslink.com/o/xxxx" --breakdown
   "mcpServers": {
     "linkdigest": {
       "command": "uvx",
-      "args": ["linkdigest-mcp"],
+      "args": ["--from", "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python", "linkdigest-mcp"],
       "env": { "LINKDIGEST_API_KEY": "ld_live_..." }
     }
   }
