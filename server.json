@@ -4,7 +4,12 @@
   "title": "LinkDigest — Xiaohongshu, Douyin, TikTok, YouTube to text",
   "description": "Douyin, Xiaohongshu, TikTok, YouTube, X links to text: transcript, screen text, viral breakdown",
   "websiteUrl": "https://linkdigest.dev",
-  "version": "1.0.3",
+  "repository": {
+    "url": "https://github.com/jcaiagent7143-ui/linkdigest-mcp",
+    "source": "github",
+    "id": "1356180416"
+  },
+  "version": "1.0.4",
   "remotes": [
     {
       "type": "streamable-http",

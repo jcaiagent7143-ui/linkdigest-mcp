@@ -21,6 +21,12 @@
 | `cordis.patch.yml`、`package.json` | DeepSeek Harness（dsh）插件 |
 | [`dify/`](dify/) | Dify 插件源码 |
 
+## 这个仓库里有什么
+
+开源的部分：Python SDK、`linkdigest` 命令行和 `linkdigest-mcp` 本地（stdio）MCP 服务器（[`python/`](python/)，MIT），
+Dify 插件源码（[`dify/`](dify/)），Agent 技能（[`skills/`](skills/)），示例，以及官方 MCP 注册表条目（[`server.json`](server.json)）。
+`https://linkdigest.dev/mcp` 和 API 背后的托管服务由 LinkDigest 运营，读取引擎不开源。
+
 ## MCP 配置
 
 远程 MCP（Streamable HTTP），什么都不用装：

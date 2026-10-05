@@ -3,6 +3,14 @@
 Dates are when the change reached this repository. The hosted service at
 linkdigest.dev changes independently; its prices are in the README.
 
+## 2026-10-05 — 1.0.4
+
+- Registry entry (`server.json` 1.0.4) links this repository.
+- `digest_url` now has a `title` and MCP annotations (`readOnlyHint: true`, `openWorldHint: true`),
+  and `url` is no longer required by the schema: collecting a running job sends `job_id` alone.
+  The bundled copy in `python/src/linkdigest/tool.py` matches the hosted tool again.
+- README: what is open source here and what is the hosted service.
+
 ## 2026-10-04
 
 - **Python package (`python/`, 0.1.0, MIT):** a zero-dependency SDK (`LinkDigest().digest(url)`),

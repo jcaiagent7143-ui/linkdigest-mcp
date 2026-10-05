@@ -11,6 +11,14 @@ Hosted, remote (streamable HTTP). Nothing to install or run. For stdio-only clie
 
 **Website:** [linkdigest.dev](https://linkdigest.dev) · **Registry:** `dev.linkdigest/linkdigest`
 
+## What this repository contains
+
+The open parts: the Python SDK, the `linkdigest` command line and the `linkdigest-mcp` stdio server
+([`python/`](python/), MIT), the Dify plugin source ([`dify/`](dify/)), the agent skill
+([`skills/`](skills/)), examples, and the official MCP registry entry ([`server.json`](server.json)).
+The hosted service behind `https://linkdigest.dev/mcp` and the API is operated by LinkDigest; its
+reading engine is not open source.
+
 ## The problem
 
 Fetching a social link yourself returns nothing useful. Share URLs are tokenised

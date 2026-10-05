@@ -17,6 +17,14 @@ INSTRUCTIONS = "Call digest_url whenever you meet a social media link whose cont
 
 DIGEST_URL_TOOL: Dict[str, Any] = {
     "name": TOOL_NAME,
+    "title": "Read a social media post as text",
+    "annotations": {
+        "title": "Read a social media post as text",
+        "readOnlyHint": True,
+        "destructiveHint": False,
+        "idempotentHint": False,
+        "openWorldHint": True,
+    },
     "description": (
         "Turn a social media URL into LLM-ready context. Works on Xiaohongshu, "
         "Douyin, TikTok, YouTube, X and ordinary web pages. Returns the post's "
@@ -33,7 +41,10 @@ DIGEST_URL_TOOL: Dict[str, Any] = {
     "inputSchema": {
         "type": "object",
         "properties": {
-            "url": {"type": "string", "description": "The post URL, including any share tokens."},
+            "url": {
+                "type": "string",
+                "description": "The post URL, including any share tokens. Required unless job_id is given.",
+            },
             "job_id": {
                 "type": "string",
                 "description": (
@@ -50,10 +61,12 @@ DIGEST_URL_TOOL: Dict[str, Any] = {
             "partial_ok": {
                 "type": "boolean",
                 "description": (
-                    "Read the opening minutes the budget affords instead of refusing a "
-                    "video over max_credits or the plan's length cap. Default false: a "
-                    "long video is refused and costs nothing. When true, the digest "
-                    "carries `partial` (read_seconds, duration_seconds, full_credits)."
+                    "Read the opening minutes the budget affords instead of refusing a video "
+                    "over max_credits or the plan's length cap. Default false: a long video "
+                    "is refused and costs nothing (YouTube excepted: its length is known only "
+                    "after Gemini watches it, so it is read in full and billed at most "
+                    "max_credits). When true, the digest carries `partial` (read_seconds, "
+                    "duration_seconds, full_credits)."
                 ),
             },
             "translate_to": {
@@ -84,6 +97,6 @@ DIGEST_URL_TOOL: Dict[str, Any] = {
                 ),
             },
         },
-        "required": ["url"],
+        "required": [],
     },
 }

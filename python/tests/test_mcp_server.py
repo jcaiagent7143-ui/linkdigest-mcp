@@ -92,7 +92,10 @@ def test_bundled_tool_mirrors_the_hosted_contract():
     schema = DIGEST_URL_TOOL["inputSchema"]
     assert DIGEST_URL_TOOL["name"] == "digest_url"
     assert set(schema["properties"]) == {"url", "job_id", "format", "partial_ok", "translate_to", "breakdown"}
-    assert schema["required"] == ["url"]
+    # job_id alone collects a running job, so url is not required by the schema.
+    assert schema["required"] == []
+    assert DIGEST_URL_TOOL["annotations"]["readOnlyHint"] is True
+    assert DIGEST_URL_TOOL["title"] == DIGEST_URL_TOOL["annotations"]["title"]
     assert schema["properties"]["format"]["enum"] == ["markdown", "json"]
     assert schema["properties"]["translate_to"]["pattern"] == "^[a-z]{2}(-[A-Z]{2})?$"
 
