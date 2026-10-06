@@ -1,0 +1,40 @@
+# Builds the Python SDK from this repository on every version tag and attests
+# the build, so anyone can check that a released file came from this source:
+#   gh attestation verify <file> --repo jcaiagent7143-ui/linkdigest-mcp
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Test
+        run: |
+          python -m pip install --quiet pytest
+          cd python && PYTHONPATH=src python -m pytest -q tests --ignore=tests/test_live.py
+      - name: Build
+        run: |
+          python -m pip install --quiet build
+          python -m build python --outdir dist
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: "dist/*"
+      - name: Attach to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1 || gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --notes "See CHANGELOG.md."
+          gh release upload "$GITHUB_REF_NAME" dist/* --clobber

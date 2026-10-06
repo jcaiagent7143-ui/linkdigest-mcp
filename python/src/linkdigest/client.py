@@ -186,6 +186,7 @@ class LinkDigest:
         translate_to: Optional[str] = None,
         partial_ok: bool = False,
         *,
+        depth: str = "full",
         max_credits: Optional[int] = None,
         max_wait: Optional[float] = None,
         on_pending: Optional[PendingCallback] = None,
@@ -199,12 +200,15 @@ class LinkDigest:
         translate_to  Also translate, e.g. "en", "ja", "zh-CN". +1 credit.
         partial_ok    Read the opening minutes the budget affords instead of
                       refusing a video that is too long or too expensive.
+        depth         "full" (default) or "transcript": a long video read in full as a
+                      transcript with a few frames, 1 credit per 2 minutes. YouTube
+                      is always read in full.
         max_credits   Your own ceiling for this link; over it is a 402 and costs nothing.
         max_wait      Seconds to keep collecting a long job (default 600). 0 = do not
                       wait: raise JobPendingError with the job id straight away.
         on_pending    Called as on_pending(job_id, stage) each time the job is still running.
         """
-        body = self._body(url, format, breakdown, translate_to, partial_ok, max_credits)
+        body = self._body(url, format, breakdown, translate_to, partial_ok, max_credits, depth)
         sent = self._send(
             "POST",
             "/api/v1/digest",
@@ -295,6 +299,7 @@ class LinkDigest:
         translate_to: Optional[str],
         partial_ok: bool,
         max_credits: Optional[int],
+        depth: str = "full",
     ) -> Dict[str, Any]:
         if not isinstance(url, str) or not url.strip():
             raise InvalidRequestError("url is required")
@@ -313,6 +318,10 @@ class LinkDigest:
             body["breakdown"] = True
         if partial_ok:
             body["partial_ok"] = True
+        if depth not in ("full", "transcript"):
+            raise InvalidRequestError('depth must be "full" or "transcript"')
+        if depth == "transcript":
+            body["depth"] = "transcript"
         if max_credits is not None:
             if isinstance(max_credits, bool) or not isinstance(max_credits, int) or max_credits < 1:
                 raise InvalidRequestError("max_credits must be a whole number >= 1")

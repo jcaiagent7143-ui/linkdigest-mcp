@@ -336,3 +336,13 @@ def test_urllib_transport_returns_error_bodies(local_api):
 def test_urllib_transport_unreachable_host_is_a_network_error():
     with pytest.raises(NetworkError):
         urllib_transport(Request("GET", "http://127.0.0.1:9/", {}, None, 2.0))
+
+
+def test_depth_is_sent_only_when_transcript_and_validated():
+    from linkdigest.client import LinkDigest
+    from linkdigest.errors import InvalidRequestError
+
+    assert "depth" not in LinkDigest._body("https://v.douyin.com/x/", "json", False, None, False, None)
+    assert LinkDigest._body("https://v.douyin.com/x/", "json", False, None, False, None, "transcript")["depth"] == "transcript"
+    with pytest.raises(InvalidRequestError):
+        LinkDigest._body("https://v.douyin.com/x/", "json", False, None, False, None, "deep")

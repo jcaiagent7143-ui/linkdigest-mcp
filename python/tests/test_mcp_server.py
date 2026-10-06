@@ -91,7 +91,7 @@ def test_tools_list_falls_back_to_the_bundled_tool(failure):
 def test_bundled_tool_mirrors_the_hosted_contract():
     schema = DIGEST_URL_TOOL["inputSchema"]
     assert DIGEST_URL_TOOL["name"] == "digest_url"
-    assert set(schema["properties"]) == {"url", "job_id", "format", "partial_ok", "translate_to", "breakdown"}
+    assert set(schema["properties"]) == {"url", "job_id", "format", "partial_ok", "translate_to", "depth", "breakdown"}
     # job_id alone collects a running job, so url is not required by the schema.
     assert schema["required"] == []
     assert DIGEST_URL_TOOL["annotations"]["readOnlyHint"] is True

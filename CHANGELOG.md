@@ -3,6 +3,15 @@
 Dates are when the change reached this repository. The hosted service at
 linkdigest.dev changes independently; its prices are in the README.
 
+## 2026-10-06 — 1.0.5
+
+- Python SDK 0.2.0: `depth="transcript"` (CLI `--depth transcript`) reads a long video in full
+  as a transcript at 1 credit per 2 minutes. The bundled `digest_url` tool copy matches the
+  hosted server again (it gained `depth`).
+- Releases are now built by GitHub Actions and carry a signed build provenance attestation:
+  `gh attestation verify <file> --repo jcaiagent7143-ui/linkdigest-mcp`.
+- `plugins/linkdigest/`: a Claude plugin (hosted MCP server + three skills).
+
 ## 2026-10-06 — agent skills
 
 - Seven agent skills in `skills/`, each one job with a standard-library script:

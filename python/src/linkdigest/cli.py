@@ -50,6 +50,7 @@ def _parser() -> argparse.ArgumentParser:
     p.add_argument("--translate", metavar="LANG", help="also translate, e.g. en, ja, zh-CN (+1 credit)")
     p.add_argument("--json", action="store_true", help="print the full JSON instead of Markdown")
     p.add_argument("--partial-ok", action="store_true", help="read the opening minutes of a video that is too long, instead of refusing it")
+    p.add_argument("--depth", choices=["full", "transcript"], default="full", help="transcript = a long video in full as a transcript, 1 credit per 2 minutes (not YouTube)")
     p.add_argument("--max-credits", type=int, metavar="N", help="refuse (free of charge) if this link would cost more than N credits")
     p.add_argument("--job", metavar="JOB_ID", help="collect a digest that was still running, instead of reading a url")
     p.add_argument("--max-wait", type=float, default=DEFAULT_MAX_WAIT, metavar="SECONDS", help=f"how long to wait for a long job (default {DEFAULT_MAX_WAIT:.0f})")
@@ -113,6 +114,7 @@ def main(argv: Optional[List[str]] = None, stdin: Optional[TextIO] = None) -> in
                 breakdown=args.breakdown,
                 translate_to=args.translate,
                 partial_ok=args.partial_ok,
+                depth=args.depth,
                 max_credits=args.max_credits,
                 on_pending=on_pending,
             )
