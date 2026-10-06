@@ -100,6 +100,32 @@ A key is issued at [linkdigest.dev/app/keys](https://linkdigest.dev/app/keys).
 started minute; a viral breakdown or a translation adds one each. Then $5 once for 250 credits
 (Alipay accepted, settled as ¥36) or $9 a month for 500 (card).
 
+## Agent skills (OpenClaw, Hermes, Claude Code, Cursor and others)
+
+Seven ready-made skills live in [`skills/`](skills). Each is one job, a `SKILL.md` plus one script that uses only the Python standard library and needs `LINKDIGEST_API_KEY`.
+
+| Skill | Job |
+| --- | --- |
+| `linkdigest-xhs-note-ocr` | Xiaohongshu image notes, with the text inside every image |
+| `linkdigest-video-transcript` | Douyin / Xiaohongshu video to transcript and on-screen text |
+| `linkdigest-wechat-article-reader` | WeChat 公众号 articles: full text and every image's text |
+| `linkdigest-youtube-summary` | YouTube summary and timed transcript, translated to Chinese on request |
+| `linkdigest-xiaohongshu-douyin-reader` | Read Xiaohongshu / Douyin posts in English |
+| `linkdigest-viral-breakdown` | How a viral post is built, with quotes checked against the source |
+| `linkdigest-script-rewrite` | Extract a reference video's script and structure, then write your own |
+
+```bash
+# Any agent the skills CLI supports (Claude Code, Cursor, Codex, OpenClaw, Trae, Qwen Code, ...)
+npx skills add jcaiagent7143-ui/linkdigest-mcp --skill linkdigest-xhs-note-ocr
+
+# Hermes Agent
+hermes skills install jcaiagent7143-ui/linkdigest-mcp/skills/linkdigest-xhs-note-ocr
+hermes skills install clawhub/linkdigest-xhs-note-ocr   # or from ClawHub
+
+# OpenClaw (ClawHub)
+clawhub install jackchew7143/linkdigest-xhs-note-ocr
+```
+
 ## The tool
 
 `digest_url(url, format, job_id, translate_to, breakdown, partial_ok)` — only `url` is required.

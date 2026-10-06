@@ -3,6 +3,15 @@
 Dates are when the change reached this repository. The hosted service at
 linkdigest.dev changes independently; its prices are in the README.
 
+## 2026-10-06 — agent skills
+
+- Seven agent skills in `skills/`, each one job with a standard-library script:
+  Xiaohongshu note OCR, Douyin/Xiaohongshu video transcript, WeChat article reader,
+  YouTube summary, an English Xiaohongshu/Douyin reader, viral breakdown, script rewrite.
+  Installable with `npx skills add`, Hermes (`hermes skills install`) and ClawHub.
+- The script accepts `--depth transcript` (long videos, 1 credit per 2 minutes) and names the
+  skill it runs from in its User-Agent.
+
 ## 2026-10-05 — 1.0.4
 
 - Registry entry (`server.json` 1.0.4) links this repository.

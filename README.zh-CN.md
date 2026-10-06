@@ -117,6 +117,32 @@ claude mcp add --transport http linkdigest https://linkdigest.dev/mcp \
 
 需要 [uv](https://docs.astral.sh/uv/) 和 git。这个包还没有发布到 PyPI，所以从本仓库的 git 地址安装；在本 README 写明之前，PyPI 上叫 `linkdigest-mcp` 的包都不是我们发布的。
 
+## Agent 技能（OpenClaw、Hermes、Claude Code、Cursor 等）
+
+[`skills/`](skills) 里有七个现成技能，每个只做一件事：一份 `SKILL.md` 加一个只用 Python 标准库的脚本，需要 `LINKDIGEST_API_KEY`。
+
+| 技能 | 做什么 |
+| --- | --- |
+| `linkdigest-xhs-note-ocr` | 小红书图文笔记提取，连图片里的字 |
+| `linkdigest-video-transcript` | 抖音 / 小红书视频转文字（口播逐字稿 + 画面文字） |
+| `linkdigest-wechat-article-reader` | 微信公众号文章提取：全文 + 每张图的文字 |
+| `linkdigest-youtube-summary` | YouTube 视频总结和带时间戳的逐字稿，可译成中文 |
+| `linkdigest-xiaohongshu-douyin-reader` | 用英文读小红书 / 抖音（英文说明） |
+| `linkdigest-viral-breakdown` | 爆款拆解，引用逐字核对原文 |
+| `linkdigest-script-rewrite` | 提取对标视频的口播稿和结构，再仿写自己的脚本 |
+
+```bash
+# skills CLI 支持的 Agent（Claude Code、Cursor、Codex、OpenClaw、Trae 等）
+npx skills add jcaiagent7143-ui/linkdigest-mcp --skill linkdigest-xhs-note-ocr
+
+# Hermes Agent
+hermes skills install jcaiagent7143-ui/linkdigest-mcp/skills/linkdigest-xhs-note-ocr
+hermes skills install clawhub/linkdigest-xhs-note-ocr   # 或从 ClawHub 安装
+
+# OpenClaw（ClawHub）
+clawhub install jackchew7143/linkdigest-xhs-note-ocr
+```
+
 ## 它读得出什么
 
 | 内容 | 拿到什么 |
