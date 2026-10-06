@@ -1,0 +1,28 @@
+{
+  "name": "linkdigest",
+  "displayName": "LinkDigest",
+  "version": "1.0.0",
+  "description": "Read a Xiaohongshu, Douyin, TikTok, YouTube, X or WeChat article link as text: transcript, on-screen text, the text inside images, caption and metadata.",
+  "author": {
+    "name": "LinkDigest",
+    "email": "support@linkdigest.dev",
+    "url": "https://linkdigest.dev"
+  },
+  "homepage": "https://linkdigest.dev",
+  "repository": "https://github.com/jcaiagent7143-ui/linkdigest-mcp",
+  "license": "MIT",
+  "keywords": ["xiaohongshu", "rednote", "douyin", "tiktok", "youtube", "wechat", "transcript", "ocr", "social-media"],
+  "documentationUrl": "https://linkdigest.dev/docs",
+  "supportUrl": "https://linkdigest.dev/docs",
+  "privacyPolicyUrl": "https://linkdigest.dev/privacy",
+  "termsOfServiceUrl": "https://linkdigest.dev/terms",
+  "userConfig": {
+    "api_key": {
+      "type": "string",
+      "title": "LinkDigest API key",
+      "description": "Starts with ld_live_. Create one at https://linkdigest.dev/app/keys (10 free credits, no card).",
+      "sensitive": true,
+      "required": true
+    }
+  }
+}
