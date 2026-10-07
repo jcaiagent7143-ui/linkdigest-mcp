@@ -11,6 +11,10 @@ Hosted, remote (streamable HTTP). Nothing to install or run. For stdio-only clie
 
 **Website:** [linkdigest.dev](https://linkdigest.dev) · **Registry:** `dev.linkdigest/linkdigest`
 
+[![What LinkDigest read from a 16-image Xiaohongshu note: 16 images read, 390 lines of text found inside them](assets/what-was-read.png)](https://linkdigest.dev/d/5d0e7837ec2742ea4ae07806d979f0ce)
+
+*Every digest comes with a receipt — how much was read, and a checked quote behind each key point. Works from Muse, Grok Bot, Manus Cue, Hermes, OpenClaw, Claude Code and Cursor: see [linkdigest.dev/connect](https://linkdigest.dev/connect). No key needed for a first look.*
+
 ## What this repository contains
 
 The open parts: the Python SDK, the `linkdigest` command line and the `linkdigest-mcp` stdio server
