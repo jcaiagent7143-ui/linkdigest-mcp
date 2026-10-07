@@ -6,9 +6,9 @@ homepage: https://linkdigest.dev/docs
 metadata: {"openclaw":{"requires":{"env":["LINKDIGEST_API_KEY"],"anyBins":["python3","curl"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API key (starts with ld_live_). Create one at https://linkdigest.dev/app/keys"}],"homepage":"https://linkdigest.dev/docs"}}
 required_environment_variables:
   - name: LINKDIGEST_API_KEY
-    prompt: "LinkDigest API key (starts with ld_live_)"
+    prompt: "LinkDigest API key (starts with ld_live_); optional"
     help: "https://linkdigest.dev/app/keys"
-    required_for: "all calls"
+    required_for: "the full output; without it the script gives one free summary a day"
 ---
 
 # Xiaohongshu (RedNote) & Douyin Reader

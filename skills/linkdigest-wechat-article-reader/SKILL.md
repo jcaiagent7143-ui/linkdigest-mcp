@@ -6,9 +6,9 @@ homepage: https://linkdigest.dev/zh/docs
 metadata: {"openclaw":{"requires":{"env":["LINKDIGEST_API_KEY"],"anyBins":["python3","curl"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/app/keys 创建"}],"homepage":"https://linkdigest.dev/zh/docs"}}
 required_environment_variables:
   - name: LINKDIGEST_API_KEY
-    prompt: "LinkDigest API key (starts with ld_live_)"
+    prompt: "LinkDigest API key (starts with ld_live_); optional"
     help: "https://linkdigest.dev/app/keys"
-    required_for: "all calls"
+    required_for: "the full output; without it the script gives one free summary a day"
 ---
 
 # 微信公众号文章提取（全文 + 图片文字 OCR）

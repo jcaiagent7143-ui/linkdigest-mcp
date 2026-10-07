@@ -1,9 +1,9 @@
 ---
-name: linkdigest-video-transcript
-description: "抖音/小红书视频文案提取：口播逐字稿、画面上的字（带大致时间）、要点和互动数据。用户发来抖音、小红书视频笔记、TikTok、YouTube 或 X 的视频链接或分享文案，要提取文案、视频转文字、扒口播、提取字幕或画面文字时使用。长视频会排队，脚本自动轮询取结果。通过 LinkDigest API 读取，不用下载视频，不需要平台账号或 Cookie。需要 LINKDIGEST_API_KEY；每条 1 积分，另加每开始的 1 分钟 1 积分（1 分钟视频共 2 积分，约 ¥0.29）。不支持 B站。"
-version: 1.1.0
+name: long-video-transcript
+description: "长视频转文字（最长 2 小时）：讲座、课程、播客、直播回放的完整逐字稿（带时间）+ 每分钟一帧的画面文字 + 章节和要点。用户发来抖音、小红书、TikTok、YouTube 的长视频链接要全文逐字稿、课程笔记或总结时使用。走 transcript 省钱档：每 2 分钟 1 积分（1 小时约 ¥4.4），免费账户最长 60 分钟，Dev 月付最长 2 小时。不需要 Key 也能先免费看一条摘要；注册拿 Key 送 10 积分。不下载视频，不需要平台账号。"
+version: 1.0.0
 homepage: https://linkdigest.dev/zh/docs
-metadata: {"openclaw":{"requires":{"env":["LINKDIGEST_API_KEY"],"anyBins":["python3","curl"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/app/keys 创建"}],"homepage":"https://linkdigest.dev/zh/docs"}}
+metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":false,"description":"可选。LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/app/keys 创建，注册送 10 积分；没有 Key 时每天可免费看 1 条摘要"}],"homepage":"https://linkdigest.dev/zh/docs"}}
 required_environment_variables:
   - name: LINKDIGEST_API_KEY
     prompt: "LinkDigest API key (starts with ld_live_); optional"
@@ -11,9 +11,11 @@ required_environment_variables:
     required_for: "the full output; without it the script gives one free summary a day"
 ---
 
-# 抖音/小红书视频文案提取（口播逐字稿 + 画面文字）
+# Long video transcript / 长视频转文字
 
-> 脚本路径 `scripts/linkdigest.py` 相对于本技能目录。
+> 没有 Key 也可以直接运行：脚本会用网站的免费看一条（每天 1 条，返回摘要）。要完整输出，在 https://linkdigest.dev/app/keys 创建 Key（注册送 10 积分，不用卡）。
+
+> 本技能默认加 `--depth transcript`：全程逐字稿 + 稀疏截帧，每 2 分钟 1 积分。
 
 把抖音、小红书视频笔记、TikTok、YouTube、X 的视频链接读成文字：口播逐字稿（没有平台字幕时用 Qwen3-ASR 语音识别；YouTube 例外，由 Gemini 看视频写出）、画面上出现的字和大致时间、标题和简介、要点、点赞评论收藏分享数、话题标签。不用下载视频，不用在本机装 ffmpeg 或语音识别模型，不需要你的平台账号或 Cookie。
 
@@ -52,13 +54,13 @@ Key 只放在环境变量或配置里，不要贴进对话、代码或提交记�
 推荐用自带脚本（Python 3.8+ 标准库，已经处理好 202 排队和轮询）：
 
 ```bash
-python3 scripts/linkdigest.py "<视频链接或整段分享文案>"
-python3 scripts/linkdigest.py "<视频链接>" --format json
-python3 scripts/linkdigest.py "<视频链接>" --translate-to en    # 另附英文译文，+1 积分，原文保留
-python3 scripts/linkdigest.py "<视频链接>" --max-credits 5      # 超过 5 积分的视频不读、不扣费
+python3 {baseDir}/scripts/linkdigest.py "<视频链接或整段分享文案>"
+python3 {baseDir}/scripts/linkdigest.py "<视频链接>" --format json
+python3 {baseDir}/scripts/linkdigest.py "<视频链接>" --translate-to en    # 另附英文译文，+1 积分，原文保留
+python3 {baseDir}/scripts/linkdigest.py "<视频链接>" --max-credits 5      # 超过 5 积分的视频不读、不扣费
 ```
 
-- 抖音「复制链接」得到的整段分享文案可以直接传，服务端会从里面取出链接。文案里有引号或换行时，从标准输入传：`printf '%s' "$SHARE_TEXT" | python3 scripts/linkdigest.py -`
+- 抖音「复制链接」得到的整段分享文案可以直接传，服务端会从里面取出链接。文案里有引号或换行时，从标准输入传：`printf '%s' "$SHARE_TEXT" | python3 {baseDir}/scripts/linkdigest.py -`
 - 视频较长时，提交后约 20 秒内会先返回 202 和 jobId。脚本会自动用 `?wait=20` 轮询，默认最多等 900 秒（`--timeout` 可改）。
 - 等待超时不会丢任务：任务继续在服务端跑，按 stderr 的提示用 `--job-id <jobId>` 接着取。同一个 jobId 只扣一次费。任务完成后在服务端保留 15 分钟，尽快取；过期了就重新提交同一链接。
 - 本次扣了几个积分、是否命中缓存、是否只读了一部分，打印在 stderr 的最后一行。

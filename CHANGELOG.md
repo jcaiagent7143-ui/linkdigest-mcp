@@ -3,6 +3,11 @@
 Dates are when the change reached this repository. The hosted service at
 linkdigest.dev changes independently; its prices are in the README.
 
+## 2026-10-07 — skills: keyless first look, task-named skills
+
+- Every skill script works without `LINKDIGEST_API_KEY`: it uses the site's own free look (one summary a day per visitor) and says how to get the full output.
+- Four skills named for the job rather than the brand: `xiaohongshu-note-to-text`, `douyin-video-to-text`, `tiktok-transcript`, `long-video-transcript`.
+
 ## 2026-10-06 — 1.0.5
 
 - Python SDK 0.2.0: `depth="transcript"` (CLI `--depth transcript`) reads a long video in full

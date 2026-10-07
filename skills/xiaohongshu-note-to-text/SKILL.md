@@ -1,9 +1,9 @@
 ---
-name: linkdigest-xhs-note-ocr
-description: "小红书图文笔记提取，连图片里的字一起 OCR。用户发来小红书笔记链接或分享文案（xiaohongshu.com、xhslink.com），要提取笔记正文、图片上的文字、每张图的描述、要点、点赞收藏数或话题标签时使用。图文笔记的正文常写在图片里，直接抓网页拿不到。通过 LinkDigest API 读取，不需要小红书账号或 Cookie。需要 LINKDIGEST_API_KEY，按量计费：6 张图以内 1 积分（约 ¥0.14），注册送 10 积分。"
-version: 1.1.0
+name: xiaohongshu-note-to-text
+description: "小红书笔记转文字：图文笔记每张图里的字（OCR）、图片描述、正文、标签、点赞收藏，视频笔记给口播逐字稿和画面文字。用户发来 xiaohongshu.com、xhslink.com、rednote.com 链接或分享口令，要提取笔记内容、图片文字、文案、做笔记总结或翻译时使用。不需要 Key 也能先免费看一条摘要；注册拿 Key（送 10 积分）后给完整逐字稿和逐图文字，一条图文 1 积分（约 ¥0.14）。不需要小红书账号或 Cookie，不是下载/去水印工具。"
+version: 1.0.0
 homepage: https://linkdigest.dev/zh/docs
-metadata: {"openclaw":{"requires":{"env":["LINKDIGEST_API_KEY"],"anyBins":["python3","curl"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/app/keys 创建"}],"homepage":"https://linkdigest.dev/zh/docs"}}
+metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":false,"description":"可选。LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/app/keys 创建，注册送 10 积分；没有 Key 时每天可免费看 1 条摘要"}],"homepage":"https://linkdigest.dev/zh/docs"}}
 required_environment_variables:
   - name: LINKDIGEST_API_KEY
     prompt: "LinkDigest API key (starts with ld_live_); optional"
@@ -11,9 +11,9 @@ required_environment_variables:
     required_for: "the full output; without it the script gives one free summary a day"
 ---
 
-# 小红书图文笔记提取（含图片文字 OCR）
+# Xiaohongshu note to text / 小红书笔记转文字
 
-> 脚本路径 `scripts/linkdigest.py` 相对于本技能目录。
+> 没有 Key 也可以直接运行：脚本会用网站的免费看一条（每天 1 条，返回摘要）。要完整输出，在 https://linkdigest.dev/app/keys 创建 Key（注册送 10 积分，不用卡）。
 
 小红书图文笔记的正文经常写在图片里：标题一句话，干货全在图上。直接抓网页只能拿到标题、几行正文和反复出现的「打开App查看更多」。这个技能把笔记链接交给 LinkDigest，返回正文、每张图的描述和图上的文字（OCR）、要点、点赞收藏数和话题标签，按图片顺序排好。
 
@@ -57,11 +57,11 @@ Key 只放在环境变量或配置里，不要贴进对话、代码或提交记�
 推荐用自带脚本。它只用 Python 3.8+ 标准库，已经处理好 202 排队和轮询：
 
 ```bash
-python3 scripts/linkdigest.py "<笔记链接或整段分享文案>"
+python3 {baseDir}/scripts/linkdigest.py "<笔记链接或整段分享文案>"
 ```
 
 - 默认输出 Markdown，适合直接读；要结构化数据加 `--format json`（脚本会省略和其他字段重复的 `raw_markdown`）。
-- 分享文案里有引号或换行时，从标准输入传：`printf '%s' "$SHARE_TEXT" | python3 scripts/linkdigest.py -`
+- 分享文案里有引号或换行时，从标准输入传：`printf '%s' "$SHARE_TEXT" | python3 {baseDir}/scripts/linkdigest.py -`
 - 用 App 里「分享 → 复制链接」得到的链接，保留链接上的参数（如 `xsec_token`）；整段分享文案也可以，服务端会从里面取出链接。
 - 想控制花费：`--max-credits 2`，这条笔记超过 2 积分就不读、不扣费（返回 402）。
 - 本次扣了几个积分、是否命中缓存，打印在 stderr 的最后一行。

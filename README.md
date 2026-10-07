@@ -102,10 +102,14 @@ started minute; a viral breakdown or a translation adds one each. Then $5 once f
 
 ## Agent skills (OpenClaw, Hermes, Claude Code, Cursor and others)
 
-Seven ready-made skills live in [`skills/`](skills). Each is one job, a `SKILL.md` plus one script that uses only the Python standard library and needs `LINKDIGEST_API_KEY`.
+Eleven ready-made skills live in [`skills/`](skills). Each is one job, a `SKILL.md` plus one script that uses only the Python standard library. **No key needed for a first look**: without `LINKDIGEST_API_KEY` the script gives one free summary a day; with a key (10 free credits on sign-up, no card) it returns the full transcript and per-image text.
 
 | Skill | Job |
 | --- | --- |
+| `xiaohongshu-note-to-text` | 小红书笔记转文字: a Xiaohongshu note, the text in every image, caption, stats |
+| `douyin-video-to-text` | 抖音视频转文字: a Douyin video's spoken words, on-screen text, chapters |
+| `tiktok-transcript` | A TikTok video's transcript with timestamps and captions |
+| `long-video-transcript` | 长视频转文字: lectures and podcasts up to 2 h, 1 credit per 2 minutes |
 | `linkdigest-xhs-note-ocr` | Xiaohongshu image notes, with the text inside every image |
 | `linkdigest-video-transcript` | Douyin / Xiaohongshu video to transcript and on-screen text |
 | `linkdigest-wechat-article-reader` | WeChat 公众号 articles: full text and every image's text |
@@ -116,10 +120,10 @@ Seven ready-made skills live in [`skills/`](skills). Each is one job, a `SKILL.m
 
 ```bash
 # Any agent the skills CLI supports (Claude Code, Cursor, Codex, OpenClaw, Trae, Qwen Code, ...)
-npx skills add jcaiagent7143-ui/linkdigest-mcp --skill linkdigest-xhs-note-ocr
+npx skills add jcaiagent7143-ui/linkdigest-mcp --skill xiaohongshu-note-to-text
 
 # Hermes Agent
-hermes skills install jcaiagent7143-ui/linkdigest-mcp/skills/linkdigest-xhs-note-ocr
+hermes skills install jcaiagent7143-ui/linkdigest-mcp/skills/xiaohongshu-note-to-text
 hermes skills install clawhub/linkdigest-xhs-note-ocr   # or from ClawHub
 
 # OpenClaw (ClawHub)
