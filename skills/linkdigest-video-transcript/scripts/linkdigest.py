@@ -39,10 +39,8 @@ import urllib.request
 
 API = "https://linkdigest.dev/api/v1/digest"
 KEYS_URL = "https://linkdigest.dev/app/keys"
-# 没有 Key 时走网站控制台的"免费看一条"：每个访客每天 1 条，结果是摘要（标题、作者、要点、互动数据、
-# 读取回执），不含完整逐字稿和逐图文字。注册拿 Key 后（送 10 积分）才有完整输出。
-FREE_LOOK = "https://linkdigest.dev/api/digest"
-FREE_LOOK_STATUS = "https://linkdigest.dev/api/digest/status"
+# 没有 Key 时 API 本身给"免费看一条"：每个地址每天 2 条，结果是摘要（标题、作者、要点、计数），
+# 不含完整逐字稿和逐图文字。注册拿 Key 后（送 10 积分）才有完整输出。
 # 版本号后面带上技能目录名（如 linkdigest-xhs-note-ocr），方便服务端统计是哪个技能在调用；不含任何个人信息。
 _SKILL = re.sub(r"[^a-z0-9-]", "", os.path.basename(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))).lower())[:48]
 USER_AGENT = "linkdigest-openclaw-skill/1.2.0" + (f" ({_SKILL})" if _SKILL else "")
@@ -102,7 +100,8 @@ def call(method: str, url: str, key: str, body: dict | None = None, timeout: flo
     """One HTTP request. Returns (status, headers, parsed JSON or raw text)."""
     data = json.dumps(body).encode("utf-8") if body is not None else None
     req = urllib.request.Request(url, data=data, method=method)
-    req.add_header("Authorization", "Bearer " + key)
+    if key:
+        req.add_header("Authorization", "Bearer " + key)
     req.add_header("Accept", "application/json")
     req.add_header("User-Agent", USER_AGENT)
     if data is not None:
@@ -130,147 +129,56 @@ def field(payload, name: str, default=None):
 
 
 def free_look(text: str, body: dict, fmt: str, timeout: int) -> int:
-    """One read with no API key, through the site's own try-it endpoint.
+    """One read with no API key.
 
-    Same limits as a visitor in the browser: one per day per visitor, five per
-    address. The answer is the console's summary; the full transcript and
-    per-image text need a key. A cookie jar carries the visitor identity the
-    server sets on the first call, so the poll is recognised as the same visitor.
+    Since 2026-10-08 the API itself answers a keyless call with a summary
+    (title, author, key points, counts), up to two a day per address; the full
+    transcript and per-image text need a key. A long read comes back as a job
+    id that the same keyless caller may collect.
     """
-    import http.cookiejar
-    jar = http.cookiejar.CookieJar()
-    opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar),
-                                         urllib.request.HTTPSHandler(context=_SSL["context"]))
-
-    def send(method, url, payload=None):
-        data = json.dumps(payload).encode("utf-8") if payload is not None else None
-        req = urllib.request.Request(url, data=data, method=method)
-        req.add_header("Accept", "application/json")
-        req.add_header("User-Agent", USER_AGENT)
-        if data is not None:
-            req.add_header("Content-Type", "application/json")
-        try:
-            with opener.open(req, timeout=90) as resp:
-                raw, status = resp.read(), resp.status
-        except urllib.error.HTTPError as err:
-            raw, status = err.read(), err.code
-        try:
-            return status, json.loads(raw.decode("utf-8", errors="replace"))
-        except ValueError:
-            return status, raw.decode("utf-8", errors="replace")
-
-    log("没有设置 LINKDIGEST_API_KEY，先用网站的免费看一条（每天 1 条，只给摘要）。")
-    log(f"要完整逐字稿和逐图文字：在 {KEYS_URL} 创建 Key（注册送 10 积分，不用卡），然后 export LINKDIGEST_API_KEY=ld_live_...")
+    log("没有设置 LINKDIGEST_API_KEY，先用免费看一条（每个地址每天 2 条，只给摘要）。")
+    log(f"要完整逐字稿和逐图文字：在 {KEYS_URL} 创建 Key（注册送 10 积分，不用卡），或 POST {API.rsplit('/', 1)[0]}/keys/request 发邮件拿 Key；然后 export LINKDIGEST_API_KEY=ld_live_...")
     try:
-        status, payload = send("POST", FREE_LOOK, {k: v for k, v in body.items() if k in ("url", "breakdown", "translate_to", "depth")})
+        status, headers, payload = call("POST", API, "", {k: v for k, v in body.items() if k in ("url", "depth")}, timeout=90)
     except (urllib.error.URLError, OSError) as err:
         log(f"连不上 linkdigest.dev: {err}{net_hint(err)}")
         return EXIT_ERROR
     if status == 401:
-        log(f"今天的免费一条已经用过了: {field(payload, 'error', '')}")
-        log(f"在 {KEYS_URL} 创建 Key 继续（10 积分免费）。")
+        log(f"今天的免费额度已用完: {field(payload, 'error', '')}")
+        link = field(payload, "signup_url")
+        if link:
+            log(f"拿 Key 继续（10 积分免费）: {link}")
         return EXIT_AUTH
-    if status != 200:
-        return fail(status, payload, None)
-    if field(payload, "done"):
+    if status == 200:
         return emit(payload, fmt)
+    if status != 202:
+        return fail(status, payload, headers)
     job_id = str(field(payload, "jobId", "")).strip()
     if not job_id:
         log(f"服务端返回了意外的结果: {payload}")
         return EXIT_ERROR
     log(f"还在处理（视频较长或图片较多时正常）。jobId={job_id}，继续等待…")
     deadline = time.monotonic() + max(30, timeout)
-    url = text.strip()
+    poll_url = f"{API}/{urllib.parse.quote(job_id, safe='')}?wait=20"
     last_stage = None
     while time.monotonic() < deadline:
-        time.sleep(4)
         try:
-            status, payload = send("GET", FREE_LOOK_STATUS + "?" + urllib.parse.urlencode({"job": job_id, "url": url}))
+            status, headers, payload = call("GET", poll_url, "", timeout=60)
         except (urllib.error.URLError, OSError):
+            time.sleep(5)
             continue
-        if status != 200:
-            return fail(status, payload, None)
-        if field(payload, "done"):
+        if status == 200:
             return emit(payload, fmt)
-        stage = field(payload, "stage")
-        if stage and stage != last_stage:
-            log(f"处理中: {stage}")
-            last_stage = stage
-    log(f"等了 {timeout} 秒还没完成。免费一条不能接着取；有 Key 的调用可以用 --job-id 继续。")
+        if status == 202:
+            stage = field(payload, "stage")
+            if stage and stage != last_stage:
+                log(f"处理中: {stage}")
+                last_stage = stage
+            time.sleep(3)
+            continue
+        return fail(status, payload, headers)
+    log(f"等了 {timeout} 秒还没完成。稍后用 --job-id 接着取（需要 Key），或直接重试。")
     return EXIT_TIMEOUT
-
-
-def fail(status: int, payload, headers) -> int:
-    """Explain a non-success response and pick the exit code."""
-    message = field(payload, "error") or (payload if isinstance(payload, str) else json.dumps(payload))
-    message = str(message).strip()[:500]
-    if status == 400:
-        log(f"请求有误 (400): {message}")
-        return EXIT_USAGE
-    if status == 401:
-        log(f"API Key 无效或缺失 (401): {message}")
-        log(f"在 {KEYS_URL} 创建 Key，然后 export LINKDIGEST_API_KEY=ld_live_...")
-        return EXIT_AUTH
-    if status == 402:
-        code = field(payload, "error_code", "")
-        log(f"积分不够或视频超出当前套餐的长度上限 (402 {code})，本次没有扣费: {message}")
-        for name in ("buy_url", "subscribe_url"):
-            link = field(payload, name)
-            if link:
-                log(f"{name}: {link}")
-        if code == "media_too_long":
-            log("免费/加量包账户单条视频最长 10 分钟；加 --partial-ok 只读开头，或用 Dev 月付（最长 30 分钟）。")
-        return EXIT_PAYMENT
-    if status == 422:
-        log(f"这条链接读不了 (422)，不扣费: {message}")
-        log("常见原因：已删除、私密、需要登录，或平台不支持（B站不支持）。")
-        return EXIT_UNREADABLE
-    if status == 429:
-        if field(payload, "error_code") == "quota_exceeded":
-            # A cap set on this one key, not the account's credits: buying
-            # credits would not lift it, so the server sends no pay links.
-            log(f"这个 Key 设置的 30 天积分上限已用完 (429)，本次没有扣费: {message}")
-            log(f"上限按滚动 30 天自动恢复；也可以在 {KEYS_URL} 调高或取消。")
-            return EXIT_RATE_LIMITED
-        retry = headers.get("Retry-After") if headers else None
-        log(f"调用太频繁 (429): {message}" + (f"；{retry} 秒后再试" if retry else ""))
-        return EXIT_RATE_LIMITED
-    log(f"服务端错误 ({status}): {message}")
-    return EXIT_ERROR
-
-
-def emit(payload, fmt: str) -> int:
-    if not isinstance(payload, dict):
-        print(payload)
-        return EXIT_OK
-    credits = payload.get("credits")
-    cached = payload.get("cached")
-    partial = payload.get("partial")
-    summary = f"完成: platform={payload.get('platform', '')} credits={credits} cached={cached}"
-    if partial:
-        summary += (
-            f" partial=只读了前 {partial.get('read_seconds')} 秒 / 共 {partial.get('duration_seconds')} 秒"
-            f"（读全片需 {partial.get('full_credits')} 积分）"
-        )
-    log(summary)
-    if fmt == "markdown" and payload.get("raw_markdown"):
-        print(payload["raw_markdown"])
-    elif fmt == "markdown" and payload.get("key_points") and payload.get("done"):
-        # The free look carries a summary, not the full Markdown.
-        print(f"# {payload.get('title') or ''}\n")
-        print(f"{payload.get('author') or ''} · {payload.get('platform') or ''} · {payload.get('posted_at') or ''}\n")
-        print("## Key points\n")
-        for k in payload["key_points"]:
-            print(f"- {k}")
-        st = payload.get("stats") or {}
-        if st:
-            print(f"\n点赞 {st.get('likes')} · 收藏 {st.get('collects')} · 评论 {st.get('comments')} · 分享 {st.get('shares')}")
-        print(f"\n已读图片 {payload.get('images_read')}/{payload.get('images_total')}，画面/图片文字 {payload.get('ocr_count')} 段，逐字稿 {payload.get('transcript_count')} 句。")
-        print(f"\n完整逐字稿、逐图文字和回执需要 API Key（{KEYS_URL}，注册送 10 积分）。")
-    else:
-        slim = {k: v for k, v in payload.items() if k != "raw_markdown"}
-        print(json.dumps(slim, ensure_ascii=False, indent=2))
-    return EXIT_OK
 
 
 def main(argv: list[str] | None = None) -> int:
