@@ -135,5 +135,20 @@ DIGEST_URL_TOOL: Dict[str, Any] = {'name': 'digest_url',
                                                              '`breakdown` in json. Costs the '
                                                              "digest's price plus 1 credit; a "
                                                              'repeat is served from cache for '
-                                                             'free.'}},
+                                                             'free.'},
+                                'ask': {'type': 'string',
+                                        'maxLength': 300,
+                                        'description': 'A question to answer from the post, in any '
+                                                       'language: "what products and prices does '
+                                                       'it recommend?", "does the speaker say X?", '
+                                                       '"what is step three?". The answer comes '
+                                                       'with the quotes it rests on, each checked '
+                                                       'against the post by the server (`answer` '
+                                                       'in json: answer, found, support[]; an '
+                                                       'Answer section in markdown). `found` is '
+                                                       'false when the post does not address it '
+                                                       '— nothing is invented. Costs the digest\'s '
+                                                       'price plus 1 credit; the same question on '
+                                                       'the same url is served from cache for '
+                                                       'free.'}},
                  'required': []}}

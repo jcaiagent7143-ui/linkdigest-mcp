@@ -136,7 +136,7 @@ clawhub install jackchew7143/linkdigest-xhs-note-ocr
 
 ## The tool
 
-`digest_url(url, format, job_id, translate_to, breakdown, partial_ok)` — only `url` is required.
+`digest_url(url, format, job_id, translate_to, breakdown, ask, partial_ok, depth)` — only `url` is required.
 
 | Argument | Notes |
 |---|---|
@@ -145,6 +145,7 @@ clawhub install jackchew7143/linkdigest-xhs-note-ocr
 | `job_id` | Collect a digest already running. Pass this instead of `url` — re-sending the url would start the work again. |
 | `breakdown` | `true` adds a viral breakdown (爆款拆解): the hook in its first seconds, the structure as timed beats, the title formula, cover text, call to action, audience and a reusable template. Quotes are checked word for word against the post; engagement and hashtags come from the platform. +1 credit. |
 | `translate_to` | An ISO 639-1 code (`en`, `ja`, `zh-CN`): adds a translation beside the original, and writes the breakdown in that language. +1 credit. |
+| `ask` | A question to answer from the post ("what products and prices does it recommend?", "does the speaker say X?"). The answer comes with the quotes it rests on, each checked word for word against the post; `found` is false when the post does not say, and nothing is invented. +1 credit. |
 | `partial_ok` | `true` reads the opening minutes the budget affords instead of refusing a long video. |
 
 You do not call it yourself. The tool description tells the agent to reach for it

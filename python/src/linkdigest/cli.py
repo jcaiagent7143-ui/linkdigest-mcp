@@ -47,6 +47,7 @@ def _parser() -> argparse.ArgumentParser:
     )
     p.add_argument("url", nargs="?", help="the link, or the whole share text containing it; '-' reads stdin")
     p.add_argument("--breakdown", action="store_true", help="also take the post apart: hook, timed beats, template (+1 credit)")
+    p.add_argument("--ask", metavar="QUESTION", help="answer one question from the post, with checked quotes (+1 credit)")
     p.add_argument("--translate", metavar="LANG", help="also translate, e.g. en, ja, zh-CN (+1 credit)")
     p.add_argument("--json", action="store_true", help="print the full JSON instead of Markdown")
     p.add_argument("--partial-ok", action="store_true", help="read the opening minutes of a video that is too long, instead of refusing it")
@@ -115,6 +116,7 @@ def main(argv: Optional[List[str]] = None, stdin: Optional[TextIO] = None) -> in
                 translate_to=args.translate,
                 partial_ok=args.partial_ok,
                 depth=args.depth,
+                ask=args.ask,
                 max_credits=args.max_credits,
                 on_pending=on_pending,
             )

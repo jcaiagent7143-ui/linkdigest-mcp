@@ -125,6 +125,11 @@ class Digest:
         return self.get("breakdown")
 
     @property
+    def answer(self) -> Optional[Dict[str, Any]]:
+        """The answer to `ask`, present when a question was sent: {question, answer, found, support}."""
+        return self.get("answer")
+
+    @property
     def translation(self) -> Optional[Dict[str, Any]]:
         return self.get("translation")
 
@@ -187,6 +192,7 @@ class LinkDigest:
         partial_ok: bool = False,
         *,
         depth: str = "full",
+        ask: Optional[str] = None,
         max_credits: Optional[int] = None,
         max_wait: Optional[float] = None,
         on_pending: Optional[PendingCallback] = None,
@@ -203,12 +209,16 @@ class LinkDigest:
         depth         "full" (default) or "transcript": a long video read in full as a
                       transcript with a few frames, 1 credit per 2 minutes. YouTube
                       is always read in full.
+        ask           A question to answer from the post ("what products and prices
+                      does it recommend?"). The answer (`digest.answer`) comes with
+                      the quotes it rests on, checked against the post; `found` is
+                      False when the post does not say. +1 credit.
         max_credits   Your own ceiling for this link; over it is a 402 and costs nothing.
         max_wait      Seconds to keep collecting a long job (default 600). 0 = do not
                       wait: raise JobPendingError with the job id straight away.
         on_pending    Called as on_pending(job_id, stage) each time the job is still running.
         """
-        body = self._body(url, format, breakdown, translate_to, partial_ok, max_credits, depth)
+        body = self._body(url, format, breakdown, translate_to, partial_ok, max_credits, depth, ask)
         sent = self._send(
             "POST",
             "/api/v1/digest",
@@ -300,6 +310,7 @@ class LinkDigest:
         partial_ok: bool,
         max_credits: Optional[int],
         depth: str = "full",
+        ask: Optional[str] = None,
     ) -> Dict[str, Any]:
         if not isinstance(url, str) or not url.strip():
             raise InvalidRequestError("url is required")
@@ -316,6 +327,11 @@ class LinkDigest:
             body["translate_to"] = translate_to
         if breakdown:
             body["breakdown"] = True
+        if ask is not None:
+            if not isinstance(ask, str):
+                raise InvalidRequestError("ask must be a string: the question to answer from the post")
+            if ask.strip():
+                body["ask"] = " ".join(ask.split())[:300]
         if partial_ok:
             body["partial_ok"] = True
         if depth not in ("full", "transcript"):

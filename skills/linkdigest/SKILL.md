@@ -44,6 +44,10 @@ digest_url(url: "https://v.douyin.com/…")
   user wants to learn from or remake a post. +1 credit
 - `translate_to` — a language code (`en`, `ja`, `zh-CN`): adds a translation beside
   the original. +1 credit
+- `ask` — a question to answer from the post ("what products and prices does it
+  recommend?", "does the speaker say X?"). The answer comes with the quotes it rests
+  on, each checked against the post; `found` is false when the post does not say. Use
+  it when the user asked something specific about the link. +1 credit
 - `partial_ok` — `true` reads the opening minutes of a video that is too long for the
   plan, instead of refusing it
 
