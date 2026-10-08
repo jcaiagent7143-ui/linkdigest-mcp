@@ -9,7 +9,7 @@
     "source": "github",
     "id": "1356180416"
   },
-  "version": "1.0.4",
+  "version": "1.0.6",
   "remotes": [
     {
       "type": "streamable-http",
@@ -22,6 +22,17 @@
           "isSecret": true
         }
       ]
+    }
+  ],
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "linkdigest-mcp",
+      "version": "0.2.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "runtimeHint": "uvx"
     }
   ]
 }

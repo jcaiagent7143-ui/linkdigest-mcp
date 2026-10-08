@@ -1,5 +1,6 @@
-# Builds the Python SDK from this repository on every version tag and attests
-# the build, so anyone can check that a released file came from this source:
+# Builds the Python SDK from this repository on every version tag, attests
+# the build, and publishes it to PyPI through a trusted publisher (OIDC, no
+# token anywhere). Anyone can check that a released file came from this source:
 #   gh attestation verify <file> --repo jcaiagent7143-ui/linkdigest-mcp
 name: release
 
@@ -38,3 +39,24 @@ jobs:
         run: |
           gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1 || gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --notes "See CHANGELOG.md."
           gh release upload "$GITHUB_REF_NAME" dist/* --clobber
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    # PyPI trusts this repository's release.yml in the "pypi" environment
+    # (registered 2026-10-08); the job carries no secret.
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist/

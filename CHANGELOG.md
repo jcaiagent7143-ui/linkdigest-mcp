@@ -3,6 +3,10 @@
 Dates are when the change reached this repository. The hosted service at
 linkdigest.dev changes independently; its prices are in the README.
 
+## 2026-10-08 — 1.0.6: on PyPI
+
+- `pip install linkdigest-mcp` — the SDK, the `linkdigest` CLI and the `linkdigest-mcp` stdio server are published to PyPI by the release workflow through a trusted publisher (no API token). Same attested build as the GitHub release.
+
 ## 2026-10-07 — skills: keyless first look, task-named skills
 
 - Every skill script works without `LINKDIGEST_API_KEY`: it uses the site's own free look (one summary a day per visitor) and says how to get the full output.
