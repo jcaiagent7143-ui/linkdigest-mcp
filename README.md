@@ -2,8 +2,9 @@
 
 **中文文档：[README.zh-CN.md](README.zh-CN.md)** — 抖音、小红书链接转文本，MCP / Python SDK / 命令行，价格以人民币标注。
 
-Turn a social media link into text a language model can read — **transcript,
-on-screen text, image descriptions, caption and metadata**.
+The social media reading layer for AI agents: turn a social media link into
+text a language model can read — **transcript, on-screen text, image
+descriptions, caption and metadata**, with quotes checked against the post.
 
 Hosted, remote (streamable HTTP). Nothing to install or run. For stdio-only clients and scripts,
 [`python/`](python/) adds a zero-dependency Python SDK, a `linkdigest` command line and a
