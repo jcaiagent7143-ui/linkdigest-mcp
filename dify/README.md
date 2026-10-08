@@ -60,3 +60,7 @@ A 17-image Xiaohongshu note: 17 image descriptions, 381 fragments of on-screen t
 ## Network
 
 The plugin talks only to `linkdigest.dev` over HTTPS. Nothing runs locally.
+
+## Example workflow
+
+`examples/social-research-agent.yml` — a Dify workflow DSL: paste a list of links, each is read with the plugin, summarised, and the set is compared. Import it under Studio → Create app → Import DSL file, pick a model in the two LLM nodes, run. Walkthrough: https://linkdigest.dev/docs/dify
