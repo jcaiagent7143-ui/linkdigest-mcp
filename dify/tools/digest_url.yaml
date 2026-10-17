@@ -8,7 +8,7 @@ description:
   human:
     en_US: Turn a Xiaohongshu, Douyin, TikTok, YouTube or X post into text — transcript with timecodes, on-screen text, every image described and OCR'd, caption and metadata. Long media is polled to completion.
     zh_Hans: 把小红书、抖音、TikTok、YouTube 或 X 的帖子转成文本——带时间戳的转写、屏幕文字、逐图描述与 OCR、正文与元数据。长视频会自动轮询到完成。
-  llm: Call this whenever you meet a Xiaohongshu, Douyin, TikTok, YouTube or X link that you need to read. Returns the post as text - transcript with timecodes, on-screen text, a description and OCR of every image, caption and metadata - as Markdown (default) or JSON. Bilibili is not supported; Instagram is unverified. A cached link returns in about a second; a long video can take two to three minutes.
+  llm: Call this whenever you meet a Xiaohongshu, Douyin, TikTok, YouTube or X link that you need to read. Returns the post as text - transcript with timecodes, on-screen text, a description and OCR of every image, caption and metadata - as Markdown (default) or JSON. Bilibili is not supported; Instagram is unverified. A cached link returns in about a second; most reads finish within a minute, a long video takes longer (the tool waits).
 parameters:
   - name: url
     type: string
@@ -60,6 +60,18 @@ parameters:
       en_US: Also take the post apart — the hook, timed beats, title formula, cover text, call to action and a reusable template. One extra credit.
       zh_Hans: 同时拆解这条内容——钩子、带时间的结构节拍、标题公式、封面文字、行动号召和可复用模板。额外消耗 1 个额度。
     llm_description: true to also get a teardown of how the post is built (hook, timed beats, reusable template), +1 credit. Use when the user wants to learn from or remake a post.
+    form: llm
+  - name: insight
+    type: boolean
+    required: false
+    default: false
+    label:
+      en_US: Consumer insight
+      zh_Hans: 消费者洞察
+    human_description:
+      en_US: Also draw the consumer insight — who the post speaks to, the claims it makes, the objections and purchase-intent cues in its top comments, the products and prices named, and the questions readers ask. Every item is a quote checked against the post and its comments. One extra credit.
+      zh_Hans: 同时输出消费者洞察——受众、卖点、顾虑/痛点、购买意向、产品与价格、读者提问，每条都有在原文或热评里核对过的引文。额外消耗 1 个额度。
+    llm_description: true to also get the consumer insight (audience, claims, objections, purchase-intent cues, products/prices, questions readers ask; each a quote checked against the post and its top comments), +1 credit. Use when the user wants to know what the post and its readers say about buying.
     form: llm
 extra:
   python:

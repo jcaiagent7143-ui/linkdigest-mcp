@@ -68,7 +68,12 @@ class LinkDigestClient:
             raise LinkDigestError("invalid API key — issue one at https://linkdigest.dev/app/keys", 401)
 
     def digest(
-        self, url: str, fmt: str = "markdown", translate_to: str | None = None, breakdown: bool = False
+        self,
+        url: str,
+        fmt: str = "markdown",
+        translate_to: str | None = None,
+        breakdown: bool = False,
+        insight: bool = False,
     ) -> Digest:
         body: dict[str, Any] = {"url": url, "format": fmt}
         if translate_to:
@@ -78,6 +83,9 @@ class LinkDigestClient:
         if breakdown:
             # 爆款拆解 (+1 credit): sent only when asked, for the same reason.
             body["breakdown"] = True
+        if insight:
+            # 消费者洞察 (+1 credit): sent only when asked, for the same reason.
+            body["insight"] = True
         r = self._s.post(
             f"{self._base}/api/v1/digest",
             headers={**self._headers(), "Content-Type": "application/json"},

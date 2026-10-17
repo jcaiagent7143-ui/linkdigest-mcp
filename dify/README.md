@@ -12,7 +12,7 @@ A workflow node that fetches a Xiaohongshu URL gets an app-download shell, not t
 
 ## Setup
 
-1. Create an API key at https://linkdigest.dev/app/keys — sign in with Google, then one button. 10 free credits when you sign up (once, not monthly), no card.
+1. Create an API key at https://linkdigest.dev/app/keys — sign in with Google or an email link, then one button. 10 free credits when you sign up (once, not monthly), no card.
 2. Install this plugin and paste the key into the provider credential. The plugin validates it against the API without spending a digest.
 
 ## Tool
@@ -51,7 +51,7 @@ Facebook is out of scope; it serves no post content to logged-out requests.
 
 ## Measured
 
-A 17-image Xiaohongshu note: 17 image descriptions, 381 fragments of on-screen text, ~119 seconds. A TikTok with native captions: 67 transcript segments in ~9 seconds.
+A 17-image Xiaohongshu note: 17 image descriptions, 381 fragments of on-screen text. A TikTok with native captions: 67 transcript segments. How long a read takes today, per platform, is computed from the last 30 days of real requests at https://linkdigest.dev/platforms (never typed in here).
 
 ## Pricing
 
@@ -60,7 +60,3 @@ A 17-image Xiaohongshu note: 17 image descriptions, 381 fragments of on-screen t
 ## Network
 
 The plugin talks only to `linkdigest.dev` over HTTPS. Nothing runs locally.
-
-## Example workflow
-
-`examples/social-research-agent.yml` — a Dify workflow DSL: paste a list of links, each is read with the plugin, summarised, and the set is compared. Import it under Studio → Create app → Import DSL file, pick a model in the two LLM nodes, run. Walkthrough: https://linkdigest.dev/docs/dify
