@@ -1,7 +1,7 @@
 ---
 name: xiaohongshu-note-to-text
-description: "小红书笔记转文字：图文笔记每张图里的字（OCR）、图片描述、正文、标签、点赞收藏，视频笔记给口播逐字稿和画面文字。用户发来 xiaohongshu.com、xhslink.com、rednote.com 链接或分享口令，要提取笔记内容、图片文字、文案、做笔记总结或翻译时使用。不需要 Key 也能先免费看一条摘要；注册拿 Key（送 10 积分）后给完整逐字稿和逐图文字，一条图文 1 积分（约 ¥0.14）。不需要小红书账号或 Cookie，不是下载/去水印工具。"
-version: 1.0.0
+description: "小红书笔记转文字：图文笔记每张图里的字（OCR）、图片描述、正文、标签、点赞收藏，视频笔记给口播逐字稿和画面文字，附分享页前几条热评；加 --insight 得消费者洞察（受众、卖点、顾虑、购买意向、产品价格、读者提问，每条带核对过的引文）。用户发来 xiaohongshu.com、xhslink.com、rednote.com 链接或分享口令，要提取笔记内容、图片文字、文案、做笔记总结或翻译时使用。不需要 Key 也能先免费看一条摘要；注册拿 Key（送 10 积分）后给完整逐字稿和逐图文字，一条图文 1 积分（约 ¥0.14）。不需要小红书账号或 Cookie，不是下载/去水印工具。"
+version: 1.1.0
 homepage: https://linkdigest.dev/zh/docs
 metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":false,"description":"可选。LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/app/keys 创建，注册送 10 积分；没有 Key 时每天可免费看 1 条摘要"}],"homepage":"https://linkdigest.dev/zh/docs"}}
 required_environment_variables:
@@ -31,7 +31,7 @@ required_environment_variables:
 
 ## 什么时候不用
 
-- 要搜索笔记、看评论、发布或点赞：这个技能只读单条笔记，不搜索、不登录、不发帖。
+- 要搜索笔记、翻整个评论区、发布或点赞：这个技能只读单条笔记，不搜索、不登录、不发帖。评论只带分享页自带的前几条热评（`comments[]`），不翻页、不抓评论接口。
 - 私密、已删除或需要登录才能看的笔记：读不了（返回 422，不扣费）。
 - B站链接：不支持。
 
@@ -64,6 +64,7 @@ python3 {baseDir}/scripts/linkdigest.py "<笔记链接或整段分享文案>"
 - 分享文案里有引号或换行时，从标准输入传：`printf '%s' "$SHARE_TEXT" | python3 {baseDir}/scripts/linkdigest.py -`
 - 用 App 里「分享 → 复制链接」得到的链接，保留链接上的参数（如 `xsec_token`）；整段分享文案也可以，服务端会从里面取出链接。
 - 想控制花费：`--max-credits 2`，这条笔记超过 2 积分就不读、不扣费（返回 402）。
+- 做对标 / 选品 / 舆情：加 `--insight`（+1 积分），返回 `insight`：受众、卖点、顾虑与痛点、购买意向（求链接 / 多少钱）、产品与价格、读者提问，每条附原文或热评里逐字核对过的引文（`verified`）。
 - 本次扣了几个积分、是否命中缓存，打印在 stderr 的最后一行。
 - 退出码：0 成功；2 参数错误或没设 Key；3 Key 无效（401）；4 积分不够（402，未扣费，stderr 里有付款链接）；5 链接读不了（422）；6 调用太频繁，或这个 Key 在 /app/keys 设的 30 天积分上限已用完（429，未扣费）；7 等待超时（任务还在跑，按提示用 `--job-id` 接着取）。
 
@@ -119,6 +120,8 @@ printf '%s\n' "$body"
 | `key_points[]` | 要点，用原文语言 |
 | `stats` | `likes` 点赞、`comments` 评论、`collects` 收藏、`shares` 分享；是读取当天平台给的数，`as_of` 是日期，拿不到的是 `null` |
 | `tags[]` | 话题标签 |
+| `comments[]` | 分享页自带的前几条热评：`text`、`likes`、`replies`、`reply_texts[]`；不是整个评论区，`coverage` 里写明读了几条（如「top 5 of 674」） |
+| `insight` | 加 `--insight` 才有：`audience`、`claims`、`objections`、`purchase_intent`、`products`、`questions` 六组，每组 `found` 和 `items[]`，每条 `text` + `quote` + `verified`（引文是否在原文或热评里逐字找到） |
 | `raw_markdown` | 整条内容的 Markdown：`## Caption`、`## Key points`、`## Images`（每张图是「**Image N.** 描述」，下面引用块里是图上文字） |
 | `credits` / `cached` | 本次扣了几个积分；读过的链接 `cached=true`，0 积分 |
 | `degraded[]` | 处理中没做完的部分的说明，正常为空 |
@@ -140,6 +143,7 @@ printf '%s\n' "$body"
 | 7–12 张图 | 2 | ¥0.29 |
 | 13–18 张图 | 3 | ¥0.43 |
 | 加爆款拆解（`--breakdown`） | +1 | +¥0.14 |
+| 加消费者洞察（`--insight`） | +1 | +¥0.14 |
 | 加译文（`--translate-to en` 等） | +1 | +¥0.14 |
 | 任何人读过的链接（缓存） | 0 | 0 |
 | 读不出内容 | 0 | 0 |

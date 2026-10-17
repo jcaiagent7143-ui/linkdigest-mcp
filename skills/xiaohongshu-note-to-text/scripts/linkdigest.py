@@ -11,6 +11,7 @@
   python3 linkdigest.py "<链接或分享文案>"                 # 输出 Markdown
   python3 linkdigest.py "<链接>" --format json             # 输出 JSON（省略 raw_markdown）
   python3 linkdigest.py "<链接>" --breakdown               # 加爆款拆解（+1 积分）
+  python3 linkdigest.py "<链接>" --insight                 # 加消费者洞察（+1 积分），每条附核对过的引文
   python3 linkdigest.py "<链接>" --translate-to en         # 加译文（+1 积分），原文保留
   python3 linkdigest.py "<链接>" --max-credits 5           # 这条最多花 5 积分，超了不读、不扣费
   python3 linkdigest.py "<链接>" --partial-ok              # 免费/加量包账户：超长视频只读开头
@@ -192,6 +193,8 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("url", nargs="?", help="链接或整段分享文案；传 - 从标准输入读")
     p.add_argument("--format", choices=["markdown", "json"], default="markdown")
     p.add_argument("--breakdown", action="store_true", help="加爆款拆解（+1 积分）")
+    p.add_argument("--insight", action="store_true",
+                   help="加消费者洞察：受众、卖点、顾虑痛点、购买意向、产品与价格、读者提问，每条附原文或热评里核对过的引文（+1 积分）")
     p.add_argument("--translate-to", help="译文语言，如 en、ja、zh-CN（+1 积分）")
     p.add_argument("--max-credits", type=int, help="这条链接最多花多少积分")
     p.add_argument("--partial-ok", action="store_true", help="免费/加量包账户：超长视频只读开头")
@@ -216,6 +219,8 @@ def main(argv: list[str] | None = None) -> int:
         body: dict = {"url": text.strip(), "format": "json"}
         if args.breakdown:
             body["breakdown"] = True
+        if args.insight:
+            body["insight"] = True
         if args.translate_to:
             if not TRANSLATE_TO.match(args.translate_to):
                 log("--translate-to 要写成 en、ja、zh-CN 这样的语言代码")
