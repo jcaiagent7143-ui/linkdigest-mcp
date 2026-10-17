@@ -182,6 +182,79 @@ def free_look(text: str, body: dict, fmt: str, timeout: int) -> int:
     return EXIT_TIMEOUT
 
 
+def fail(status: int, payload, headers) -> int:
+    """Explain a non-success response and pick the exit code."""
+    message = field(payload, "error") or (payload if isinstance(payload, str) else json.dumps(payload))
+    message = str(message).strip()[:500]
+    if status == 400:
+        log(f"请求有误 (400): {message}")
+        return EXIT_USAGE
+    if status == 401:
+        log(f"API Key 无效或缺失 (401): {message}")
+        log(f"在 {KEYS_URL} 创建 Key，然后 export LINKDIGEST_API_KEY=ld_live_...")
+        return EXIT_AUTH
+    if status == 402:
+        code = field(payload, "error_code", "")
+        log(f"积分不够或视频超出当前套餐的长度上限 (402 {code})，本次没有扣费: {message}")
+        for name in ("buy_url", "subscribe_url"):
+            link = field(payload, name)
+            if link:
+                log(f"{name}: {link}")
+        if code == "media_too_long":
+            log("免费/加量包账户单条视频最长 10 分钟；加 --partial-ok 只读开头，或用 Dev 月付（最长 30 分钟）。")
+        return EXIT_PAYMENT
+    if status == 422:
+        log(f"这条链接读不了 (422)，不扣费: {message}")
+        log("常见原因：已删除、私密、需要登录，或平台不支持（B站不支持）。")
+        return EXIT_UNREADABLE
+    if status == 429:
+        if field(payload, "error_code") == "quota_exceeded":
+            # A cap set on this one key, not the account's credits: buying
+            # credits would not lift it, so the server sends no pay links.
+            log(f"这个 Key 设置的 30 天积分上限已用完 (429)，本次没有扣费: {message}")
+            log(f"上限按滚动 30 天自动恢复；也可以在 {KEYS_URL} 调高或取消。")
+            return EXIT_RATE_LIMITED
+        retry = headers.get("Retry-After") if headers else None
+        log(f"调用太频繁 (429): {message}" + (f"；{retry} 秒后再试" if retry else ""))
+        return EXIT_RATE_LIMITED
+    log(f"服务端错误 ({status}): {message}")
+    return EXIT_ERROR
+
+
+def emit(payload, fmt: str) -> int:
+    if not isinstance(payload, dict):
+        print(payload)
+        return EXIT_OK
+    credits = payload.get("credits")
+    cached = payload.get("cached")
+    partial = payload.get("partial")
+    summary = f"完成: platform={payload.get('platform', '')} credits={credits} cached={cached}"
+    if partial:
+        summary += (
+            f" partial=只读了前 {partial.get('read_seconds')} 秒 / 共 {partial.get('duration_seconds')} 秒"
+            f"（读全片需 {partial.get('full_credits')} 积分）"
+        )
+    log(summary)
+    if fmt == "markdown" and payload.get("raw_markdown"):
+        print(payload["raw_markdown"])
+    elif fmt == "markdown" and payload.get("key_points") and payload.get("done"):
+        # The free look carries a summary, not the full Markdown.
+        print(f"# {payload.get('title') or ''}\n")
+        print(f"{payload.get('author') or ''} · {payload.get('platform') or ''} · {payload.get('posted_at') or ''}\n")
+        print("## Key points\n")
+        for k in payload["key_points"]:
+            print(f"- {k}")
+        st = payload.get("stats") or {}
+        if st:
+            print(f"\n点赞 {st.get('likes')} · 收藏 {st.get('collects')} · 评论 {st.get('comments')} · 分享 {st.get('shares')}")
+        print(f"\n已读图片 {payload.get('images_read')}/{payload.get('images_total')}，画面/图片文字 {payload.get('ocr_count')} 段，逐字稿 {payload.get('transcript_count')} 句。")
+        print(f"\n完整逐字稿、逐图文字和回执需要 API Key（{KEYS_URL}，注册送 10 积分）。")
+    else:
+        slim = {k: v for k, v in payload.items() if k != "raw_markdown"}
+        print(json.dumps(slim, ensure_ascii=False, indent=2))
+    return EXIT_OK
+
+
 def main(argv: list[str] | None = None) -> int:
     try:
         sys.stdout.reconfigure(encoding="utf-8")  # type: ignore[attr-defined]
