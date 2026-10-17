@@ -1,7 +1,7 @@
 ---
 name: linkdigest-xiaohongshu-douyin-reader
 description: "Read a Xiaohongshu (RedNote) or Douyin link in English. Use when the user shares a xiaohongshu.com, xhslink.com, rednote.com, douyin.com or v.douyin.com link and wants to know what the post says: the caption, the text inside the images (OCR), the spoken transcript of the video, on-screen captions, likes and saves, hashtags, or an English translation. No Chinese phone number, app, login or cookie needed. Reads through the LinkDigest API; needs LINKDIGEST_API_KEY. Pay as you go: an image note is 1 credit (about $0.02), 10 free credits on sign-up."
-version: 1.0.0
+version: 1.0.1
 homepage: https://linkdigest.dev/docs
 metadata: {"openclaw":{"requires":{"env":["LINKDIGEST_API_KEY"],"anyBins":["python3","curl"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API key (starts with ld_live_). Create one at https://linkdigest.dev/app/keys"}],"homepage":"https://linkdigest.dev/docs"}}
 required_environment_variables:
