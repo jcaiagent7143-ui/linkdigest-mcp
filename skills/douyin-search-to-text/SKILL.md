@@ -1,7 +1,7 @@
 ---
 name: douyin-search-to-text
-description: "抖音按关键词搜视频再转文字 / Search Douyin by topic, then turn the videos into text. 给一个话题（中文或英文，如 露营装备、AI 编程、camping gear），返回网页已收录的 douyin.com/video 链接和标题；再挑几条读成口播逐字稿、画面文字、要点和点赞评论数。用于找对标视频、选题调研、竞品内容整理。搜索 0 积分；读一条 1 分钟视频 2 积分。不登录抖音、不要 Cookie、不下载视频。需要 LinkDigest API Key（注册送 10 积分）。"
-version: 1.0.0
+description: "抖音按关键词搜视频再转文字 / Search Douyin by topic, then turn the videos into text. 给一个话题（中文或英文，如 露营装备、AI 编程、camping gear），返回网页已收录的 douyin.com/video 链接和标题；再挑几条读成口播逐字稿、画面文字、要点和点赞评论数。用于找对标视频、选题调研、竞品内容整理。搜到视频每次 2 积分（搜不到不扣）；读一条 1 分钟视频 2 积分。不登录抖音、不要 Cookie、不下载视频。需要 LinkDigest API Key（注册送 10 积分）。"
+version: 1.0.1
 homepage: https://linkdigest.dev/zh/douyin-sousuo-api
 metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/app/keys 创建，注册送 10 积分，不用绑卡"}],"homepage":"https://linkdigest.dev/zh/douyin-sousuo-api"}}
 required_environment_variables:
@@ -17,7 +17,7 @@ Two steps an agent usually needs together: **find** Douyin videos on a topic, th
 
 ```bash
 export LINKDIGEST_API_KEY=ld_live_...          # https://linkdigest.dev/app/keys — 10 free credits
-python3 {baseDir}/scripts/douyin_search.py "露营装备"            # 1. list (free)
+python3 {baseDir}/scripts/douyin_search.py "露营装备"            # 1. list (2 credits when it finds videos)
 python3 {baseDir}/scripts/douyin_search.py "露营装备" --read 2   # 2. list + read the first two
 ```
 
@@ -25,7 +25,7 @@ The key stays in the environment or the OpenClaw skill `env`; never paste it int
 
 ## Workflow for the agent
 
-1. **Search.** Run the script with the user's topic. English works: the topic is also searched as the words Douyin creators write (`llm` → 大模型, `camping gear` → 露营装备). Output: a numbered list of titles + `https://www.douyin.com/video/…` links. Costs 0 credits.
+1. **Search.** Run the script with the user's topic. English works: the topic is also searched as the words Douyin creators write (`llm` → 大模型, `camping gear` → 露营装备). Output: a numbered list of titles + `https://www.douyin.com/video/…` links. 2 credits when it finds videos, 0 when it finds none.
 2. **Pick.** Show the list. If the user named a number ("read the top 3"), use `--read 3`; otherwise ask which ones, or read single links with `python3 {baseDir}/scripts/linkdigest.py "<link>"`.
 3. **Read.** Each read returns the spoken transcript (Qwen3-ASR when there are no platform captions), on-screen text with approximate times, caption, key points, and likes / comments / collects / shares as of today. Long videos queue (HTTP 202); the script polls until done.
 4. **Report.** Give the transcript as-is when the user wants 文案; list on-screen text separately; say how many credits were used (stderr, last line). ASR can misspell names, brands and numbers — tell the user to check those.
@@ -34,7 +34,8 @@ The key stays in the environment or the OpenClaw skill `env`; never paste it int
 
 | Step | Credits |
 | --- | --- |
-| Search (any topic) | 0 |
+| Search that finds videos | 2 |
+| Search that finds nothing | 0 |
 | Read a video under 1 min | 2 |
 | Read a 3-min / 10-min video | 4 / 11 |
 | A link anyone has read before (cache) | 0 |
