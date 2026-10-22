@@ -113,6 +113,7 @@ Eleven ready-made skills live in [`skills/`](skills). Each is one job, a `SKILL.
 | --- | --- |
 | `xiaohongshu-note-to-text` | 小红书笔记转文字: a Xiaohongshu note, the text in every image, caption, stats |
 | `douyin-video-to-text` | 抖音视频转文字: a Douyin video's spoken words, on-screen text, chapters |
+| `douyin-search-to-text` | 抖音搜索转文字: search Douyin by topic (free), then read the videos you pick |
 | `tiktok-transcript` | A TikTok video's transcript with timestamps and captions |
 | `long-video-transcript` | 长视频转文字: lectures and podcasts up to 2 h, 1 credit per 2 minutes |
 | `linkdigest-xhs-note-ocr` | Xiaohongshu image notes, with the text inside every image |
