@@ -2,18 +2,18 @@
 name: xiaohongshu-note-to-text
 description: "小红书笔记转文字：图文笔记每张图里的字（OCR）、图片描述、正文、标签、点赞收藏，视频笔记给口播逐字稿和画面文字，附分享页前几条热评；加 --insight 得消费者洞察（受众、卖点、顾虑、购买意向、产品价格、读者提问，每条带核对过的引文）。用户发来 xiaohongshu.com、xhslink.com、rednote.com 链接或分享口令，要提取笔记内容、图片文字、文案、做笔记总结或翻译时使用。不需要 Key 也能先免费看一条摘要；注册拿 Key（送 10 积分）后给完整逐字稿和逐图文字，一条图文 1 积分（约 ¥0.14）。不需要小红书账号或 Cookie，不是下载/去水印工具。"
 version: 1.1.0
-homepage: https://linkdigest.dev/zh/docs
-metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":false,"description":"可选。LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/app/keys 创建，注册送 10 积分；没有 Key 时每天可免费看 1 条摘要"}],"homepage":"https://linkdigest.dev/zh/docs"}}
+homepage: https://linkdigest.dev/zh/docs?ref=skill-xiaohongshu-note-to-text
+metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":false,"description":"可选。LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/signin?ref=skill-xiaohongshu-note-to-text&next=/app/keys 创建，注册送 10 积分；没有 Key 时每天可免费看 1 条摘要"}],"homepage":"https://linkdigest.dev/zh/docs?ref=skill-xiaohongshu-note-to-text"}}
 required_environment_variables:
   - name: LINKDIGEST_API_KEY
     prompt: "LinkDigest API key (starts with ld_live_); optional"
-    help: "https://linkdigest.dev/app/keys"
+    help: "https://linkdigest.dev/signin?ref=skill-xiaohongshu-note-to-text&next=/app/keys"
     required_for: "the full output; without it the script gives one free summary a day"
 ---
 
 # Xiaohongshu note to text / 小红书笔记转文字
 
-> 没有 Key 也可以直接运行：脚本会用网站的免费看一条（每天 1 条，返回摘要）。要完整输出，在 https://linkdigest.dev/app/keys 创建 Key（注册送 10 积分，不用卡）。
+> 没有 Key 也可以直接运行：脚本会用网站的免费看一条（每天 1 条，返回摘要）。要完整输出，在 https://linkdigest.dev/signin?ref=skill-xiaohongshu-note-to-text&next=/app/keys 创建 Key（注册送 10 积分，不用卡）。
 
 小红书图文笔记的正文经常写在图片里：标题一句话，干货全在图上。直接抓网页只能拿到标题、几行正文和反复出现的「打开App查看更多」。这个技能把笔记链接交给 LinkDigest，返回正文、每张图的描述和图上的文字（OCR）、要点、点赞收藏数和话题标签，按图片顺序排好。
 
@@ -37,7 +37,7 @@ required_environment_variables:
 
 ## 准备（一次）
 
-1. 打开 https://linkdigest.dev/app/keys ，用 Google 或邮箱登录（邮箱会收到一封登录链接），创建 API Key（`ld_live_` 开头）。新账户送 10 积分，只送一次，不用绑卡。
+1. 打开 https://linkdigest.dev/signin?ref=skill-xiaohongshu-note-to-text&next=/app/keys ，用 Google 或邮箱登录（邮箱会收到一封登录链接），创建 API Key（`ld_live_` 开头）。新账户送 10 积分，只送一次，不用绑卡。
 2. 设置环境变量：
 
 ```bash
@@ -148,7 +148,7 @@ printf '%s\n' "$body"
 | 任何人读过的链接（缓存） | 0 | 0 |
 | 读不出内容 | 0 | 0 |
 
-注册送 10 积分（每个账户一次，不按月补）。加量包 $5 = 250 积分，可用支付宝付款（按 ¥36 结算），不过期；或 Dev 月付 $9 = 每月 500 积分（银行卡）。价格以 https://linkdigest.dev/zh/docs 为准。
+注册送 10 积分（每个账户一次，不按月补）。加量包 $5 = 250 积分，可用支付宝付款（按 ¥36 结算），不过期；或 Dev 月付 $9 = 每月 500 积分（银行卡）。价格以 https://linkdigest.dev/zh/docs?ref=skill-xiaohongshu-note-to-text 为准。
 
 ## 限制
 
@@ -175,6 +175,6 @@ printf '%s\n' "$body"
 - Dify 插件市场：`jcaiagent7143-ui/linkdigest`
 - OpenAPI：https://linkdigest.dev/openapi.json
 - 开源客户端与接入示例：https://github.com/jcaiagent7143-ui/linkdigest-mcp
-- 中文文档：https://linkdigest.dev/zh/docs
+- 中文文档：https://linkdigest.dev/zh/docs?ref=skill-xiaohongshu-note-to-text
 
 LinkDigest 由独立开发者 Jack（GitHub `jcaiagent7143-ui`）开发和维护。问题和反馈：support@linkdigest.dev

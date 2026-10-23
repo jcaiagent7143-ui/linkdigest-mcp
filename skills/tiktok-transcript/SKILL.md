@@ -2,18 +2,18 @@
 name: tiktok-transcript
 description: "TikTok video to transcript: the spoken words with timestamps, on-screen captions, title, hashtags, key points and like/comment counts. Use when the user shares a tiktok.com or vm.tiktok.com link and wants the transcript, the captions, a summary or a translation. Works without a key for one free summary a day; with a free API key (10 credits on sign-up, no card) you get the full transcript, 2 credits per minute of video. No download, no TikTok account or cookie needed."
 version: 1.0.1
-homepage: https://linkdigest.dev/zh/docs
-metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":false,"description":"可选。LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/app/keys 创建，注册送 10 积分；没有 Key 时每天可免费看 1 条摘要"}],"homepage":"https://linkdigest.dev/zh/docs"}}
+homepage: https://linkdigest.dev/zh/docs?ref=skill-tiktok-transcript
+metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":false,"description":"可选。LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/signin?ref=skill-tiktok-transcript&next=/app/keys 创建，注册送 10 积分；没有 Key 时每天可免费看 1 条摘要"}],"homepage":"https://linkdigest.dev/zh/docs?ref=skill-tiktok-transcript"}}
 required_environment_variables:
   - name: LINKDIGEST_API_KEY
     prompt: "LinkDigest API key (starts with ld_live_); optional"
-    help: "https://linkdigest.dev/app/keys"
+    help: "https://linkdigest.dev/signin?ref=skill-tiktok-transcript&next=/app/keys"
     required_for: "the full output; without it the script gives one free summary a day"
 ---
 
 # TikTok transcript / TikTok 视频转文字
 
-> 没有 Key 也可以直接运行：脚本会用网站的免费看一条（每天 1 条，返回摘要）。要完整输出，在 https://linkdigest.dev/app/keys 创建 Key（注册送 10 积分，不用卡）。
+> 没有 Key 也可以直接运行：脚本会用网站的免费看一条（每天 1 条，返回摘要）。要完整输出，在 https://linkdigest.dev/signin?ref=skill-tiktok-transcript&next=/app/keys 创建 Key（注册送 10 积分，不用卡）。
 
 把抖音、小红书视频笔记、TikTok、YouTube、X 的视频链接读成文字：口播逐字稿（没有平台字幕时用 Qwen3-ASR 语音识别；YouTube 例外，由 Gemini 看视频写出）、画面上出现的字和大致时间、标题和简介、要点、点赞评论收藏分享数、话题标签。不用下载视频，不用在本机装 ffmpeg 或语音识别模型，不需要你的平台账号或 Cookie。
 
@@ -32,7 +32,7 @@ required_environment_variables:
 
 ## 准备（一次）
 
-1. 打开 https://linkdigest.dev/app/keys ，用 Google 或邮箱登录（邮箱会收到一封登录链接），创建 API Key（`ld_live_` 开头）。新账户送 10 积分，只送一次，不用绑卡。
+1. 打开 https://linkdigest.dev/signin?ref=skill-tiktok-transcript&next=/app/keys ，用 Google 或邮箱登录（邮箱会收到一封登录链接），创建 API Key（`ld_live_` 开头）。新账户送 10 积分，只送一次，不用绑卡。
 2. 设置环境变量：
 
 ```bash
@@ -152,7 +152,7 @@ printf '%s\n' "$body"
 | 任何人读过的链接（缓存） | 0 | 0 |
 | 读不出内容 | 0 | 0 |
 
-注册送 10 积分（每个账户一次，不按月补），够读一条 9 分钟的视频，或 5 条 1 分钟以内的视频。加量包 $5 = 250 积分，可用支付宝付款（按 ¥36 结算），不过期；或 Dev 月付 $9 = 每月 500 积分（银行卡）。价格以 https://linkdigest.dev/zh/docs 为准。
+注册送 10 积分（每个账户一次，不按月补），够读一条 9 分钟的视频，或 5 条 1 分钟以内的视频。加量包 $5 = 250 积分，可用支付宝付款（按 ¥36 结算），不过期；或 Dev 月付 $9 = 每月 500 积分（银行卡）。价格以 https://linkdigest.dev/zh/docs?ref=skill-tiktok-transcript 为准。
 
 ## 长视频
 
@@ -186,6 +186,6 @@ printf '%s\n' "$body"
 - Dify 插件市场：`jcaiagent7143-ui/linkdigest`
 - OpenAPI：https://linkdigest.dev/openapi.json
 - 开源客户端与接入示例：https://github.com/jcaiagent7143-ui/linkdigest-mcp
-- 中文文档：https://linkdigest.dev/zh/docs
+- 中文文档：https://linkdigest.dev/zh/docs?ref=skill-tiktok-transcript
 
 LinkDigest 由独立开发者 Jack（GitHub `jcaiagent7143-ui`）开发和维护。问题和反馈：support@linkdigest.dev

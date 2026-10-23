@@ -2,12 +2,12 @@
 name: linkdigest-viral-breakdown
 description: "爆款拆解：把一条抖音、小红书、TikTok 或 YouTube 内容拆成开头钩子、带时间的结构节拍、标题公式、封面文字、行动号召和可复用模板。引用的原话逐字核对原文，对不上的删掉并写明删了几条；点赞收藏和话题标签取自平台数据，不由模型编写。用户要拆解爆款、分析对标账号、学习内容结构或准备仿写时使用。通过 LinkDigest API 读取，不需要平台账号或 Cookie。需要 LINKDIGEST_API_KEY；在读取费用上加 1 积分（约 ¥0.14），6 张图以内的图文笔记加拆解共 2 积分。"
 version: 1.1.1
-homepage: https://linkdigest.dev/zh/docs
-metadata: {"openclaw":{"requires":{"env":["LINKDIGEST_API_KEY"],"anyBins":["python3","curl"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/app/keys 创建"}],"homepage":"https://linkdigest.dev/zh/docs"}}
+homepage: https://linkdigest.dev/zh/docs?ref=skill-linkdigest-viral-breakdown
+metadata: {"openclaw":{"requires":{"env":["LINKDIGEST_API_KEY"],"anyBins":["python3","curl"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/signin?ref=skill-linkdigest-viral-breakdown&next=/app/keys 创建"}],"homepage":"https://linkdigest.dev/zh/docs?ref=skill-linkdigest-viral-breakdown"}}
 required_environment_variables:
   - name: LINKDIGEST_API_KEY
     prompt: "LinkDigest API key (starts with ld_live_); optional"
-    help: "https://linkdigest.dev/app/keys"
+    help: "https://linkdigest.dev/signin?ref=skill-linkdigest-viral-breakdown&next=/app/keys"
     required_for: "the full output; without it the script gives one free summary a day"
 ---
 
@@ -47,7 +47,7 @@ required_environment_variables:
 
 ## 准备（一次）
 
-1. 打开 https://linkdigest.dev/app/keys ，用 Google 或邮箱登录（邮箱会收到一封登录链接），创建 API Key（`ld_live_` 开头）。新账户送 10 积分，只送一次，不用绑卡。
+1. 打开 https://linkdigest.dev/signin?ref=skill-linkdigest-viral-breakdown&next=/app/keys ，用 Google 或邮箱登录（邮箱会收到一封登录链接），创建 API Key（`ld_live_` 开头）。新账户送 10 积分，只送一次，不用绑卡。
 2. 设置环境变量：
 
 ```bash
@@ -169,7 +169,7 @@ printf '%s\n' "$body"
 
 图文每多 6 张图 +1 积分；视频每开始的 1 分钟 +1 积分。这条链接之前被读过、只是没拆解过时，原文走缓存，通常只收拆解的 1 积分，以返回的 `credits` 为准。
 
-注册送 10 积分（每个账户一次，不按月补）。加量包 $5 = 250 积分，可用支付宝付款（按 ¥36 结算），不过期；或 Dev 月付 $9 = 每月 500 积分（银行卡）。价格以 https://linkdigest.dev/zh/docs 为准。
+注册送 10 积分（每个账户一次，不按月补）。加量包 $5 = 250 积分，可用支付宝付款（按 ¥36 结算），不过期；或 Dev 月付 $9 = 每月 500 积分（银行卡）。价格以 https://linkdigest.dev/zh/docs?ref=skill-linkdigest-viral-breakdown 为准。
 
 ## 限制
 
@@ -195,6 +195,6 @@ printf '%s\n' "$body"
 - Dify 插件市场：`jcaiagent7143-ui/linkdigest`
 - OpenAPI：https://linkdigest.dev/openapi.json
 - 开源客户端与接入示例：https://github.com/jcaiagent7143-ui/linkdigest-mcp
-- 中文文档：https://linkdigest.dev/zh/docs
+- 中文文档：https://linkdigest.dev/zh/docs?ref=skill-linkdigest-viral-breakdown
 
 LinkDigest 由独立开发者 Jack（GitHub `jcaiagent7143-ui`）开发和维护。问题和反馈：support@linkdigest.dev

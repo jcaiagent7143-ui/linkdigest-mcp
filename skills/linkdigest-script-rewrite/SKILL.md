@@ -2,12 +2,12 @@
 name: linkdigest-script-rewrite
 description: "对标视频脚本仿写：给一条抖音、小红书或 TikTok 爆款视频链接，先提取它的口播稿（逐字稿）和结构（开头钩子、分段节拍、标题公式、结尾引导），再按同样的结构写出你自己主题的口播脚本。用户说「仿写这条视频」「照这个结构写个脚本」「扒一下这条视频的文案再改写」「口播稿改写」时使用。原视频内容通过 LinkDigest API 读取，引用逐字核对原文，需要 LINKDIGEST_API_KEY；仿写由你当前的模型完成，不另收费。"
 version: 1.0.1
-homepage: https://linkdigest.dev/zh/docs
-metadata: {"openclaw":{"requires":{"env":["LINKDIGEST_API_KEY"],"anyBins":["python3","curl"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/app/keys 创建"}],"homepage":"https://linkdigest.dev/zh/docs"}}
+homepage: https://linkdigest.dev/zh/docs?ref=skill-linkdigest-script-rewrite
+metadata: {"openclaw":{"requires":{"env":["LINKDIGEST_API_KEY"],"anyBins":["python3","curl"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/signin?ref=skill-linkdigest-script-rewrite&next=/app/keys 创建"}],"homepage":"https://linkdigest.dev/zh/docs?ref=skill-linkdigest-script-rewrite"}}
 required_environment_variables:
   - name: LINKDIGEST_API_KEY
     prompt: "LinkDigest API key (starts with ld_live_); optional"
-    help: "https://linkdigest.dev/app/keys"
+    help: "https://linkdigest.dev/signin?ref=skill-linkdigest-script-rewrite&next=/app/keys"
     required_for: "the full output; without it the script gives one free summary a day"
 ---
 
@@ -80,7 +80,7 @@ python3 scripts/linkdigest.py "<对标视频链接或整段分享文案>" --brea
 
 ## 准备
 
-1. https://linkdigest.dev/app/keys 创建 API Key（新账户送 10 积分，不用绑卡）。
+1. https://linkdigest.dev/signin?ref=skill-linkdigest-script-rewrite&next=/app/keys 创建 API Key（新账户送 10 积分，不用绑卡）。
 2. `export LINKDIGEST_API_KEY=ld_live_...`
 
 ## 费用
@@ -95,7 +95,7 @@ python3 scripts/linkdigest.py "<对标视频链接或整段分享文案>" --brea
 | 读过的同一条（缓存，只补拆解） | 0–1 | ¥0–0.14 |
 | 读不出内容 | 0 | 0 |
 
-基础 1 积分 + 每开始的 1 分钟 1 积分 + 拆解 1 积分。加量包 ¥36 = 250 积分，支付宝可付。价格以 https://linkdigest.dev/zh/docs 为准。
+基础 1 积分 + 每开始的 1 分钟 1 积分 + 拆解 1 积分。加量包 ¥36 = 250 积分，支付宝可付。价格以 https://linkdigest.dev/zh/docs?ref=skill-linkdigest-script-rewrite 为准。
 
 ## 限制
 
@@ -108,4 +108,4 @@ python3 scripts/linkdigest.py "<对标视频链接或整段分享文案>" --brea
 
 只把对标视频的链接发到 linkdigest.dev；用户自己的主题和产品信息留在你的对话里，不会发出去。视频只在处理时临时下载，读完即删。脚本只读 `LINKDIGEST_API_KEY`，只连 `linkdigest.dev`，不写文件。
 
-反馈：support@linkdigest.dev ｜ 文档：https://linkdigest.dev/zh/docs
+反馈：support@linkdigest.dev ｜ 文档：https://linkdigest.dev/zh/docs?ref=skill-linkdigest-script-rewrite

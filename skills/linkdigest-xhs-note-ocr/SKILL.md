@@ -2,12 +2,12 @@
 name: linkdigest-xhs-note-ocr
 description: "小红书图文笔记提取，连图片里的字一起 OCR。用户发来小红书笔记链接或分享文案（xiaohongshu.com、xhslink.com），要提取笔记正文、图片上的文字、每张图的描述、要点、点赞收藏数或话题标签时使用。图文笔记的正文常写在图片里，直接抓网页拿不到。通过 LinkDigest API 读取，不需要小红书账号或 Cookie。需要 LINKDIGEST_API_KEY，按量计费：6 张图以内 1 积分（约 ¥0.14），注册送 10 积分。"
 version: 1.1.1
-homepage: https://linkdigest.dev/zh/docs
-metadata: {"openclaw":{"requires":{"env":["LINKDIGEST_API_KEY"],"anyBins":["python3","curl"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/app/keys 创建"}],"homepage":"https://linkdigest.dev/zh/docs"}}
+homepage: https://linkdigest.dev/zh/docs?ref=skill-linkdigest-xhs-note-ocr
+metadata: {"openclaw":{"requires":{"env":["LINKDIGEST_API_KEY"],"anyBins":["python3","curl"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/signin?ref=skill-linkdigest-xhs-note-ocr&next=/app/keys 创建"}],"homepage":"https://linkdigest.dev/zh/docs?ref=skill-linkdigest-xhs-note-ocr"}}
 required_environment_variables:
   - name: LINKDIGEST_API_KEY
     prompt: "LinkDigest API key (starts with ld_live_); optional"
-    help: "https://linkdigest.dev/app/keys"
+    help: "https://linkdigest.dev/signin?ref=skill-linkdigest-xhs-note-ocr&next=/app/keys"
     required_for: "the full output; without it the script gives one free summary a day"
 ---
 
@@ -37,7 +37,7 @@ required_environment_variables:
 
 ## 准备（一次）
 
-1. 打开 https://linkdigest.dev/app/keys ，用 Google 或邮箱登录（邮箱会收到一封登录链接），创建 API Key（`ld_live_` 开头）。新账户送 10 积分，只送一次，不用绑卡。
+1. 打开 https://linkdigest.dev/signin?ref=skill-linkdigest-xhs-note-ocr&next=/app/keys ，用 Google 或邮箱登录（邮箱会收到一封登录链接），创建 API Key（`ld_live_` 开头）。新账户送 10 积分，只送一次，不用绑卡。
 2. 设置环境变量：
 
 ```bash
@@ -144,7 +144,7 @@ printf '%s\n' "$body"
 | 任何人读过的链接（缓存） | 0 | 0 |
 | 读不出内容 | 0 | 0 |
 
-注册送 10 积分（每个账户一次，不按月补）。加量包 $5 = 250 积分，可用支付宝付款（按 ¥36 结算），不过期；或 Dev 月付 $9 = 每月 500 积分（银行卡）。价格以 https://linkdigest.dev/zh/docs 为准。
+注册送 10 积分（每个账户一次，不按月补）。加量包 $5 = 250 积分，可用支付宝付款（按 ¥36 结算），不过期；或 Dev 月付 $9 = 每月 500 积分（银行卡）。价格以 https://linkdigest.dev/zh/docs?ref=skill-linkdigest-xhs-note-ocr 为准。
 
 ## 限制
 
@@ -171,6 +171,6 @@ printf '%s\n' "$body"
 - Dify 插件市场：`jcaiagent7143-ui/linkdigest`
 - OpenAPI：https://linkdigest.dev/openapi.json
 - 开源客户端与接入示例：https://github.com/jcaiagent7143-ui/linkdigest-mcp
-- 中文文档：https://linkdigest.dev/zh/docs
+- 中文文档：https://linkdigest.dev/zh/docs?ref=skill-linkdigest-xhs-note-ocr
 
 LinkDigest 由独立开发者 Jack（GitHub `jcaiagent7143-ui`）开发和维护。问题和反馈：support@linkdigest.dev

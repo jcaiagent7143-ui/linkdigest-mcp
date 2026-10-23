@@ -100,7 +100,7 @@ it is not on PyPI yet; a `linkdigest-mcp` package on PyPI is not ours until this
 }
 ```
 
-A key is issued at [linkdigest.dev/app/keys](https://linkdigest.dev/app/keys).
+A key is issued at [linkdigest.dev/app/keys](https://linkdigest.dev/signin?ref=github-mcp&next=/app/keys).
 10 free credits to start, once per account, no card. A post is one credit; video adds one per
 started minute; a viral breakdown or a translation adds one each. Then $5 once for 250 credits
 (Alipay accepted, settled as ¥36) or $9 a month for 500 (card).

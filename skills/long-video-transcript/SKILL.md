@@ -2,18 +2,18 @@
 name: long-video-transcript
 description: "长视频转文字（最长 2 小时）：讲座、课程、播客、直播回放的完整逐字稿（带时间）+ 每分钟一帧的画面文字 + 章节和要点。用户发来抖音、小红书、TikTok、YouTube 的长视频链接要全文逐字稿、课程笔记或总结时使用。走 transcript 省钱档：每 2 分钟 1 积分（1 小时约 ¥4.4），免费账户最长 60 分钟，Dev 月付最长 2 小时。不需要 Key 也能先免费看一条摘要；注册拿 Key 送 10 积分。不下载视频，不需要平台账号。"
 version: 1.0.1
-homepage: https://linkdigest.dev/zh/docs
-metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":false,"description":"可选。LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/app/keys 创建，注册送 10 积分；没有 Key 时每天可免费看 1 条摘要"}],"homepage":"https://linkdigest.dev/zh/docs"}}
+homepage: https://linkdigest.dev/zh/docs?ref=skill-long-video-transcript
+metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":false,"description":"可选。LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/signin?ref=skill-long-video-transcript&next=/app/keys 创建，注册送 10 积分；没有 Key 时每天可免费看 1 条摘要"}],"homepage":"https://linkdigest.dev/zh/docs?ref=skill-long-video-transcript"}}
 required_environment_variables:
   - name: LINKDIGEST_API_KEY
     prompt: "LinkDigest API key (starts with ld_live_); optional"
-    help: "https://linkdigest.dev/app/keys"
+    help: "https://linkdigest.dev/signin?ref=skill-long-video-transcript&next=/app/keys"
     required_for: "the full output; without it the script gives one free summary a day"
 ---
 
 # Long video transcript / 长视频转文字
 
-> 没有 Key 也可以直接运行：脚本会用网站的免费看一条（每天 1 条，返回摘要）。要完整输出，在 https://linkdigest.dev/app/keys 创建 Key（注册送 10 积分，不用卡）。
+> 没有 Key 也可以直接运行：脚本会用网站的免费看一条（每天 1 条，返回摘要）。要完整输出，在 https://linkdigest.dev/signin?ref=skill-long-video-transcript&next=/app/keys 创建 Key（注册送 10 积分，不用卡）。
 
 > 本技能默认加 `--depth transcript`：全程逐字稿 + 稀疏截帧，每 2 分钟 1 积分。
 
@@ -34,7 +34,7 @@ required_environment_variables:
 
 ## 准备（一次）
 
-1. 打开 https://linkdigest.dev/app/keys ，用 Google 或邮箱登录（邮箱会收到一封登录链接），创建 API Key（`ld_live_` 开头）。新账户送 10 积分，只送一次，不用绑卡。
+1. 打开 https://linkdigest.dev/signin?ref=skill-long-video-transcript&next=/app/keys ，用 Google 或邮箱登录（邮箱会收到一封登录链接），创建 API Key（`ld_live_` 开头）。新账户送 10 积分，只送一次，不用绑卡。
 2. 设置环境变量：
 
 ```bash
@@ -154,7 +154,7 @@ printf '%s\n' "$body"
 | 任何人读过的链接（缓存） | 0 | 0 |
 | 读不出内容 | 0 | 0 |
 
-注册送 10 积分（每个账户一次，不按月补），够读一条 9 分钟的视频，或 5 条 1 分钟以内的视频。加量包 $5 = 250 积分，可用支付宝付款（按 ¥36 结算），不过期；或 Dev 月付 $9 = 每月 500 积分（银行卡）。价格以 https://linkdigest.dev/zh/docs 为准。
+注册送 10 积分（每个账户一次，不按月补），够读一条 9 分钟的视频，或 5 条 1 分钟以内的视频。加量包 $5 = 250 积分，可用支付宝付款（按 ¥36 结算），不过期；或 Dev 月付 $9 = 每月 500 积分（银行卡）。价格以 https://linkdigest.dev/zh/docs?ref=skill-long-video-transcript 为准。
 
 ## 长视频
 
@@ -188,6 +188,6 @@ printf '%s\n' "$body"
 - Dify 插件市场：`jcaiagent7143-ui/linkdigest`
 - OpenAPI：https://linkdigest.dev/openapi.json
 - 开源客户端与接入示例：https://github.com/jcaiagent7143-ui/linkdigest-mcp
-- 中文文档：https://linkdigest.dev/zh/docs
+- 中文文档：https://linkdigest.dev/zh/docs?ref=skill-long-video-transcript
 
 LinkDigest 由独立开发者 Jack（GitHub `jcaiagent7143-ui`）开发和维护。问题和反馈：support@linkdigest.dev

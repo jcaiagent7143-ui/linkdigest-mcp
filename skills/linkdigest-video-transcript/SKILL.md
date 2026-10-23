@@ -2,12 +2,12 @@
 name: linkdigest-video-transcript
 description: "抖音/小红书视频文案提取：口播逐字稿、画面上的字（带大致时间）、要点和互动数据。用户发来抖音、小红书视频笔记、TikTok、YouTube 或 X 的视频链接或分享文案，要提取文案、视频转文字、扒口播、提取字幕或画面文字时使用。长视频会排队，脚本自动轮询取结果。通过 LinkDigest API 读取，不用下载视频，不需要平台账号或 Cookie。需要 LINKDIGEST_API_KEY；每条 1 积分，另加每开始的 1 分钟 1 积分（1 分钟视频共 2 积分，约 ¥0.29）。不支持 B站。"
 version: 1.1.1
-homepage: https://linkdigest.dev/zh/docs
-metadata: {"openclaw":{"requires":{"env":["LINKDIGEST_API_KEY"],"anyBins":["python3","curl"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/app/keys 创建"}],"homepage":"https://linkdigest.dev/zh/docs"}}
+homepage: https://linkdigest.dev/zh/docs?ref=skill-linkdigest-video-transcript
+metadata: {"openclaw":{"requires":{"env":["LINKDIGEST_API_KEY"],"anyBins":["python3","curl"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/signin?ref=skill-linkdigest-video-transcript&next=/app/keys 创建"}],"homepage":"https://linkdigest.dev/zh/docs?ref=skill-linkdigest-video-transcript"}}
 required_environment_variables:
   - name: LINKDIGEST_API_KEY
     prompt: "LinkDigest API key (starts with ld_live_); optional"
-    help: "https://linkdigest.dev/app/keys"
+    help: "https://linkdigest.dev/signin?ref=skill-linkdigest-video-transcript&next=/app/keys"
     required_for: "the full output; without it the script gives one free summary a day"
 ---
 
@@ -32,7 +32,7 @@ required_environment_variables:
 
 ## 准备（一次）
 
-1. 打开 https://linkdigest.dev/app/keys ，用 Google 或邮箱登录（邮箱会收到一封登录链接），创建 API Key（`ld_live_` 开头）。新账户送 10 积分，只送一次，不用绑卡。
+1. 打开 https://linkdigest.dev/signin?ref=skill-linkdigest-video-transcript&next=/app/keys ，用 Google 或邮箱登录（邮箱会收到一封登录链接），创建 API Key（`ld_live_` 开头）。新账户送 10 积分，只送一次，不用绑卡。
 2. 设置环境变量：
 
 ```bash
@@ -152,7 +152,7 @@ printf '%s\n' "$body"
 | 任何人读过的链接（缓存） | 0 | 0 |
 | 读不出内容 | 0 | 0 |
 
-注册送 10 积分（每个账户一次，不按月补），够读一条 9 分钟的视频，或 5 条 1 分钟以内的视频。加量包 $5 = 250 积分，可用支付宝付款（按 ¥36 结算），不过期；或 Dev 月付 $9 = 每月 500 积分（银行卡）。价格以 https://linkdigest.dev/zh/docs 为准。
+注册送 10 积分（每个账户一次，不按月补），够读一条 9 分钟的视频，或 5 条 1 分钟以内的视频。加量包 $5 = 250 积分，可用支付宝付款（按 ¥36 结算），不过期；或 Dev 月付 $9 = 每月 500 积分（银行卡）。价格以 https://linkdigest.dev/zh/docs?ref=skill-linkdigest-video-transcript 为准。
 
 ## 长视频
 
@@ -186,6 +186,6 @@ printf '%s\n' "$body"
 - Dify 插件市场：`jcaiagent7143-ui/linkdigest`
 - OpenAPI：https://linkdigest.dev/openapi.json
 - 开源客户端与接入示例：https://github.com/jcaiagent7143-ui/linkdigest-mcp
-- 中文文档：https://linkdigest.dev/zh/docs
+- 中文文档：https://linkdigest.dev/zh/docs?ref=skill-linkdigest-video-transcript
 
 LinkDigest 由独立开发者 Jack（GitHub `jcaiagent7143-ui`）开发和维护。问题和反馈：support@linkdigest.dev

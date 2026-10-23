@@ -3,11 +3,11 @@ name: douyin-search-to-text
 description: "抖音按关键词搜视频再转文字 / Search Douyin by topic, then turn the videos into text. 给一个话题（中文或英文，如 露营装备、AI 编程、camping gear），返回网页已收录的 douyin.com/video 链接和标题；再挑几条读成口播逐字稿、画面文字、要点和点赞评论数。用于找对标视频、选题调研、竞品内容整理。搜到视频每次 2 积分（搜不到不扣）；读一条 1 分钟视频 2 积分。不登录抖音、不要 Cookie、不下载视频。需要 LinkDigest API Key（注册送 10 积分）。"
 version: 1.0.1
 homepage: https://linkdigest.dev/zh/douyin-sousuo-api
-metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/app/keys 创建，注册送 10 积分，不用绑卡"}],"homepage":"https://linkdigest.dev/zh/douyin-sousuo-api"}}
+metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/signin?ref=skill-douyin-search-to-text&next=/app/keys 创建，注册送 10 积分，不用绑卡"}],"homepage":"https://linkdigest.dev/zh/douyin-sousuo-api"}}
 required_environment_variables:
   - name: LINKDIGEST_API_KEY
     prompt: "LinkDigest API key (starts with ld_live_)"
-    help: "https://linkdigest.dev/app/keys"
+    help: "https://linkdigest.dev/signin?ref=skill-douyin-search-to-text&next=/app/keys"
     required_for: "searching and reading; sign-up gives 10 free credits, no card"
 ---
 
@@ -16,7 +16,7 @@ required_environment_variables:
 Two steps an agent usually needs together: **find** Douyin videos on a topic, then **read** the ones worth reading.
 
 ```bash
-export LINKDIGEST_API_KEY=ld_live_...          # https://linkdigest.dev/app/keys — 10 free credits
+export LINKDIGEST_API_KEY=ld_live_...          # https://linkdigest.dev/signin?ref=skill-douyin-search-to-text&next=/app/keys — 10 free credits
 python3 {baseDir}/scripts/douyin_search.py "露营装备"            # 1. list (2 credits when it finds videos)
 python3 {baseDir}/scripts/douyin_search.py "露营装备" --read 2   # 2. list + read the first two
 ```
