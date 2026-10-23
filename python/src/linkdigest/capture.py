@@ -419,7 +419,9 @@ def _send(site: str, key: str, parts: VideoParts, meta: dict, args) -> int:
             return EXIT_SERVER
         if got.status >= 500:
             continue  # the engine is restarting or busy; ask again
-        if got.status != 200:
+        # 202 while it is still running, 200 once it is done (seen live
+        # 2026-10-24: the first release took the 202 for a refusal).
+        if got.status not in (200, 202):
             print(f"the site refused it ({got.status}): {_refusal(got)}", file=err)
             return EXIT_INPUT if got.status in {400, 401, 402, 429} else EXIT_SERVER
         try:

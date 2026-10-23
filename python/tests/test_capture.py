@@ -94,7 +94,7 @@ def test_a_dry_run_reports_what_would_go_and_sends_nothing(capsys, no_extraction
 def test_the_request_is_the_capture_contract_and_the_poll_ends_in_markdown(capsys, no_extraction, fake):
     fake.queue += [
         jresp(202, {"id": "cap_1", "poll": "/api/v1/capture/cap_1", "retryAfter": 1}),
-        jresp(200, {"status": "running", "stage": "transcribing"}),
+        jresp(202, {"status": "running", "stage": "transcribing", "retryAfter": 3}),  # the live poll answers 202 while running
         jresp(200, {"status": "done", "credits": 3, "view_url": "https://linkdigest.dev/app/digests/k", "digest": {"raw_markdown": "# 标题\n\n## Transcript\n[00:00] 大家好", "title": "标题"}}),
     ]
     code, out, err = run(capsys, "capture", str(no_extraction), "--url", "8.52 复制打开抖音 https://www.douyin.com/video/7001 复制此链接")
