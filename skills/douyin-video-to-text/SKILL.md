@@ -1,7 +1,7 @@
 ---
 name: douyin-video-to-text
 description: "抖音视频转文字：口播逐字稿（带时间）、画面上的字幕和文字、标题简介、章节、要点、点赞评论收藏数。用户发来 douyin.com、v.douyin.com 链接或分享口令，要提取文案、扒口播、提字幕、总结视频时使用。不需要 Key 也能先免费看一条摘要；注册拿 Key（送 10 积分）后给完整逐字稿，1 分钟视频 2 积分（约 ¥0.29）。不下载视频，不需要抖音账号或 Cookie。"
-version: 1.0.1
+version: 1.0.2
 homepage: https://linkdigest.dev/zh/docs?ref=skill-douyin-video-to-text
 metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":false,"description":"可选。LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/signin?ref=skill-douyin-video-to-text&next=/app/keys 创建，注册送 10 积分；没有 Key 时每天可免费看 1 条摘要"}],"homepage":"https://linkdigest.dev/zh/docs?ref=skill-douyin-video-to-text"}}
 required_environment_variables:
