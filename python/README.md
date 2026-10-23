@@ -17,10 +17,12 @@ nothing is downloaded or transcribed on your machine, and it has **no dependenci
 | `linkdigest <url>` | command line — Markdown to stdout, `--json`, `--breakdown`, `--translate en` |
 | `linkdigest-mcp` | stdio MCP server — the `digest_url` tool, forwarded to `https://linkdigest.dev/mcp` with your key |
 
-Install from this repo (the package is **not on PyPI yet**; a `linkdigest-mcp` package on PyPI
-is not ours until this README says so):
+Install from PyPI — [`linkdigest-mcp`](https://pypi.org/project/linkdigest-mcp/) is built and uploaded
+by this repo's release workflow (trusted publisher, with attestations) — or from this repo:
 
 ```bash
+pip install linkdigest-mcp
+# or the unreleased main branch:
 pip install "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"
 ```
 

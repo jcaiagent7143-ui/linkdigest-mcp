@@ -106,7 +106,7 @@ claude mcp add --transport http linkdigest https://linkdigest.dev/mcp \
   "mcpServers": {
     "linkdigest": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python", "linkdigest-mcp"],
+      "args": ["linkdigest-mcp"],
       "env": {
         "LINKDIGEST_API_KEY": "ld_live_..."
       }
@@ -115,7 +115,7 @@ claude mcp add --transport http linkdigest https://linkdigest.dev/mcp \
 }
 ```
 
-需要 [uv](https://docs.astral.sh/uv/) 和 git。这个包还没有发布到 PyPI，所以从本仓库的 git 地址安装；在本 README 写明之前，PyPI 上叫 `linkdigest-mcp` 的包都不是我们发布的。
+需要 [uv](https://docs.astral.sh/uv/)。这个包已发布到 PyPI：[`linkdigest-mcp`](https://pypi.org/project/linkdigest-mcp/)，由本仓库的 release 工作流构建上传（trusted publisher，带 attestation）。
 
 ## Agent 技能（OpenClaw、Hermes、Claude Code、Cursor 等）
 
@@ -197,7 +197,7 @@ $ curl -sL 'https://xhslink.com/o/1WiQ1QI6Uc0' | grep -o '<title>.*</title>'
 在 [`python/`](python/)，零依赖（只用标准库），Python 3.10+。
 
 ```bash
-pip install "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"
+pip install linkdigest-mcp          # PyPI；或装本仓库：pip install "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"
 export LINKDIGEST_API_KEY=ld_live_...
 ```
 

@@ -85,15 +85,15 @@ the tool still lists and `tools/call` returns a 401 that says where to get one.
 }
 ```
 
-or through this repo's Python server (needs uv and git). It is installed from this git repository because
-it is not on PyPI yet; a `linkdigest-mcp` package on PyPI is not ours until this README says so:
+or through the Python server, published on PyPI as [`linkdigest-mcp`](https://pypi.org/project/linkdigest-mcp/)
+(built and uploaded by this repo's release workflow, with attestations; needs uv):
 
 ```json
 {
   "mcpServers": {
     "linkdigest": {
       "command": "uvx",
-      "args": ["--from", "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python", "linkdigest-mcp"],
+      "args": ["linkdigest-mcp"],
       "env": { "LINKDIGEST_API_KEY": "ld_live_..." }
     }
   }
@@ -223,7 +223,7 @@ Measured, not estimated:
 In [`python/`](python/): MIT, Python 3.10+, standard library only.
 
 ```bash
-pip install "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"
+pip install linkdigest-mcp          # PyPI; or from this repo: pip install "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"
 export LINKDIGEST_API_KEY=ld_live_...
 linkdigest "https://v.douyin.com/xxxx/" --breakdown       # Markdown to stdout
 ```
