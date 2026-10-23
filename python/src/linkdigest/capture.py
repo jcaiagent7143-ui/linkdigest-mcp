@@ -179,16 +179,15 @@ def read_video_file(path: str, *, max_seconds: int = MAX_SECONDS, max_frames: in
     as the console does; a clip shorter than three seconds is refused, because
     the site refuses it too and the extract would have been wasted.
     """
-    if not shutil.which("ffmpeg"):
-        raise CaptureError("ffmpeg is not on PATH. Install it (brew install ffmpeg) and run again.")
-    if not shutil.which("ffprobe"):
-        raise CaptureError("ffprobe is not on PATH. It ships with ffmpeg (brew install ffmpeg).")
-
     source = Path(path).expanduser()
     if not source.is_file():
         raise CaptureError(f"no such file: {source}")
     if not source.stat().st_size:
         raise CaptureError(f"{source.name} is empty")
+    if not shutil.which("ffmpeg"):
+        raise CaptureError("ffmpeg is not on PATH. Install it (brew install ffmpeg) and run again.")
+    if not shutil.which("ffprobe"):
+        raise CaptureError("ffprobe is not on PATH. It ships with ffmpeg (brew install ffmpeg).")
 
     full = probe_duration(source)
     if not full:
