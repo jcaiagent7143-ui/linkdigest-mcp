@@ -6,6 +6,7 @@
     linkdigest "<link>" --translate en --json > post.json   # structured JSON
     pbpaste | linkdigest -                                  # the whole share text works too
     linkdigest --job <job_id>                               # collect a job that was still running
+    linkdigest capture ./video.mp4 --url "<link>"           # a video you already have (see capture.py)
 
 Status (credits spent, cache hits, a job still running) goes to stderr, so
 stdout stays clean for pipes.
@@ -74,6 +75,13 @@ def _utf8(stream: TextIO) -> None:
 
 
 def main(argv: Optional[List[str]] = None, stdin: Optional[TextIO] = None) -> int:
+    raw = list(sys.argv[1:] if argv is None else argv)
+    if raw and raw[0] == "capture":
+        # A video file the caller already has: its sound and frames are
+        # extracted here and sent to /api/v1/capture (capture.py).
+        from .capture import main as capture_main
+
+        return capture_main(raw[1:])
     args = _parser().parse_args(argv)
     out, err = sys.stdout, sys.stderr
     _utf8(out)

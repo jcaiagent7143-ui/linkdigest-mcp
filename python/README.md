@@ -15,6 +15,7 @@ nothing is downloaded or transcribed on your machine, and it has **no dependenci
 |---|---|
 | `from linkdigest import LinkDigest` | Python SDK — waits for long videos for you (`GET /api/v1/digest/{jobId}?wait=20`) and raises typed errors (402 carries a pay link) |
 | `linkdigest <url>` | command line — Markdown to stdout, `--json`, `--breakdown`, `--translate en` |
+| `linkdigest capture <file>` | a video you already have (a Douyin post its player will not serve: 分享 → 保存本地) — the sound and a few frames are extracted here with ffmpeg and sent; the video is never uploaded; `--dry-run` sends nothing |
 | `linkdigest-mcp` | stdio MCP server — the `digest_url` tool, forwarded to `https://linkdigest.dev/mcp` with your key |
 
 Install from PyPI — [`linkdigest-mcp`](https://pypi.org/project/linkdigest-mcp/) is built and uploaded

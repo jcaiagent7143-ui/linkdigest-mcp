@@ -226,6 +226,7 @@ In [`python/`](python/): MIT, Python 3.10+, standard library only.
 pip install linkdigest-mcp          # PyPI; or from this repo: pip install "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"
 export LINKDIGEST_API_KEY=ld_live_...
 linkdigest "https://v.douyin.com/xxxx/" --breakdown       # Markdown to stdout
+linkdigest capture ./video.mp4 --url "<link>"              # a video you already have: sound + frames extracted here, never uploaded
 ```
 
 ```python

@@ -3,6 +3,16 @@
 Dates are when the change reached this repository. The hosted service at
 linkdigest.dev changes independently; its prices are in the README.
 
+## 2026-10-24 — 1.0.8: `linkdigest capture <file>`
+
+- Python SDK 0.2.2: `linkdigest capture ./video.mp4 --url "<link>"` reads a video you already
+  have — the route for a Douyin post its player will not serve (save it in the app: 分享 →
+  保存本地). The sound (16 kHz mono MP3) and up to 36 frames are extracted on your machine with
+  ffmpeg and sent to `POST /api/v1/capture`; the video itself is never uploaded. `--dry-run`
+  shows what would be sent without a key or a charge; `-o post.md`, `--json`. The command
+  existed only in the private repository until now, so the docs' install line could not be
+  followed by anyone else.
+
 ## 2026-10-08 — 1.0.6: on PyPI
 
 - `pip install linkdigest-mcp` — the SDK, the `linkdigest` CLI and the `linkdigest-mcp` stdio server are published to PyPI by the release workflow through a trusted publisher (no API token). Same attested build as the GitHub release.
