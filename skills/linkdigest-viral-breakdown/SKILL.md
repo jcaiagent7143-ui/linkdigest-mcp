@@ -1,7 +1,7 @@
 ---
 name: linkdigest-viral-breakdown
 description: "爆款拆解：把一条抖音、小红书、TikTok 或 YouTube 内容拆成开头钩子、带时间的结构节拍、标题公式、封面文字、行动号召和可复用模板。引用的原话逐字核对原文，对不上的删掉并写明删了几条；点赞收藏和话题标签取自平台数据，不由模型编写。用户要拆解爆款、分析对标账号、学习内容结构或准备仿写时使用。通过 LinkDigest API 读取，不需要平台账号或 Cookie。需要 LINKDIGEST_API_KEY；在读取费用上加 1 积分（约 ¥0.14），6 张图以内的图文笔记加拆解共 2 积分。"
-version: 1.1.1
+version: 1.1.2
 homepage: https://linkdigest.dev/zh/docs?ref=skill-linkdigest-viral-breakdown
 metadata: {"openclaw":{"requires":{"env":["LINKDIGEST_API_KEY"],"anyBins":["python3","curl"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/signin?ref=skill-linkdigest-viral-breakdown&next=/app/keys 创建"}],"homepage":"https://linkdigest.dev/zh/docs?ref=skill-linkdigest-viral-breakdown"}}
 required_environment_variables:
@@ -43,7 +43,7 @@ required_environment_variables:
 
 - 只要文案或图片文字：用 `linkdigest-video-transcript` 或 `linkdigest-xhs-note-ocr`，少花 1 积分。
 - 要账号整体诊断、流量预测或「保证爆」：这个技能只拆单条内容，不预测效果。
-- B站链接：不支持。私密、已删除、需要登录才能看的内容也读不了（返回 422，不扣费）。
+- 私密、已删除、需要登录才能看的内容读不了（返回 422，不扣费）。B站链接可以读（2026-10-24 起）。
 
 ## 准备（一次）
 
@@ -173,7 +173,7 @@ printf '%s\n' "$body"
 
 ## 限制
 
-- 不支持 B站：哔哩哔哩对我们服务器的地址直接返回 HTTP 412。
+- B站：可以读（2026-10-24 起）。B 站偶尔拒绝时返回 503，不扣费，稍后重试即可。
 - 单条视频长度上限：免费账户和只买了加量包的账户 10 分钟，Dev 月付 30 分钟；超过返回 402（`media_too_long`），不扣费。免费账户和加量包账户可加 `--partial-ok` 只拆开头，`missing` 里会写明只读了一部分。
 - 拆解只看这一条内容，看不到账号粉丝数、投流、发布时间段这些背景，`missing` 里通常会写出来。
 - 互动数据是读取当天的快照；缓存里的结果保留第一次读取那天的数。

@@ -1,7 +1,7 @@
 ---
 name: long-video-transcript
 description: "长视频转文字（最长 2 小时）：讲座、课程、播客、直播回放的完整逐字稿（带时间）+ 每分钟一帧的画面文字 + 章节和要点。用户发来抖音、小红书、TikTok、YouTube 的长视频链接要全文逐字稿、课程笔记或总结时使用。走 transcript 省钱档：每 2 分钟 1 积分（1 小时约 ¥4.4），免费账户最长 60 分钟，Dev 月付最长 2 小时。不需要 Key 也能先免费看一条摘要；注册拿 Key 送 10 积分。不下载视频，不需要平台账号。"
-version: 1.0.2
+version: 1.0.3
 homepage: https://linkdigest.dev/zh/docs?ref=skill-long-video-transcript
 metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":false,"description":"可选。LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/signin?ref=skill-long-video-transcript&next=/app/keys 创建，注册送 10 积分；没有 Key 时每天可免费看 1 条摘要"}],"homepage":"https://linkdigest.dev/zh/docs?ref=skill-long-video-transcript"}}
 required_environment_variables:
@@ -28,7 +28,7 @@ required_environment_variables:
 ## 什么时候不用
 
 - 需要逐句时间轴（比如生成 SRT 字幕）：逐字稿的时间是分段级的，见下文「时间戳的精度」。
-- B站链接：不支持。
+- B站链接：可以读（2026-10-24 起）。
 - 直播、私密、已删除、需要登录才能看的视频：读不了（返回 422，不扣费）。
 - 只想下载无水印视频：这个技能不提供视频文件。
 
@@ -166,7 +166,7 @@ printf '%s\n' "$body"
 
 ## 限制
 
-- 不支持 B站：哔哩哔哩对我们服务器的地址直接返回 HTTP 412。
+- B站：可以读（2026-10-24 起）。B 站偶尔拒绝时返回 503，不扣费，稍后重试即可。
 - 直播、私密、已删除、需要登录才能看的视频读不了。
 - 互动数据是读取当天的快照，不是实时数据；缓存里的结果保留第一次读取那天的数。
 - 每个账户每小时最多 60 次 API 调用。

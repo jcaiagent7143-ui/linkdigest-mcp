@@ -1,7 +1,7 @@
 ---
 name: linkdigest-xhs-note-ocr
 description: "小红书图文笔记提取，连图片里的字一起 OCR。用户发来小红书笔记链接或分享文案（xiaohongshu.com、xhslink.com），要提取笔记正文、图片上的文字、每张图的描述、要点、点赞收藏数或话题标签时使用。图文笔记的正文常写在图片里，直接抓网页拿不到。通过 LinkDigest API 读取，不需要小红书账号或 Cookie。需要 LINKDIGEST_API_KEY，按量计费：6 张图以内 1 积分（约 ¥0.14），注册送 10 积分。"
-version: 1.1.1
+version: 1.1.2
 homepage: https://linkdigest.dev/zh/docs?ref=skill-linkdigest-xhs-note-ocr
 metadata: {"openclaw":{"requires":{"env":["LINKDIGEST_API_KEY"],"anyBins":["python3","curl"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/signin?ref=skill-linkdigest-xhs-note-ocr&next=/app/keys 创建"}],"homepage":"https://linkdigest.dev/zh/docs?ref=skill-linkdigest-xhs-note-ocr"}}
 required_environment_variables:
@@ -33,7 +33,7 @@ required_environment_variables:
 
 - 要搜索笔记、看评论、发布或点赞：这个技能只读单条笔记，不搜索、不登录、不发帖。
 - 私密、已删除或需要登录才能看的笔记：读不了（返回 422，不扣费）。
-- B站链接：不支持。
+- B站链接：可以读（2026-10-24 起）。
 
 ## 准备（一次）
 
@@ -148,7 +148,7 @@ printf '%s\n' "$body"
 
 ## 限制
 
-- 不支持 B站：哔哩哔哩对我们服务器的地址直接返回 HTTP 412。
+- B站：可以读（2026-10-24 起）。B 站偶尔拒绝时返回 503，不扣费，稍后重试即可。
 - 私密、已删除、需要登录才能看的笔记读不了。
 - 视频笔记另按时长计费（每开始的 1 分钟 +1 积分）；免费账户和加量包账户单条视频最长 10 分钟，Dev 月付 30 分钟，超过返回 402 且不扣费。详见 `linkdigest-video-transcript`。
 - 互动数据是读取当天的快照，不是实时数据；缓存里的结果保留第一次读取那天的数。

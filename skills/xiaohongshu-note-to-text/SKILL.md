@@ -1,7 +1,7 @@
 ---
 name: xiaohongshu-note-to-text
 description: "小红书笔记转文字：图文笔记每张图里的字（OCR）、图片描述、正文、标签、点赞收藏，视频笔记给口播逐字稿和画面文字，附分享页前几条热评；加 --insight 得消费者洞察（受众、卖点、顾虑、购买意向、产品价格、读者提问，每条带核对过的引文）。用户发来 xiaohongshu.com、xhslink.com、rednote.com 链接或分享口令，要提取笔记内容、图片文字、文案、做笔记总结或翻译时使用。不需要 Key 也能先免费看一条摘要；注册拿 Key（送 10 积分）后给完整逐字稿和逐图文字，一条图文 1 积分（约 ¥0.14）。不需要小红书账号或 Cookie，不是下载/去水印工具。"
-version: 1.1.1
+version: 1.1.2
 homepage: https://linkdigest.dev/zh/docs?ref=skill-xiaohongshu-note-to-text
 metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":false,"description":"可选。LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/signin?ref=skill-xiaohongshu-note-to-text&next=/app/keys 创建，注册送 10 积分；没有 Key 时每天可免费看 1 条摘要"}],"homepage":"https://linkdigest.dev/zh/docs?ref=skill-xiaohongshu-note-to-text"}}
 required_environment_variables:
@@ -33,7 +33,7 @@ required_environment_variables:
 
 - 要搜索笔记、翻整个评论区、发布或点赞：这个技能只读单条笔记，不搜索、不登录、不发帖。评论只带分享页自带的前几条热评（`comments[]`），不翻页、不抓评论接口。
 - 私密、已删除或需要登录才能看的笔记：读不了（返回 422，不扣费）。
-- B站链接：不支持。
+- B站链接：可以读（2026-10-24 起）。
 
 ## 准备（一次）
 
@@ -152,7 +152,7 @@ printf '%s\n' "$body"
 
 ## 限制
 
-- 不支持 B站：哔哩哔哩对我们服务器的地址直接返回 HTTP 412。
+- B站：可以读（2026-10-24 起）。B 站偶尔拒绝时返回 503，不扣费，稍后重试即可。
 - 私密、已删除、需要登录才能看的笔记读不了。
 - 视频笔记另按时长计费（每开始的 1 分钟 +1 积分）；免费账户和加量包账户单条视频最长 10 分钟，Dev 月付 30 分钟，超过返回 402 且不扣费。详见 `linkdigest-video-transcript`。
 - 互动数据是读取当天的快照，不是实时数据；缓存里的结果保留第一次读取那天的数。
