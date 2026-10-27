@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Search Xiaohongshu by topic, then read the notes you pick (LinkDigest API).
 
-    python3 xhs_search.py "成都 咖啡店"                # list the notes (2 credits when found)
+    python3 xhs_search.py "成都 咖啡店"                # list the notes (4 credits when found)
     python3 xhs_search.py "成都 咖啡店" --read 3       # also read the first 3 (text, every image OCR'd, top comments)
     python3 xhs_search.py "skincare routine" --limit 8 --format json
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Search Douyin by topic, then read the videos you pick (LinkDigest API).
 
-    python3 douyin_search.py "露营装备"                 # list the videos (2 credits when found)
+    python3 douyin_search.py "露营装备"                 # list the videos (4 credits when found)
     python3 douyin_search.py "露营装备" --read 2        # also read the first 2
     python3 douyin_search.py "camping gear" --limit 8 --format json
 
