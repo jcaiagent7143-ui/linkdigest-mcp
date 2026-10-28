@@ -13,7 +13,7 @@ required_environment_variables:
 
 # Instagram → text
 
-Instagram shows a logged-out visitor a login prompt, so an agent that fetches a reel link gets almost nothing back, and a reel's script is in its audio and on-screen captions anyway. This skill reads the reel or post through LinkDigest and hands back text.
+An agent that fetches a reel link from a server usually gets a login prompt or a thin page, and a reel's script is in its audio and on-screen captions anyway, not in the page. This skill reads the reel or post through LinkDigest and hands back text.
 
 ## Run it
 
