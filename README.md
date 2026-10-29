@@ -6,6 +6,18 @@ The social media reading layer for AI agents: turn a social media link into
 text a language model can read — **transcript, on-screen text, image
 descriptions, caption and metadata**, with quotes checked against the post.
 
+**A Chinese social media API for AI agents:** Xiaohongshu (RedNote, 小红书), Douyin (抖音),
+WeChat Official Account articles (公众号), Bilibili and 小宇宙 / Apple Podcasts episodes — plus
+TikTok, YouTube, X and Instagram — read into timed transcripts, OCR of every image and frame, top
+comments and key points with checked quotes. No Chinese phone number, account or cookies. Not read
+today: Weibo, Zhihu, Kuaishou. Overview: [linkdigest.dev/china-social-media-api](https://linkdigest.dev/china-social-media-api).
+
+```bash
+# A Douyin video's spoken script (文案), 1 credit per started 2 minutes
+curl -X POST https://linkdigest.dev/api/v1/digest -H "Authorization: Bearer ld_live_..." \
+  -H "Content-Type: application/json" -d '{"url": "https://v.douyin.com/xxxxxxx/", "depth": "script"}'
+```
+
 Hosted, remote (streamable HTTP). Nothing to install or run. For stdio-only clients and scripts,
 [`python/`](python/) adds a zero-dependency Python SDK, a `linkdigest` command line and a
 `linkdigest-mcp` stdio server that forwards to the hosted endpoint.

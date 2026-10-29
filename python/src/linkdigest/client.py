@@ -206,9 +206,10 @@ class LinkDigest:
         translate_to  Also translate, e.g. "en", "ja", "zh-CN". +1 credit.
         partial_ok    Read the opening minutes the budget affords instead of
                       refusing a video that is too long or too expensive.
-        depth         "full" (default) or "transcript": a long video read in full as a
-                      transcript with a few frames, 1 credit per 2 minutes. YouTube
-                      is always read in full.
+        depth         "full" (default), "transcript" (a long video read in full as a
+                      transcript with a few frames, 1 credit per 2 minutes) or
+                      "script" (the speech only, the 文案: 1 credit per started 2
+                      minutes, no base credit). YouTube is always read in full.
         ask           A question to answer from the post ("what products and prices
                       does it recommend?"). The answer (`digest.answer`) comes with
                       the quotes it rests on, checked against the post; `found` is
@@ -334,10 +335,10 @@ class LinkDigest:
                 body["ask"] = " ".join(ask.split())[:300]
         if partial_ok:
             body["partial_ok"] = True
-        if depth not in ("full", "transcript"):
-            raise InvalidRequestError('depth must be "full" or "transcript"')
-        if depth == "transcript":
-            body["depth"] = "transcript"
+        if depth not in ("full", "transcript", "script"):
+            raise InvalidRequestError('depth must be "full", "transcript" or "script"')
+        if depth in ("transcript", "script"):
+            body["depth"] = depth
         if max_credits is not None:
             if isinstance(max_credits, bool) or not isinstance(max_credits, int) or max_credits < 1:
                 raise InvalidRequestError("max_credits must be a whole number >= 1")

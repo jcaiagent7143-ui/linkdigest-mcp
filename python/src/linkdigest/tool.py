@@ -100,7 +100,7 @@ DIGEST_URL_TOOL: Dict[str, Any] = {'name': 'digest_url',
                                                                 'the same url and language is '
                                                                 'served from cache for free.'},
                                 'depth': {'type': 'string',
-                                          'enum': ['full', 'transcript'],
+                                          'enum': ['full', 'transcript', 'script'],
                                           'description': 'How much of a video to read. full '
                                                          '(default): the transcript plus frames '
                                                          'sampled densely, 1 credit per started '
