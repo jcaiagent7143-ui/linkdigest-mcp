@@ -7,10 +7,10 @@ text a language model can read — **transcript, on-screen text, image
 descriptions, caption and metadata**, with quotes checked against the post.
 
 **A Chinese social media API for AI agents:** Xiaohongshu (RedNote, 小红书), Douyin (抖音),
-WeChat Official Account articles (公众号), Bilibili and 小宇宙 / Apple Podcasts episodes — plus
+Weibo (微博), WeChat Official Account articles (公众号), Bilibili and 小宇宙 / Apple Podcasts episodes — plus
 TikTok, YouTube, X and Instagram — read into timed transcripts, OCR of every image and frame, top
 comments and key points with checked quotes. No Chinese phone number, account or cookies. Not read
-today: Weibo, Zhihu, Kuaishou. Overview: [linkdigest.dev/china-social-media-api](https://linkdigest.dev/china-social-media-api).
+today: Zhihu, Kuaishou. Overview: [linkdigest.dev/china-social-media-api](https://linkdigest.dev/china-social-media-api).
 
 ```bash
 # A Douyin video's spoken script (文案), 1 credit per started 2 minutes
@@ -196,13 +196,17 @@ Checked against real posts, not documentation.
 | Platform | Status |
 |---|---|
 | Xiaohongshu 小红书 | Works — image notes and video notes, no login needed |
-| Douyin 抖音 | Works — video posts and image notes (图文) |
+| Douyin 抖音 | Works — video posts and image notes (图文), through Douyin's own embed player |
+| Weibo 微博 | Works (since 2026-11-01) — text, photos, video, counts, top comments, through Weibo's own visitor page; posts only followers can see are refused, not charged |
+| WeChat 公众号 articles | Works — the full article, every image read |
+| Bilibili | Works (since 2026-10-24) — videos and b23.tv short links, through Bilibili's own embed player |
+| 小宇宙 / Apple Podcasts | Works (since 2026-10-29) — episode transcripts |
 | TikTok | Works — short links resolve. Rate-limits under load |
 | YouTube | Works — native captions where published, otherwise a watched transcript |
 | X | Works — posts with video or images |
+| Instagram | Works (since 2026-10-24) — reels, and photo posts through Instagram's embed page (a carousel reads its first slide) |
 | Web pages / articles | Works — readable article text, title, author, date |
-| **Bilibili** | **Not supported.** Returns HTTP 412 to our server's address. Needs a proxy |
-| **Instagram** | **Not verified.** Wired, not confirmed end to end |
+| **Zhihu, Kuaishou** | **Not read yet** |
 | **Facebook** | **Not supported.** Serves no post content to logged-out requests |
 
 The rows that do not work are listed on purpose. Finding out after you have wired
