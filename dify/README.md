@@ -44,8 +44,11 @@ Long media exceeds a single request; the plugin polls the job to completion (up 
 | YouTube | native captions where published, otherwise a watched transcript |
 | X | posts with video or images |
 | Web pages | article text and metadata |
-| **Bilibili** | **not supported** — returns HTTP 412 to the service's address |
-| **Instagram** | **wired, not verified end to end** |
+| Bilibili | videos and b23.tv short links, through Bilibili's own embed player (since 2026-10-24) |
+| Instagram | reels and video posts; photo posts read from Instagram's own embed page (a carousel gives its first slide) |
+| Weibo | posts with their text, counts, the text in images, a video's speech and top comments |
+| WeChat articles | mp.weixin.qq.com/s/… Official Account articles |
+| Podcasts | Xiaoyuzhou and Apple Podcasts episodes, transcribed |
 
 Facebook is out of scope; it serves no post content to logged-out requests.
 
@@ -55,7 +58,7 @@ A 17-image Xiaohongshu note: 17 image descriptions, 381 fragments of on-screen t
 
 ## Pricing
 
-10 free credits to start (once, not monthly), no card. Then $5 once for 250 credits (no subscription, never expire), or $9/month for 500 credits — a typical post is 1 credit, video 1 per started minute. Cached links are always free and never counted. Details: https://linkdigest.dev/pricing
+10 free credits to start (once, not monthly), no card. Then, once and never expiring: 50 credits for ¥9.9 by Alipay or $1.50 by card, or 250 credits for ¥36 / $5; or $9/month for 500 credits. An image post is 1 credit for up to 6 images, +1 per further 6 (a 12-image note is 2); a video is 1 credit plus 1 per started minute (a 3-minute Douyin is 4). Cached links are always free and never counted. Details: https://linkdigest.dev/pricing
 
 ## Network
 
