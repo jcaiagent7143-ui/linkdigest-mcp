@@ -5,9 +5,8 @@ LinkDigest 在 Dify 插件市场上有现成插件，ID 是 **`jcaiagent7143-ui/
 
 ## 版本
 
-2026-10-03 查询插件市场接口，市场上的最新版是 **0.1.1**，说明里的工具参数只有 `url` 和 `format`。
-本仓库 `dify/` 里是 **0.1.3**，工具多了 `translate_to`（翻译）和 `breakdown`（爆款拆解），已提交
-[langgenius/dify-plugins#3210](https://github.com/langgenius/dify-plugins/pull/3210)，合并之前市场上仍是 0.1.1。
+插件市场上是 **0.1.5**（2026-10-19 上架），工具参数：`url`、`format`、`translate_to`（翻译，+1 积分）、
+`breakdown`（爆款拆解，+1 积分）、`insight`（消费者洞察，+1 积分）。源码在本仓库的 [`dify/`](../../dify/)。
 
 ## 安装和授权
 
@@ -36,10 +35,16 @@ LinkDigest 在 Dify 插件市场上有现成插件，ID 是 **`jcaiagent7143-ui/
 
 - 长视频一次请求读不完时，插件会自己轮询任务直到完成，最多约 3.5 分钟（`dify/linkdigest_client.py` 里的
   `DEADLINE_SECONDS = 210`）。读过的链接约 1 秒返回，不扣积分。
-- 选 `json` 时，插件（0.1.3 源码）同时输出 JSON 消息和 JSON 文本：逐字稿在 `transcript`（`[{t, text}]`），图上文字在
+- 选 `json` 时，插件同时输出 JSON 消息和 JSON 文本：逐字稿在 `transcript`（`[{t, text}]`），图上文字在
   `ocr_text` / `images`，整条 Markdown 在 `raw_markdown`。
-- 0.1.3 上架后，把 `breakdown` 设为 `true` 就能直接拿到爆款拆解（+1 积分），不再需要上面 LLM 节点去猜结构；
-  拆解里的引用已经和原文逐字核对过。
+- 把 `breakdown` 设为 `true` 就能直接拿到爆款拆解（+1 积分），不再需要上面 LLM 节点去猜结构；
+  拆解里的引用已经和原文逐字核对过。`insight` 同理，给出受众、卖点、顾虑和购买意向。
+
+## 现成的工作流：贴一组链接，出一份对比
+
+[`dify/examples/social-research-agent.yml`](../../dify/examples/social-research-agent.yml)：在 Dify 里「导入 DSL 文件」，
+选好两个 LLM 节点的模型就能跑。每行一个链接（最多 20 条），逐条读取、各自总结，再整体对比。步骤和截图见
+<https://linkdigest.dev/zh/docs/dify>。
 
 ## 报错时
 
@@ -49,4 +54,4 @@ LinkDigest 在 Dify 插件市场上有现成插件，ID 是 **`jcaiagent7143-ui/
 - 链接读不了（422）：删帖、私密账号或需要登录，消息写明原因。
 - Key 无效（401）：去 <https://linkdigest.dev/app/keys> 重新创建。
 
-不支持 B站（对我们服务器返回 HTTP 412）。完整的平台列表见仓库首页的 [README.zh-CN.md](../../README.zh-CN.md#平台支持)。
+B站视频从 2026-10-24 起可读（走 B 站自己的嵌入播放器）。完整的平台列表见仓库首页的 [README.zh-CN.md](../../README.zh-CN.md#平台支持)。
