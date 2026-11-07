@@ -3,6 +3,17 @@
 Dates are when the change reached this repository. The hosted service at
 linkdigest.dev changes independently; its prices are in the README.
 
+## 2026-11-07 — 1.0.10: silent videos are read through their pictures
+
+- Python SDK 0.2.4: `linkdigest capture <file>` no longer refuses a video without a sound
+  track ("has no sound track … cannot be read"). Stock, screen and robot footage is often
+  silent; the site takes a sound part with every capture, so silence of the clip's length is
+  sent (8 kbps, a few KB) and the frames are read. The result says no speech was heard; the
+  CLI says so on stderr and in `--dry-run --json` (`"silent": true`). A file with neither sound
+  nor readable pictures is still refused before anything is sent. The site's upload page and
+  the hosted engine changed the same day: a silent clip read through its pictures is billed
+  like any other read.
+
 ## 2026-10-24 — 1.0.9: `linkdigest capture <file>`
 
 - Python SDK 0.2.3 (0.2.2 took the poll's 202 "still running" for a refusal; found by sending a real clip): `linkdigest capture ./video.mp4 --url "<link>"` reads a video you already

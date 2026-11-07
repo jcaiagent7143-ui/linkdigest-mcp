@@ -154,3 +154,19 @@ def test_a_real_file_becomes_sound_and_frames(tmp_path):
     subprocess.run(["ffmpeg", "-nostdin", "-loglevel", "error", "-f", "lavfi", "-i", "testsrc=size=160x120:rate=10", "-t", "1", "-pix_fmt", "yuv420p", str(short)], check=True)
     with pytest.raises(capture.CaptureError, match="shorter than 3 seconds"):
         capture.read_video_file(str(short))
+
+
+@pytest.mark.skipif(not shutil.which("ffmpeg"), reason="ffmpeg not on PATH")
+def test_a_file_without_a_sound_track_is_read_as_its_pictures(tmp_path):
+    """Stock and robot footage is often silent (2026-11-07: five Pexels clips were refused).
+    Silence of the clip's length goes as the sound part; the frames are read."""
+    mute = tmp_path / "mute.mp4"
+    subprocess.run(
+        ["ffmpeg", "-nostdin", "-loglevel", "error", "-f", "lavfi", "-i", "testsrc=size=320x240:rate=10",
+         "-t", "9", "-c:v", "libx264", "-pix_fmt", "yuv420p", "-an", str(mute)],
+        check=True,
+    )
+    parts = capture.read_video_file(str(mute))
+    assert parts.silent is True and parts.frames
+    assert parts.audio[:3] == b"ID3" or (parts.audio[0] == 0xFF and parts.audio[1] & 0xE0 == 0xE0)
+    assert len(parts.audio) < 40_000

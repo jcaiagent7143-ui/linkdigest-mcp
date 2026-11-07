@@ -69,6 +69,9 @@ class VideoParts:
     truncated: bool
     # Frames left out to stay under MAX_TOTAL_BYTES (thinned evenly).
     dropped: int = 0
+    # The file has no sound track: `audio` is silence of the same length and
+    # the read is the pictures only; the result says no speech was heard.
+    silent: bool = False
 
 
 # --- extraction (ffmpeg on this machine) -----------------------------------
@@ -143,6 +146,46 @@ def extract_audio(path: Path, seconds: float, *, kbps: int = AUDIO_KBPS) -> byte
         shutil.rmtree(tmp, ignore_errors=True)  # never persist media
 
 
+def has_sound(path: Path) -> bool:
+    """Whether the file carries an audio stream at all."""
+    cmd = ["ffprobe", "-v", "error", "-select_streams", "a", "-show_entries", "stream=index", "-of", "csv=p=0", str(path)]
+    try:
+        proc = subprocess.run(cmd, capture_output=True, timeout=30)
+    except (OSError, subprocess.TimeoutExpired):
+        return True  # let extract_audio say what is wrong
+    return bool(proc.stdout.strip())
+
+
+# Silence carries no speech, so it goes at MPEG-2's lowest rate (16 kHz allows 8 kbps).
+SILENCE_KBPS = 8
+
+
+def silent_mp3(seconds: float, *, kbps: int = SILENCE_KBPS) -> bytes:
+    """Silence as long as the clip, as 16 kHz mono MP3.
+
+    The site takes a sound part with every capture. Stock and robot footage is
+    often silent; silence keeps its pictures readable, and the read then says
+    no speech was heard -- nothing is made up.
+    """
+    tmp = Path(tempfile.mkdtemp(prefix="linkdigest_silence_"))
+    out = tmp / "silence.mp3"
+    cmd = [
+        "ffmpeg", "-nostdin", "-loglevel", "error", "-y",
+        "-f", "lavfi", "-i", "anullsrc=r=16000:cl=mono", "-t", f"{seconds:.2f}",
+        "-codec:a", "libmp3lame", "-b:a", f"{kbps}k", str(out),
+    ]
+    try:
+        try:
+            proc = subprocess.run(cmd, capture_output=True, timeout=60)
+        except subprocess.TimeoutExpired as exc:
+            raise CaptureError("ffmpeg timed out making the silent sound part") from exc
+        if not out.exists() or out.stat().st_size == 0:
+            raise CaptureError(f"this file has no sound track, and a silent one could not be made: {proc.stderr.decode(errors='replace')[:200]}")
+        return out.read_bytes()
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+
 def sample_frames_at(path: Path, times: List[float], *, max_width: int = FRAME_WIDTH, quality: int = JPEG_QUALITY) -> List[Tuple[float, bytes]]:
     """One JPEG at each of `times`, by input-side seeking. A frame identical to
     the one before it is dropped; frames that fail are left out."""
@@ -198,7 +241,8 @@ def read_video_file(path: str, *, max_seconds: int = MAX_SECONDS, max_frames: in
     seconds = min(full, float(max_seconds))
     truncated = full > max_seconds + 1
 
-    audio = extract_audio(source, seconds)
+    silent = not has_sound(source)
+    audio = silent_mp3(seconds) if silent else extract_audio(source, seconds)
     if len(audio) > MAX_AUDIO_BYTES:
         raise CaptureError(
             f"the sound track came to {len(audio) // 1_000_000} MB, over the site's "
@@ -213,10 +257,12 @@ def read_video_file(path: str, *, max_seconds: int = MAX_SECONDS, max_frames: in
         frames.append(blob)
         times.append(t)
     # No frames is not a failure: the words alone still make a digest, as on
-    # the console's upload page.
+    # the console's upload page. Without words AND pictures there is nothing.
+    if silent and not frames:
+        raise CaptureError(f"{source.name} has no sound track and no pictures could be read from it")
 
     frames, times, dropped = _thin(frames, times, MAX_TOTAL_BYTES - len(audio))
-    return VideoParts(audio=audio, frames=frames, frame_times=times, seconds=round(seconds, 1), truncated=truncated, dropped=dropped)
+    return VideoParts(audio=audio, frames=frames, frame_times=times, seconds=round(seconds, 1), truncated=truncated, dropped=dropped, silent=silent)
 
 
 # --- the request ------------------------------------------------------------
@@ -359,8 +405,10 @@ def main(argv: Optional[List[str]] = None) -> int:
     summary = {
         "file": args.file, "seconds": parts.seconds, "truncated": parts.truncated,
         "audio_bytes": len(parts.audio), "frames": len(parts.frames), "frame_times": parts.frame_times,
-        "dropped_frames": parts.dropped, "total_bytes": total, "page_url": page_url,
+        "dropped_frames": parts.dropped, "total_bytes": total, "page_url": page_url, "silent": parts.silent,
     }
+    if parts.silent:
+        print("no sound track: only the pictures are read, and the result will say no speech was heard", file=err)
 
     if args.dry_run:
         if args.json:
