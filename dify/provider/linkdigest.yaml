@@ -24,6 +24,7 @@ credentials_for_provider:
     url: https://linkdigest.dev/app/keys
 tools:
   - tools/digest_url.yaml
+  - tools/market_radar.yaml
 extra:
   python:
     source: provider/linkdigest.py

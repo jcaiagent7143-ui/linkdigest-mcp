@@ -26,6 +26,18 @@ A workflow node that fetches a Xiaohongshu URL gets an app-download shell, not t
 
 Long media exceeds a single request; the plugin polls the job to completion (up to ~3.5 minutes). A cached link returns in about a second and costs nothing.
 
+**`market_radar(topic, market, size, language)`** - Pain-Point Radar (new in 0.1.7)
+
+One product category, brand or competitor in, one report out: what people search for (Baidu, Taobao and Bing suggestions; Bing and YouTube for `global`), what the top Xiaohongshu + Douyin posts (or YouTube + TikTok reviews) complain about, want and hesitate over, each point counted per post by code with a word-for-word quote, and the searches no post answers. A run takes 10-20 minutes: the first call starts it and returns a `radar_id`; call again with `radar_id` to fetch the report (free). About 41-47 credits for 12 posts, at most 5 a post; posts already read cost nothing.
+
+| Parameter | | |
+|---|---|---|
+| `topic` | to start | A category, product or brand (1-40 characters) |
+| `radar_id` | to fetch | The id the first call returned |
+| `market` | optional | `cn` (Xiaohongshu + Douyin, default) or `global` (YouTube + TikTok) |
+| `size` | optional | `quick` 12 posts (default), `standard` 24, `deep` 48 |
+| `language` | optional | `zh-CN` (default), `en` or `ja` |
+
 ## What comes back
 
 - `transcript` with timecodes, and `transcript_source` — `native_captions` (exact, from the platform) or `asr` (speech recognition)

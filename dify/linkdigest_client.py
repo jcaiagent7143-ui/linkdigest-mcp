@@ -28,6 +28,9 @@ POLL_SECONDS = 10
 # Measured: 119 s for a 17-image Xiaohongshu note, ~150-170 s for a long Douyin
 # video. Leave headroom, but do not sit on a hung job forever.
 DEADLINE_SECONDS = 210
+# A radar (POST /api/v1/radar) usually takes 10-20 minutes; a Dify tool waits
+# this long, then answers with the started run's id to fetch later.
+RADAR_WAIT_SECONDS = 100
 
 
 class LinkDigestError(Exception):
@@ -117,6 +120,41 @@ class LinkDigestClient:
                     202,
                 )
             wait = max(int(r.headers.get("Retry-After") or wait), POLL_SECONDS)
+
+    def radar(self, topic: str, market: str = "cn", size: str = "quick", language: str = "zh-CN", wait_seconds: int = RADAR_WAIT_SECONDS) -> dict[str, Any]:
+        """Start a 痛点雷达 (Pain-Point Radar, 2026-11-07) and wait up to
+        `wait_seconds` for it. A run usually takes 10-20 minutes (its reads
+        queue on the engine), longer than a Dify tool call may block, so the
+        common answer is the started run: its radar_id, to fetch later with
+        radar_result()."""
+        r = self._s.post(
+            f"{self._base}/api/v1/radar",
+            headers={**self._headers(), "Content-Type": "application/json"},
+            json={"topic": topic, "market": market, "size": size, "language": language},
+            timeout=60,
+        )
+        if r.status_code not in (200, 202):
+            self._finish(r, "json")  # raises with the API's own message (402 carries the pay link)
+        started = r.json()
+        radar_id = str(started.get("radar_id") or "")
+        deadline = time.monotonic() + max(0, wait_seconds)
+        summary = started
+        while summary.get("status") not in ("done", "failed") and time.monotonic() < deadline:
+            time.sleep(POLL_SECONDS)
+            summary = self.radar_result(radar_id, markdown=False)
+        return summary
+
+    def radar_result(self, radar_id: str, markdown: bool = False) -> dict[str, Any]:
+        """One look at a radar: the summary JSON, plus its Markdown report when done and asked."""
+        r = self._s.get(f"{self._base}/api/v1/radar/{radar_id}", headers=self._headers(), timeout=40)
+        if r.status_code not in (200, 202):
+            self._finish(r, "json")
+        summary = r.json()
+        if markdown and summary.get("status") == "done":
+            md = self._s.get(f"{self._base}/api/v1/radar/{radar_id}", params={"format": "md"}, headers=self._headers(), timeout=40)
+            if md.status_code == 200:
+                summary["markdown"] = md.text
+        return summary
 
     @staticmethod
     def _finish(r: requests.Response, fmt: str) -> Digest:

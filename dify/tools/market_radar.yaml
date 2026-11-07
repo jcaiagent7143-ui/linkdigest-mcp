@@ -1,0 +1,92 @@
+identity:
+  name: market_radar
+  author: jcaiagent7143-ui
+  label:
+    en_US: Pain-Point Radar
+    zh_Hans: 痛点雷达
+description:
+  human:
+    en_US: One product category or brand in, one report out - what people search for (Baidu/Taobao/Bing or Bing/YouTube suggestions), what the top Xiaohongshu + Douyin posts (or YouTube + TikTok reviews) complain about, want and hesitate over, each point counted per post by code with a word-for-word quote, and the searches no post answers. A run takes 10-20 minutes - start it, then fetch it with radar_id.
+    zh_Hans: 输入一个品类或品牌，拿回一份报告：大家在搜什么（百度/淘宝/Bing 联想，出海用 Bing/YouTube），小红书 + 抖音（出海：YouTube + TikTok）热门内容在抱怨什么、看重什么、顾虑什么，每一条由代码数出出现在几篇里、附逐字核对过的原话，以及有人在搜、没人讲的「机会」。一次通常 10–20 分钟：先开始，再用 radar_id 取结果。
+  llm: Use this to research a product category, brand or competitor from social media - pain points, needs, purchase blockers, products named, unanswered questions and search demand, counted per post with verified quotes. market "cn" reads Xiaohongshu and Douyin, "global" reads YouTube and TikTok. A run takes 10-20 minutes, so the first call usually returns a radar_id; call again with radar_id to fetch the finished report. Costs about 41-47 credits for 12 posts.
+parameters:
+  - name: topic
+    type: string
+    required: false
+    label:
+      en_US: Topic
+      zh_Hans: 品类或品牌
+    human_description:
+      en_US: A product category, product or brand, e.g. robot vacuum. Leave empty when fetching with radar_id.
+      zh_Hans: 品类、产品或品牌，例如 扫地机器人。用 radar_id 取结果时留空。
+    llm_description: The category, product or brand to research (1-40 characters). Leave empty when passing radar_id.
+    form: llm
+  - name: radar_id
+    type: string
+    required: false
+    label:
+      en_US: Radar ID
+      zh_Hans: 雷达 ID
+    human_description:
+      en_US: The id a started run returned; fetches its report (free).
+      zh_Hans: 开始时返回的 id；用它取报告（不扣费）。
+    llm_description: The radar_id from an earlier call, to fetch that run's report. Leave empty to start a new run.
+    form: llm
+  - name: market
+    type: select
+    required: false
+    default: cn
+    label:
+      en_US: Market
+      zh_Hans: 市场
+    human_description:
+      en_US: cn reads Xiaohongshu + Douyin; global reads YouTube + TikTok (report in Chinese by default, English quotes kept).
+      zh_Hans: cn 读小红书 + 抖音；global 读 YouTube + TikTok（默认中文报告，保留英文原话）。
+    llm_description: cn (Xiaohongshu + Douyin) or global (YouTube + TikTok).
+    form: form
+    options:
+      - value: cn
+        label: { en_US: China (Xiaohongshu + Douyin), zh_Hans: 国内（小红书 + 抖音） }
+      - value: global
+        label: { en_US: Overseas (YouTube + TikTok), zh_Hans: 出海（YouTube + TikTok） }
+  - name: size
+    type: select
+    required: false
+    default: quick
+    label:
+      en_US: Size
+      zh_Hans: 篇数
+    human_description:
+      en_US: quick 12 posts, standard 24, deep 48. At most 5 credits a post; posts already read cost nothing.
+      zh_Hans: 速查 12 篇、标准 24 篇、深度 48 篇。每篇最多 5 积分，读过的内容 0 积分。
+    llm_description: quick (12 posts), standard (24) or deep (48).
+    form: form
+    options:
+      - value: quick
+        label: { en_US: Quick (12), zh_Hans: 速查（12 篇） }
+      - value: standard
+        label: { en_US: Standard (24), zh_Hans: 标准（24 篇） }
+      - value: deep
+        label: { en_US: Deep (48), zh_Hans: 深度（48 篇） }
+  - name: language
+    type: select
+    required: false
+    default: zh-CN
+    label:
+      en_US: Report language
+      zh_Hans: 报告语言
+    human_description:
+      en_US: The report's language; quotes stay in the post's own language with a translation.
+      zh_Hans: 报告用的语言；原话保留帖子的语言并附译文。
+    llm_description: zh-CN, en or ja.
+    form: form
+    options:
+      - value: zh-CN
+        label: { en_US: Chinese, zh_Hans: 中文 }
+      - value: en
+        label: { en_US: English, zh_Hans: 英文 }
+      - value: ja
+        label: { en_US: Japanese, zh_Hans: 日文 }
+extra:
+  python:
+    source: tools/market_radar.py
