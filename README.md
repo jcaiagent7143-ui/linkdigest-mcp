@@ -135,6 +135,10 @@ Eleven ready-made skills live in [`skills/`](skills). Each is one job, a `SKILL.
 | `linkdigest-xiaohongshu-douyin-reader` | Read Xiaohongshu / Douyin posts in English |
 | `linkdigest-viral-breakdown` | How a viral post is built, with quotes checked against the source |
 | `linkdigest-script-rewrite` | Extract a reference video's script and structure, then write your own |
+| `xiaohongshu-pain-point-radar` | 痛点雷达: a category on Xiaohongshu + Douyin → pain points, needs and blockers counted per post by code (N/M), search demand from Baidu/Taobao/Bing suggestions, and gaps nobody answers; quotes checked word for word |
+| `overseas-pain-points` | 出海痛点: the same for overseas buyers on YouTube + TikTok, report in Chinese with the English originals |
+
+**Pain-Point Radar** (2026-11-07) is one REST call: `POST https://linkdigest.dev/api/v1/radar` with `{"topic": "robot vacuum", "market": "global"}` (or `"cn"` for Xiaohongshu + Douyin), then poll `GET /api/v1/radar/{id}`; a 12-post run is ~41–47 credits and takes 10–20 minutes. Public, weekly-refreshed examples: [国内品类](https://linkdigest.dev/zh/tongdian-leida) · [出海品类](https://linkdigest.dev/zh/chuhai-tongdian).
 
 ```bash
 # Any agent the skills CLI supports (Claude Code, Cursor, Codex, OpenClaw, Trae, Qwen Code, ...)

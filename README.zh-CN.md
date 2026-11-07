@@ -130,6 +130,10 @@ claude mcp add --transport http linkdigest https://linkdigest.dev/mcp \
 | `linkdigest-xiaohongshu-douyin-reader` | 用英文读小红书 / 抖音（英文说明） |
 | `linkdigest-viral-breakdown` | 爆款拆解，引用逐字核对原文 |
 | `linkdigest-script-rewrite` | 提取对标视频的口播稿和结构，再仿写自己的脚本 |
+| `xiaohongshu-pain-point-radar` | 痛点雷达：一个品类在小红书 + 抖音上被抱怨什么、看重什么、搜什么，代码数出每条出现在几篇里（N/M），原话逐字核对，有人搜、没人讲的列成「机会」 |
+| `overseas-pain-points` | 出海痛点：同样的事放在 YouTube + TikTok，中文报告，英文原话保留 |
+
+**痛点雷达**（2026-11-07）是一次 REST 调用：`POST https://linkdigest.dev/api/v1/radar`，`{"topic": "扫地机器人", "market": "cn"}`（出海用 `"global"`），再轮询 `GET /api/v1/radar/{id}`；速查 12 篇约 41–47 积分，通常 10–20 分钟。每周更新的公开样例：[国内品类库](https://linkdigest.dev/zh/tongdian-leida) · [出海品类库](https://linkdigest.dev/zh/chuhai-tongdian)。
 
 ```bash
 # skills CLI 支持的 Agent（Claude Code、Cursor、Codex、OpenClaw、Trae 等）
