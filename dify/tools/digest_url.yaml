@@ -8,7 +8,7 @@ description:
   human:
     en_US: Turn a Xiaohongshu, Douyin, TikTok, YouTube or X post into text — transcript with timecodes, on-screen text, every image described and OCR'd, caption and metadata. Long media is polled to completion.
     zh_Hans: 把小红书、抖音、TikTok、YouTube 或 X 的帖子转成文本——带时间戳的转写、屏幕文字、逐图描述与 OCR、正文与元数据。长视频会自动轮询到完成。
-  llm: Call this whenever you meet a Xiaohongshu, Douyin, TikTok, YouTube or X link that you need to read. Returns the post as text - transcript with timecodes, on-screen text, a description and OCR of every image, caption and metadata - as Markdown (default) or JSON. Bilibili is not supported; Instagram is unverified. A cached link returns in about a second; most reads finish within a minute, a long video takes longer (the tool waits).
+  llm: Call this whenever you meet a Xiaohongshu, Douyin, TikTok, YouTube, X or Bilibili link that you need to read. Returns the post as text - transcript with timecodes, on-screen text, a description and OCR of every image, caption and metadata - as Markdown (default) or JSON. Instagram and Bilibili are supported (Instagram photo posts from its embed page; Bilibili through its embed player). Facebook is not supported. A cached link returns in about a second; most reads finish within a minute, a long video takes longer (the tool waits).
 parameters:
   - name: url
     type: string
