@@ -62,4 +62,4 @@ python3 {baseDir}/scripts/radar.py "扫地机器人"
 
 ## 隐私
 
-只把你给的品类词发给 linkdigest.dev，不要也不读任何小红书、抖音账号或 Cookie。https://linkdigest.dev/privacy · 品类库（每周更新的公开样例）：https://linkdigest.dev/zh/tongdian-leida · support@linkdigest.dev
+只把你给的品类词发给 linkdigest.dev，不要也不读任何小红书、抖音账号或 Cookie。https://linkdigest.dev/privacy · 品类库（公开样例，写明读取日期）：https://linkdigest.dev/zh/tongdian-leida · support@linkdigest.dev

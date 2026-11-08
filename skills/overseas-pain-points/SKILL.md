@@ -54,4 +54,4 @@ python3 {baseDir}/scripts/radar.py "robot vacuum"
 
 ## 隐私
 
-只把你给的品类词发给 linkdigest.dev，不读任何账号或 Cookie。https://linkdigest.dev/privacy · 出海品类库（每周更新）：https://linkdigest.dev/zh/chuhai-tongdian · support@linkdigest.dev
+只把你给的品类词发给 linkdigest.dev，不读任何账号或 Cookie。https://linkdigest.dev/privacy · 出海品类库（公开样例，写明读取日期）：https://linkdigest.dev/zh/chuhai-tongdian · support@linkdigest.dev
