@@ -9,7 +9,7 @@ Turn a Douyin, Xiaohongshu, TikTok, YouTube or X link into text an LLM can read.
 
 This package is a thin client for the hosted service at [linkdigest.dev](https://linkdigest.dev):
 nothing is downloaded or transcribed on your machine, and it has **no dependencies**
-(Python 3.10+, standard library only). It installs three things:
+(Python 3.10+, standard library only; LangChain and LlamaIndex are optional extras). It installs:
 
 | | |
 |---|---|
@@ -17,6 +17,8 @@ nothing is downloaded or transcribed on your machine, and it has **no dependenci
 | `linkdigest <url>` | command line — Markdown to stdout, `--json`, `--breakdown`, `--translate en` |
 | `linkdigest capture <file>` | a video you already have (a Douyin post its player will not serve: 分享 → 保存本地) — the sound and a few frames are extracted here with ffmpeg and sent; the video is never uploaded; `--dry-run` sends nothing |
 | `linkdigest-mcp` | stdio MCP server — the `digest_url` tool, forwarded to `https://linkdigest.dev/mcp` with your key |
+| `linkdigest.integrations.langchain.LinkDigestTool` | LangChain tool — `pip install "linkdigest-mcp[langchain]"` |
+| `linkdigest.integrations.llamaindex.LinkDigestReader` | LlamaIndex reader, one `Document` per link — `pip install "linkdigest-mcp[llamaindex]"` |
 
 Install from PyPI — [`linkdigest-mcp`](https://pypi.org/project/linkdigest-mcp/) is built and uploaded
 by this repo's release workflow (trusted publisher, with attestations) — or from this repo:

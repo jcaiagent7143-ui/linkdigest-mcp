@@ -23,7 +23,7 @@
 
 ## 这个仓库里有什么
 
-开源的部分：Python SDK、`linkdigest` 命令行和 `linkdigest-mcp` 本地（stdio）MCP 服务器（[`python/`](python/)，MIT），
+开源的部分：Python SDK、`linkdigest` 命令行和 `linkdigest-mcp` 本地（stdio）MCP 服务器（[`python/`](python/)，MIT；SDK 里带 LangChain 工具和 LlamaIndex 读取器），
 Dify 插件源码（[`dify/`](dify/)），Agent 技能（[`skills/`](skills/)），示例，以及官方 MCP 注册表条目（[`server.json`](server.json)）。
 `https://linkdigest.dev/mcp` 和 API 背后的托管服务由 LinkDigest 运营，读取引擎不开源。
 
@@ -245,6 +245,40 @@ linkdigest --check-key                                     # 校验 Key
 花了几个积分、是否命中缓存打印在 stderr，stdout 只有内容，方便接管道。退出码：0 成功，1 出错，2 用法错误或没有 Key，3 积分不够（会打印付款链接），4 等待超时（会打印 job id）。
 
 批量处理一列链接并导出 CSV（Excel / WPS 直接打开）：[`examples/python/links_to_csv.py`](examples/python/links_to_csv.py)。
+
+## LangChain
+
+`LinkDigestTool` 是一个 LangChain 工具（`digest_url`）：模型传入链接，拿回这条内容的 Markdown——带时间的逐字稿、画面文字、要点和 Coverage（读到了多少）。通过 ToolCall 调用时，完整 JSON 在 ToolMessage 的 `artifact` 里。积分不够（402）会变成一句带付款链接的话交给模型；长视频没读完会返回 job id，模型下一次调用时取回，不会重复扣费。
+
+```python
+# pip install "linkdigest-mcp[langchain]" langchain
+from langchain.agents import create_agent
+from linkdigest.integrations.langchain import LinkDigestTool
+
+agent = create_agent("anthropic:claude-sonnet-5-5", tools=[LinkDigestTool(max_credits=10)])
+agent.invoke({"messages": [{"role": "user", "content": "这条视频卖的是什么？https://v.douyin.com/xxxx/"}]})
+```
+
+SDK 0.2.5 上 PyPI 之前，从本仓库安装：`pip install "linkdigest-mcp[langchain] @ git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"`。
+
+`LinkDigestTool(output="json")` 改为给模型精简的 JSON。示例：[`examples/python/langchain_agent.py`](examples/python/langchain_agent.py)。
+
+## LlamaIndex
+
+`LinkDigestReader` 把链接变成 LlamaIndex 的 `Document`：正文是 Markdown，metadata 是扁平字段（`platform`、`title`、`author`、`source_url`、`posted_at`、`credits`、`coverage_*`），任何向量库都能直接存。读不了的链接记一条日志后跳过（`errors="raise"` 则直接报错）。
+
+```python
+# pip install "linkdigest-mcp[llamaindex]" llama-index
+from llama_index.core import VectorStoreIndex
+from linkdigest.integrations.llamaindex import LinkDigestReader
+
+docs = LinkDigestReader(depth="script").load_data(["https://v.douyin.com/xxxx/", "https://b23.tv/xxxx"])
+VectorStoreIndex.from_documents(docs).as_query_engine().query("这些视频有什么共同点？")
+```
+
+SDK 0.2.5 上 PyPI 之前，从本仓库安装：`pip install "linkdigest-mcp[llamaindex] @ git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"`。
+
+`depth="script"` 只读口播，最便宜。示例：[`examples/python/llamaindex_reader.py`](examples/python/llamaindex_reader.py)。
 
 ## 价格
 

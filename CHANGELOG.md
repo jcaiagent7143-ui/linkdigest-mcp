@@ -3,6 +3,24 @@
 Dates are when the change reached this repository. The hosted service at
 linkdigest.dev changes independently; its prices are in the README.
 
+## 2026-11-09 — Python SDK 0.2.5 (in this repository; not on PyPI yet): LangChain and LlamaIndex
+
+- `linkdigest.integrations.langchain.LinkDigestTool` (`pip install "linkdigest-mcp[langchain]"`): a
+  LangChain tool named `digest_url` taking `url`, `depth`, `translate_to` or `job_id`. The model gets the
+  digest's markdown (or compact JSON with `output="json"`); a ToolCall also carries the full JSON as the
+  ToolMessage `artifact`. Out of credits (402) and removed or private posts (422) come back as a sentence
+  for the model to pass on, with the pay link when there is one; a read still running after `max_wait`
+  comes back as a job id to collect on the next call. `max_credits` is set on the tool, never by the model.
+- `linkdigest.integrations.llamaindex.LinkDigestReader` (`pip install "linkdigest-mcp[llamaindex]"`): one
+  LlamaIndex `Document` per link, id `linkdigest:<source_url>`, with flat metadata (`platform`, `title`,
+  `author`, `source_url`, `posted_at`, `transcript_source`, `credits`, `cached`, `coverage_*`) that vector
+  stores accept; credits and cache flags are kept out of embeddings and prompts. A link that cannot be read
+  is logged and skipped (`errors="raise"` stops instead); out of credits, a bad key or a rate limit stops
+  the load.
+- Both extras are optional: the base SDK still has no dependencies. Tested against langchain-core 0.3 and
+  1.7, llama-index-core 0.10 and 0.14, and run live on 2026-11-09 against a cached Douyin link (0 credits).
+  Examples: `examples/python/langchain_agent.py`, `examples/python/llamaindex_reader.py`.
+
 ## 2026-11-07 — 1.0.10: silent videos are read through their pictures
 
 - Python SDK 0.2.4: `linkdigest capture <file>` no longer refuses a video without a sound

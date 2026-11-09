@@ -31,8 +31,8 @@ Hosted, remote (streamable HTTP). Nothing to install or run. For stdio-only clie
 ## What this repository contains
 
 The open parts: the Python SDK, the `linkdigest` command line and the `linkdigest-mcp` stdio server
-([`python/`](python/), MIT), the Dify plugin source ([`dify/`](dify/)), the agent skill
-([`skills/`](skills/)), examples, and the official MCP registry entry ([`server.json`](server.json)).
+([`python/`](python/), MIT), a LangChain tool and a LlamaIndex reader (in the SDK), the Dify
+plugin source ([`dify/`](dify/)), the agent skill ([`skills/`](skills/)), examples, and the official MCP registry entry ([`server.json`](server.json)).
 The hosted service behind `https://linkdigest.dev/mcp` and the API is operated by LinkDigest; its
 reading engine is not open source.
 
@@ -260,6 +260,45 @@ print(d.markdown)
 Long jobs are collected for you (`GET /api/v1/digest/{jobId}?wait=20`); errors are typed
 (`PaymentRequiredError` carries `buy_url`). Examples — Dify, OpenAPI import for Coze-style
 platforms, Feishu Bitable, links to CSV — are in [`examples/`](examples/) (Chinese).
+
+## LangChain
+
+`LinkDigestTool` is a LangChain tool (`digest_url`): the model passes a link, and gets the post back as
+markdown — transcript with times, on-screen text, key points, a Coverage line. Through a ToolCall the full
+JSON is on the ToolMessage as `artifact`. A 402 (out of credits) comes back as a sentence with the pay link,
+and a long read still running comes back as a job id the model collects on its next call.
+
+```python
+# pip install "linkdigest-mcp[langchain]" langchain
+from langchain.agents import create_agent
+from linkdigest.integrations.langchain import LinkDigestTool
+
+agent = create_agent("anthropic:claude-sonnet-5-5", tools=[LinkDigestTool(max_credits=10)])
+agent.invoke({"messages": [{"role": "user", "content": "What does this video sell? https://v.douyin.com/xxxx/"}]})
+```
+
+Until SDK 0.2.5 is on PyPI, install it from this repository: `pip install "linkdigest-mcp[langchain] @ git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"`.
+
+`LinkDigestTool(output="json")` gives the model compact JSON instead. Example: [`examples/python/langchain_agent.py`](examples/python/langchain_agent.py).
+
+## LlamaIndex
+
+`LinkDigestReader` turns links into LlamaIndex `Document`s: the markdown as text, and flat metadata
+(`platform`, `title`, `author`, `source_url`, `posted_at`, `credits`, `coverage_*`) that any vector store
+accepts. A link that cannot be read is logged and skipped (`errors="raise"` to stop instead).
+
+```python
+# pip install "linkdigest-mcp[llamaindex]" llama-index
+from llama_index.core import VectorStoreIndex
+from linkdigest.integrations.llamaindex import LinkDigestReader
+
+docs = LinkDigestReader(depth="script").load_data(["https://v.douyin.com/xxxx/", "https://b23.tv/xxxx"])
+VectorStoreIndex.from_documents(docs).as_query_engine().query("What do these videos have in common?")
+```
+
+Until SDK 0.2.5 is on PyPI, install it from this repository: `pip install "linkdigest-mcp[llamaindex] @ git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"`.
+
+`depth="script"` reads the speech only, the cheapest read. Example: [`examples/python/llamaindex_reader.py`](examples/python/llamaindex_reader.py).
 
 ## Dify
 

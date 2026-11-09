@@ -31,6 +31,8 @@ keywords = [
   "抖音",
   "文案提取",
   "爆款拆解",
+  "langchain",
+  "llamaindex",
 ]
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -63,6 +65,9 @@ linkdigest-mcp = "linkdigest.mcp_server:main"
 
 [project.optional-dependencies]
 test = ["pytest>=7"]
+# Agent frameworks, each optional: the base SDK stays dependency-free.
+langchain = ["langchain-core>=0.3"]
+llamaindex = ["llama-index-core>=0.10"]
 
 [tool.hatch.version]
 path = "src/linkdigest/_version.py"
