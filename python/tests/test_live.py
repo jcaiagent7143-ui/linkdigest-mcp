@@ -14,15 +14,14 @@ from __future__ import annotations
 import pytest
 
 from linkdigest.mcp_server import StdioProxy
-from linkdigest.tool import DIGEST_URL_TOOL
+from linkdigest.tool import BUNDLED_TOOLS
 
 
 @pytest.mark.live
-def test_live_tools_list_matches_the_bundled_tool():
+def test_live_tools_list_matches_the_bundled_tools():
     proxy = StdioProxy(api_key=None, mcp_url="https://linkdigest.dev/mcp", log=lambda line: None)
     status, reply = proxy._remote("tools/list", None, 1, with_key=False, timeout=30)
 
     assert status == 200, reply
     tools = reply["result"]["tools"]
-    assert [t["name"] for t in tools] == ["digest_url"]
-    assert tools[0] == DIGEST_URL_TOOL, "the hosted tool changed: update src/linkdigest/tool.py"
+    assert tools == BUNDLED_TOOLS, "the hosted tools changed: update src/linkdigest/tool.py from the live tools/list"

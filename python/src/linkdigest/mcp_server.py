@@ -7,16 +7,19 @@ your machine, so there is nothing to install beyond this file: no ffmpeg, no
 ASR key, no browser, no cookies.
 
     export LINKDIGEST_API_KEY=ld_live_...
-    uvx --from "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python" linkdigest-mcp
+    uvx linkdigest-mcp
 
-(Not on PyPI yet, so the package is installed from the git repository.)
+(On PyPI as linkdigest-mcp; the git repository works too:
+uvx --from "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python" linkdigest-mcp)
 
 What it does per method:
 
 - initialize       answered here (no network), so the client starts even offline
 - tools/list       the hosted server's live list; the bundled copy (tool.py) if
                    that call fails. Sent without your key.
-- tools/call       forwarded to the hosted server with your key; its result is
+- tools/call       any tool, forwarded to the hosted server with your key (the
+                   server knows its own tools, so a tool added there works
+                   here without an upgrade); its result is
                    relayed unchanged, including the "call again with job_id"
                    message long videos produce
 - ping             answered here
@@ -36,7 +39,7 @@ from ._http import Request, Response, Transport, urllib_transport
 from ._version import __version__
 from .client import API_KEY_ENV, BASE_URL_ENV, DEFAULT_BASE_URL
 from .errors import KEYS_URL, NetworkError
-from .tool import DIGEST_URL_TOOL, INSTRUCTIONS, TOOL_NAME
+from .tool import BUNDLED_TOOLS, INSTRUCTIONS
 
 MCP_URL_ENV = "LINKDIGEST_MCP_URL"
 #: Newest first. initialize answers with the client's version when it is here.
@@ -142,15 +145,18 @@ class StdioProxy:
             result = (reply or {}).get("result")
             if status == 200 and isinstance(result, dict) and isinstance(result.get("tools"), list) and result["tools"]:
                 return result
-            self._log(f"linkdigest-mcp: tools/list from {self.mcp_url} answered HTTP {status}; using the bundled tool")
+            self._log(f"linkdigest-mcp: tools/list from {self.mcp_url} answered HTTP {status}; using the bundled tools")
         except NetworkError as e:
-            self._log(f"linkdigest-mcp: {e}; using the bundled tool definition")
-        return {"tools": [DIGEST_URL_TOOL]}
+            self._log(f"linkdigest-mcp: {e}; using the bundled tool definitions")
+        return {"tools": BUNDLED_TOOLS}
 
     def _tools_call(self, id_: Any, params: Dict[str, Any]) -> Message:
         name = params.get("name")
-        if name != TOOL_NAME:
-            return _err(id_, -32602, f"unknown tool: {name}")
+        # Until 0.2.5 only digest_url got through, while tools/list showed the
+        # server's five: compare_links, search_links, check_balance and
+        # list_batches answered "unknown tool". The server validates names.
+        if not isinstance(name, str) or not name:
+            return _err(id_, -32602, "tools/call needs a tool name")
         if not self.api_key:
             return _ok(
                 id_,
@@ -285,10 +291,10 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser = argparse.ArgumentParser(
         prog="linkdigest-mcp",
         description=(
-            "Stdio MCP server for LinkDigest: exposes digest_url and forwards calls to the hosted "
-            "server (default https://linkdigest.dev/mcp) with the key in LINKDIGEST_API_KEY. "
-            "Meant to be launched by an MCP client, e.g. "
-            "`uvx --from git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python linkdigest-mcp`."
+            "Stdio MCP server for LinkDigest: exposes the hosted server's tools (digest_url, compare_links, "
+            "search_links, check_balance, list_batches) and forwards calls to it "
+            "(default https://linkdigest.dev/mcp) with the key in LINKDIGEST_API_KEY. "
+            "Meant to be launched by an MCP client, e.g. `uvx linkdigest-mcp`."
         ),
     )
     parser.add_argument("--version", action="version", version=f"linkdigest-mcp {__version__}")

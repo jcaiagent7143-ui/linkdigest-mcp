@@ -14,7 +14,7 @@ import pytest
 from conftest import FakeTransport, jresp, tresp
 from linkdigest.errors import NetworkError
 from linkdigest.mcp_server import SUPPORTED_PROTOCOL_VERSIONS, StdioProxy, serve
-from linkdigest.tool import DIGEST_URL_TOOL
+from linkdigest.tool import BUNDLED_TOOLS, DIGEST_URL_TOOL, TOOL_NAMES
 
 REMOTE = "https://linkdigest.dev/mcp"
 TOOL_TEXT = {"content": [{"type": "text", "text": "# 标题\n\n逐字稿…"}]}
@@ -83,15 +83,39 @@ def test_tools_list_relays_the_live_list_without_sending_the_key():
 
 
 @pytest.mark.parametrize("failure", [NetworkError("offline"), jresp(500, {"error": "boom"})])
-def test_tools_list_falls_back_to_the_bundled_tool(failure):
+def test_tools_list_falls_back_to_the_bundled_tools(failure):
     r = proxy(FakeTransport(failure)).handle({"jsonrpc": "2.0", "id": 6, "method": "tools/list"})
-    assert r["result"] == {"tools": [DIGEST_URL_TOOL]}
+    assert r["result"] == {"tools": BUNDLED_TOOLS}
+
+
+def test_the_bundled_copy_holds_every_hosted_tool():
+    # 2026-11-09: the copy held digest_url alone while the server listed five.
+    assert TOOL_NAMES == ("digest_url", "compare_links", "check_balance", "list_batches", "search_links")
+    assert DIGEST_URL_TOOL is BUNDLED_TOOLS[0]
+
+
+@pytest.mark.parametrize("name", ["compare_links", "search_links", "check_balance", "list_batches", "a_tool_added_later"])
+def test_every_tool_call_is_forwarded_not_refused(name):
+    # Until 0.2.5 these answered -32602 "unknown tool" although tools/list showed them.
+    result = {"content": [{"type": "text", "text": "ok"}]}
+    fake = FakeTransport(jresp(200, {"jsonrpc": "2.0", "id": 9, "result": result}))
+    r = proxy(fake).handle(
+        {"jsonrpc": "2.0", "id": 9, "method": "tools/call", "params": {"name": name, "arguments": {}}})
+    assert r == {"jsonrpc": "2.0", "id": 9, "result": result}
+    assert fake.body()["params"]["name"] == name
+
+
+@pytest.mark.parametrize("params", [{}, {"name": ""}, {"name": 3}])
+def test_a_call_without_a_tool_name_is_refused_here(params):
+    r = proxy(FakeTransport()).handle(
+        {"jsonrpc": "2.0", "id": 10, "method": "tools/call", "params": params})
+    assert r["error"]["code"] == -32602
 
 
 def test_bundled_tool_mirrors_the_hosted_contract():
     schema = DIGEST_URL_TOOL["inputSchema"]
     assert DIGEST_URL_TOOL["name"] == "digest_url"
-    assert set(schema["properties"]) == {"url", "job_id", "format", "partial_ok", "translate_to", "depth", "breakdown", "ask"}
+    assert set(schema["properties"]) == {"url", "job_id", "format", "partial_ok", "translate_to", "depth", "breakdown", "ask", "insight"}
     # job_id alone collects a running job, so url is not required by the schema.
     assert schema["required"] == []
     assert DIGEST_URL_TOOL["annotations"]["readOnlyHint"] is True
@@ -154,10 +178,12 @@ def test_unreachable_remote_is_a_tool_error_not_a_crash():
     assert r["result"]["isError"] is True and "timed out" in r["result"]["content"][0]["text"]
 
 
-def test_unknown_tool_is_rejected_locally():
-    fake = FakeTransport()
+def test_a_tool_the_server_does_not_have_gets_the_servers_answer():
+    # Names are the server's to judge (it lists its own tools); its refusal is relayed.
+    refusal = {"jsonrpc": "2.0", "id": 13, "error": {"code": -32602, "message": "Unknown tool: rm_rf"}}
+    fake = FakeTransport(jresp(200, refusal))
     r = proxy(fake).handle({"jsonrpc": "2.0", "id": 13, "method": "tools/call", "params": {"name": "rm_rf"}})
-    assert r["error"]["code"] == -32602 and fake.requests == []
+    assert r["error"]["code"] == -32602 and len(fake.requests) == 1
 
 
 def test_sse_responses_are_understood():

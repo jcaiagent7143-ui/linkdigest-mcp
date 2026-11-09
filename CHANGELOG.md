@@ -21,6 +21,12 @@ linkdigest.dev changes independently; its prices are in the README.
   tool tests (`langchain-tests` ToolsUnitTests and ToolsIntegrationTests, `tests/test_langchain_standard.py`).
   Tested against langchain-core 0.3 and 1.7, llama-index-core 0.10 and 0.14, and run live on 2026-11-09 against a cached Douyin link (0 credits).
   Examples: `examples/python/langchain_agent.py`, `examples/python/llamaindex_reader.py`.
+- Fix: the stdio server (`linkdigest-mcp`) listed the hosted server's five tools but refused every call
+  except `digest_url` with "unknown tool", so `compare_links`, `search_links`, `check_balance` and
+  `list_batches` could not be used from a stdio client. Every tool call is now forwarded and the hosted server
+  judges the name, so a tool added there works without an upgrade. The offline fallback copy in `tool.py`
+  now holds all five tools as the server lists them (it held `digest_url` alone, without `insight`). Run live
+  on 2026-11-09: `check_balance` and `list_batches` answered through the stdio server.
 
 ## 2026-11-07 — 1.0.10: silent videos are read through their pictures
 
