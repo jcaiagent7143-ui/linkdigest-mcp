@@ -84,3 +84,13 @@ def _no_ambient_config(monkeypatch: pytest.MonkeyPatch) -> None:
     """A developer's own key or base URL must never leak into the offline tests."""
     for name in ("LINKDIGEST_API_KEY", "LINKDIGEST_BASE_URL", "LINKDIGEST_MCP_URL"):
         monkeypatch.delenv(name, raising=False)
+
+
+def pytest_configure(config: pytest.Config) -> None:
+    """langchain-tests' two async standard tests need pytest-asyncio in auto mode.
+
+    langchain-tests brings pytest-asyncio; without it there is no such option and
+    test_langchain_standard.py is skipped anyway.
+    """
+    if hasattr(config.option, "asyncio_mode") and not config.option.asyncio_mode:
+        config.option.asyncio_mode = "auto"

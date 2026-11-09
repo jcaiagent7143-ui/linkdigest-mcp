@@ -17,8 +17,9 @@ linkdigest.dev changes independently; its prices are in the README.
   stores accept; credits and cache flags are kept out of embeddings and prompts. A link that cannot be read
   is logged and skipped (`errors="raise"` stops instead); out of credits, a bad key or a rate limit stops
   the load.
-- Both extras are optional: the base SDK still has no dependencies. Tested against langchain-core 0.3 and
-  1.7, llama-index-core 0.10 and 0.14, and run live on 2026-11-09 against a cached Douyin link (0 credits).
+- Both extras are optional: the base SDK still has no dependencies. The tool passes LangChain's standard
+  tool tests (`langchain-tests` ToolsUnitTests and ToolsIntegrationTests, `tests/test_langchain_standard.py`).
+  Tested against langchain-core 0.3 and 1.7, llama-index-core 0.10 and 0.14, and run live on 2026-11-09 against a cached Douyin link (0 credits).
   Examples: `examples/python/langchain_agent.py`, `examples/python/llamaindex_reader.py`.
 
 ## 2026-11-07 — 1.0.10: silent videos are read through their pictures
