@@ -280,6 +280,21 @@ SDK 0.2.5 上 PyPI 之前，从本仓库安装：`pip install "linkdigest-mcp[ll
 
 `depth="script"` 只读口播，最便宜。示例：[`examples/python/llamaindex_reader.py`](examples/python/llamaindex_reader.py)。
 
+## 链接解析（离线、免费、不要 Key）
+
+`linkdigest.links` 从粘贴的分享文字里找出真正的链接，并说出它指向哪一条帖子：平台、帖子 ID、干净的帖子地址。不要 API Key，不联网。`resolve()` 还会跟随短链接（v.douyin.com、xhslink.com、b23.tv、t.co、vt.tiktok.com……），只读跳转：不读页面内容、不带 cookie、最多 5 跳、User-Agent 如实写明身份。
+
+```python
+from linkdigest.links import extract_url, identify, resolve
+
+text = "7.32 复制打开抖音，看看【…的作品】 https://v.douyin.com/G8Oggg_IXMA/ E@u.Ib 复制此链接"
+extract_url(text)                     # 'https://v.douyin.com/G8Oggg_IXMA/'
+identify("https://m.bilibili.com/video/BV1stVH66E6G?p=2&share_source=copy").canonical_url  # '…/BV1stVH66E6G/?p=2'
+resolve(text).post_id                 # '7680883233307342947'（只读了一次跳转）
+```
+
+命令行：`linkdigest-links "<分享文字>"` 输出 JSON（`--offline` 不跟随跳转）。支持抖音、小红书（xsec_token 原样保留）、B站、微博（mid 转 bid）、YouTube、TikTok、X、Instagram、快手、公众号文章和播客单集。规则和免费的[链接解析页](https://linkdigest.dev/zh/lianjie-jiexi)一致。SDK 0.2.5 上 PyPI 之前，从本仓库安装：`pip install "linkdigest-mcp @ git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"`。
+
 ## 价格
 
 按工作量计费，不按链接数（以 [linkdigest.dev/pricing](https://linkdigest.dev/pricing) 为准）：

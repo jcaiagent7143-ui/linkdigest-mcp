@@ -300,6 +300,28 @@ Until SDK 0.2.5 is on PyPI, install it from this repository: `pip install "linkd
 
 `depth="script"` reads the speech only, the cheapest read. Example: [`examples/python/llamaindex_reader.py`](examples/python/llamaindex_reader.py).
 
+## Link parsing (offline, free, no key)
+
+`linkdigest.links` finds the real link in pasted share text and names the post it points to — platform,
+post id and the post's clean address — with no API key and no network. `resolve()` also follows a short
+link (v.douyin.com, xhslink.com, b23.tv, t.co, vt.tiktok.com …) by reading its redirects, nothing else:
+no page body, no cookies, at most 5 hops, an honest User-Agent.
+
+```python
+from linkdigest.links import extract_url, identify, resolve
+
+text = "7.32 复制打开抖音，看看【…的作品】 https://v.douyin.com/G8Oggg_IXMA/ E@u.Ib 复制此链接"
+extract_url(text)                     # 'https://v.douyin.com/G8Oggg_IXMA/'
+identify("https://m.bilibili.com/video/BV1stVH66E6G?p=2&share_source=copy").canonical_url  # '…/BV1stVH66E6G/?p=2'
+resolve(text).post_id                 # '7680883233307342947' (one redirect read)
+```
+
+Command line: `linkdigest-links "<share text>"` prints JSON (`--offline` skips the redirect). Douyin,
+Xiaohongshu (xsec_token kept literally), Bilibili, Weibo (mid → bid), YouTube, TikTok, X, Instagram,
+Kuaishou, WeChat articles and podcast episodes. The same rules as the free parser at
+[linkdigest.dev/zh/lianjie-jiexi](https://linkdigest.dev/zh/lianjie-jiexi). Until SDK 0.2.5 is on PyPI,
+install from this repository: `pip install "linkdigest-mcp @ git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"`.
+
 ## Dify
 
 The same tool as a Dify plugin lives in [`dify/`](dify/) — source, manifest and privacy policy. Install it from the Dify Marketplace and paste your API key into the provider credential.

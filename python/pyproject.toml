@@ -62,6 +62,7 @@ Issues = "https://github.com/jcaiagent7143-ui/linkdigest-mcp/issues"
 [project.scripts]
 linkdigest = "linkdigest.cli:main"
 linkdigest-mcp = "linkdigest.mcp_server:main"
+linkdigest-links = "linkdigest.links:main"
 
 [project.optional-dependencies]
 test = ["pytest>=7"]

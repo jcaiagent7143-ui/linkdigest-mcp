@@ -7,9 +7,15 @@
     print(d.title, d.credits)
     print(d.markdown)
 
-Also installed: the `linkdigest` command line and the `linkdigest-mcp` stdio MCP server.
+Link parsing needs no key and no network (short links aside):
+
+    from linkdigest.links import extract_url, identify, resolve
+
+Also installed: the `linkdigest` command line, the `linkdigest-mcp` stdio MCP
+server and `linkdigest-links` (share text in, the post's id and address out).
 """
 
+from . import links
 from ._version import __version__
 from .client import Digest, LinkDigest
 from .errors import (
@@ -26,6 +32,7 @@ from .errors import (
 
 __all__ = [
     "__version__",
+    "links",
     "LinkDigest",
     "Digest",
     "LinkDigestError",

@@ -21,6 +21,15 @@ linkdigest.dev changes independently; its prices are in the README.
   tool tests (`langchain-tests` ToolsUnitTests and ToolsIntegrationTests, `tests/test_langchain_standard.py`).
   Tested against langchain-core 0.3 and 1.7, llama-index-core 0.10 and 0.14, and run live on 2026-11-09 against a cached Douyin link (0 credits).
   Examples: `examples/python/langchain_agent.py`, `examples/python/llamaindex_reader.py`.
+- `linkdigest.links` (standard library only, no key): `extract_url(text)` pulls the link out of pasted share
+  text (Douyin, Xiaohongshu, Bilibili, Kuaishou, Weibo, WeChat; CJK punctuation stripped, a sentence with a dot
+  is not a host); `identify(url)` names the platform, post id and the post's clean address offline (Douyin
+  video/note/modal_id, Xiaohongshu explore/discovery/login-wrapped with xsec_token kept literally, Bilibili BV/av
+  + part, Weibo mid → bid, YouTube, TikTok, X, Instagram, Kuaishou, WeChat, 小宇宙/Apple episodes);
+  `resolve(text_or_url)` follows short links by their redirects only (HEAD, then GET; body never read; no
+  cookies; at most 5 hops; a hop off the known platforms is reported, not requested). CLI: `linkdigest-links`.
+  Same cases as the site's free parser (/zh/lianjie-jiexi) and the engine's resolver; run live on 2026-11-09
+  against v.douyin.com, xhslink.com (HEAD 404 → GET 302) and b23.tv.
 - Fix: the stdio server (`linkdigest-mcp`) listed the hosted server's five tools but refused every call
   except `digest_url` with "unknown tool", so `compare_links`, `search_links`, `check_balance` and
   `list_batches` could not be used from a stdio client. Every tool call is now forwarded and the hosted server
