@@ -259,8 +259,6 @@ agent = create_agent("anthropic:claude-sonnet-5-5", tools=[LinkDigestTool(max_cr
 agent.invoke({"messages": [{"role": "user", "content": "这条视频卖的是什么？https://v.douyin.com/xxxx/"}]})
 ```
 
-SDK 0.2.5 上 PyPI 之前，从本仓库安装：`pip install "linkdigest-mcp[langchain] @ git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"`。
-
 `LinkDigestTool(output="json")` 改为给模型精简的 JSON。示例：[`examples/python/langchain_agent.py`](examples/python/langchain_agent.py)。
 
 ## LlamaIndex
@@ -275,8 +273,6 @@ from linkdigest.integrations.llamaindex import LinkDigestReader
 docs = LinkDigestReader(depth="script").load_data(["https://v.douyin.com/xxxx/", "https://b23.tv/xxxx"])
 VectorStoreIndex.from_documents(docs).as_query_engine().query("这些视频有什么共同点？")
 ```
-
-SDK 0.2.5 上 PyPI 之前，从本仓库安装：`pip install "linkdigest-mcp[llamaindex] @ git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"`。
 
 `depth="script"` 只读口播，最便宜。示例：[`examples/python/llamaindex_reader.py`](examples/python/llamaindex_reader.py)。
 
@@ -293,7 +289,7 @@ identify("https://m.bilibili.com/video/BV1stVH66E6G?p=2&share_source=copy").cano
 resolve(text).post_id                 # '7680883233307342947'（只读了一次跳转）
 ```
 
-命令行：`linkdigest-links "<分享文字>"` 输出 JSON（`--offline` 不跟随跳转）。支持抖音、小红书（xsec_token 原样保留）、B站、微博（mid 转 bid）、YouTube、TikTok、X、Instagram、快手、公众号文章和播客单集。规则和免费的[链接解析页](https://linkdigest.dev/zh/lianjie-jiexi)一致。SDK 0.2.5 上 PyPI 之前，从本仓库安装：`pip install "linkdigest-mcp @ git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"`。
+命令行：`linkdigest-links "<分享文字>"` 输出 JSON（`--offline` 不跟随跳转）。支持抖音、小红书（xsec_token 原样保留）、B站、微博（mid 转 bid）、YouTube、TikTok、X、Instagram、快手、公众号文章和播客单集。规则和免费的[链接解析页](https://linkdigest.dev/zh/lianjie-jiexi)一致。`pip install linkdigest-mcp`（0.2.5 及以上）。
 
 ## 价格
 

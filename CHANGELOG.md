@@ -3,7 +3,7 @@
 Dates are when the change reached this repository. The hosted service at
 linkdigest.dev changes independently; its prices are in the README.
 
-## 2026-11-09 — Python SDK 0.2.5 (in this repository; not on PyPI yet): LangChain and LlamaIndex
+## 2026-11-09 — 1.0.11: LangChain tool, LlamaIndex reader, link parser (Python SDK 0.2.5)
 
 - `linkdigest.integrations.langchain.LinkDigestTool` (`pip install "linkdigest-mcp[langchain]"`): a
   LangChain tool named `digest_url` taking `url`, `depth`, `translate_to` or `job_id`. The model gets the

@@ -277,8 +277,6 @@ agent = create_agent("anthropic:claude-sonnet-5-5", tools=[LinkDigestTool(max_cr
 agent.invoke({"messages": [{"role": "user", "content": "What does this video sell? https://v.douyin.com/xxxx/"}]})
 ```
 
-Until SDK 0.2.5 is on PyPI, install it from this repository: `pip install "linkdigest-mcp[langchain] @ git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"`.
-
 `LinkDigestTool(output="json")` gives the model compact JSON instead. Example: [`examples/python/langchain_agent.py`](examples/python/langchain_agent.py).
 
 ## LlamaIndex
@@ -295,8 +293,6 @@ from linkdigest.integrations.llamaindex import LinkDigestReader
 docs = LinkDigestReader(depth="script").load_data(["https://v.douyin.com/xxxx/", "https://b23.tv/xxxx"])
 VectorStoreIndex.from_documents(docs).as_query_engine().query("What do these videos have in common?")
 ```
-
-Until SDK 0.2.5 is on PyPI, install it from this repository: `pip install "linkdigest-mcp[llamaindex] @ git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"`.
 
 `depth="script"` reads the speech only, the cheapest read. Example: [`examples/python/llamaindex_reader.py`](examples/python/llamaindex_reader.py).
 
@@ -319,8 +315,7 @@ resolve(text).post_id                 # '7680883233307342947' (one redirect read
 Command line: `linkdigest-links "<share text>"` prints JSON (`--offline` skips the redirect). Douyin,
 Xiaohongshu (xsec_token kept literally), Bilibili, Weibo (mid → bid), YouTube, TikTok, X, Instagram,
 Kuaishou, WeChat articles and podcast episodes. The same rules as the free parser at
-[linkdigest.dev/zh/lianjie-jiexi](https://linkdigest.dev/zh/lianjie-jiexi). Until SDK 0.2.5 is on PyPI,
-install from this repository: `pip install "linkdigest-mcp @ git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"`.
+[linkdigest.dev/zh/lianjie-jiexi](https://linkdigest.dev/zh/lianjie-jiexi). `pip install linkdigest-mcp` (0.2.5 or later).
 
 ## Dify
 
