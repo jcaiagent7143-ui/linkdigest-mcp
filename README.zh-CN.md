@@ -1,14 +1,34 @@
-# LinkDigest MCP：小红书、抖音、B站、微博、公众号链接转文本 · 爆款拆解
+# LinkDigest MCP：小红书 MCP / 抖音 MCP / B站 MCP / 公众号链接读取（MCP 服务器 + API）
 
 [English](README.md) · 简体中文
 
-把小红书、抖音、B站、微博、公众号文章、小宇宙 / Apple 播客，以及 TikTok、YouTube、X、Instagram 的链接变成 AI 能读的文本：**逐字稿、视频画面里的字（带大致时间）、每张图的描述和图上文字（OCR）**、正文、要点和互动数据，可选**爆款拆解**和翻译。
+**一个托管的 MCP 服务器和 REST API：把小红书、抖音、B站、公众号、微博的链接读成 AI Agent 能用的文本**——逐字稿、视频画面里的字（带大致时间）、每张图的描述和图上文字（OCR）、正文、要点和互动数据。小宇宙 / Apple 播客、TikTok、YouTube、X、Instagram 也能读。读取在 [linkdigest.dev](https://linkdigest.dev) 的服务器上完成，**不需要你的平台账号或 Cookie**，本地不用装 ffmpeg、浏览器或语音识别。
 
-服务托管在 [linkdigest.dev](https://linkdigest.dev)，读取在我们的服务器上完成：
+30 秒接入（Claude Code、Cursor、Cherry Studio、Trae 等支持远程 MCP 的客户端）：
 
-- **不需要你的平台账号或 Cookie**
-- 本地不用装 ffmpeg、浏览器，也不用自备语音识别（ASR）的 Key
-- 一个 API Key 就能用，注册送 10 积分（一次性），不用绑卡
+```json
+{
+  "mcpServers": {
+    "linkdigest": {
+      "type": "streamable_http",
+      "url": "https://linkdigest.dev/mcp",
+      "headers": { "Authorization": "Bearer <LINKDIGEST_API_KEY>" }
+    }
+  }
+}
+```
+
+Key 在 [linkdigest.dev/app/keys](https://linkdigest.dev/signin?next=/app/keys) 创建，注册送 10 积分（一次性），不用绑卡。只支持 stdio 的客户端用 `uvx linkdigest-mcp`（见下文）。
+
+| 平台 | 贴什么链接 | 读出来什么 |
+|---|---|---|
+| **小红书** | 笔记链接、`xhslink.com` 分享短链 | 正文、话题、互动数据；每张图的描述和图上文字（OCR）；视频笔记的逐字稿；分享页显示的热门评论 |
+| **抖音** | `v.douyin.com` 短链、整段分享口令、`douyin.com/video/…` | 带时间的逐字稿、画面里的字（带大致时间）；图文作品每张图的描述和文字 |
+| **B站** | `bilibili.com/video/BV…`（`?p=N` 读第 N P）、`b23.tv` | 带时间的逐字稿和画面文字，不依赖 CC 字幕；标题、UP 主、播放 / 点赞等数据 |
+| **公众号** | `mp.weixin.qq.com/s/…` | 正文（保留小标题、列表和链接的 Markdown）、公众号名、发布时间、每张配图的描述和文字 |
+| **微博** | 微博正文链接 | 正文、转评赞、配图和视频、话题、分享页显示的热评 |
+
+五个 MCP 工具：`digest_url`（读一条链接）、`compare_links`（一批链接出一页对比）、`search_links`（按关键词找小红书 / 抖音 / YouTube / X 的帖子和网页）、`check_balance`、`list_batches`。不下载视频，不提供视频文件；私密、已删除、需要登录才能看的内容读不了，读不出不扣积分。数据怎么来的见 [数据来源与合规](https://linkdigest.dev/zh/shuju-laiyuan)。
 
 这个仓库里有什么：
 

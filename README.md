@@ -1,6 +1,6 @@
 # LinkDigest MCP server
 
-**中文文档：[README.zh-CN.md](README.zh-CN.md)** — 抖音、小红书链接转文本，MCP / Python SDK / 命令行，价格以人民币标注。
+**中文文档：[README.zh-CN.md](README.zh-CN.md)** — 小红书 MCP / 抖音 MCP / B站 MCP / 公众号链接读取：MCP 服务器 + API、Python SDK、命令行，价格以人民币标注。
 
 The social media reading layer for AI agents: turn a social media link into
 text a language model can read — **transcript, on-screen text, image
