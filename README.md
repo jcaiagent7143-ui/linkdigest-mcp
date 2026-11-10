@@ -12,6 +12,8 @@ TikTok, YouTube, X and Instagram — read into timed transcripts, OCR of every i
 comments and key points with checked quotes. No Chinese phone number, account or cookies. Not read
 today: Zhihu, Kuaishou. Overview: [linkdigest.dev/china-social-media-api](https://linkdigest.dev/china-social-media-api).
 
+**Bilibili video → Markdown notes** (timed outline, key points, transcript; multi-part batches): a single-file CLI in [`examples/bilibili`](examples/bilibili/) · B站视频 → Markdown 笔记：`examples/bilibili`。
+
 ```bash
 # A Douyin video's spoken script (文案), 1 credit per started 2 minutes
 curl -X POST https://linkdigest.dev/api/v1/digest -H "Authorization: Bearer ld_live_..." \

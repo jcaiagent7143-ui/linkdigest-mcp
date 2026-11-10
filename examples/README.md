@@ -6,6 +6,7 @@
 | [`python/douyin_batch.py`](python/douyin_batch.py) | 批量提取抖音文案：一个文件的链接 → 一批读完 → 每条的口播文案（`POST /api/v1/digest/batch`，只用 requests） |
 | [`python/langchain_agent.py`](python/langchain_agent.py) | LangChain：`LinkDigestTool` 单独调用，再交给 `create_agent` 的 Agent，让它自己决定什么时候读链接 |
 | [`python/llamaindex_reader.py`](python/llamaindex_reader.py) | LlamaIndex：一批链接 → `Document` → `VectorStoreIndex`，跨视频提问 |
+| [`bilibili/bili2notes.py`](bilibili/) | B站视频 → Markdown 笔记：带时间的章节大纲、要点、逐字稿；`--parts 1-10` 批量读分P，开始前列出要花的积分。单文件，只用标准库 |
 | [`n8n/`](n8n/) | n8n：HTTP Request 节点读一条链接（含视频的等待循环），或 AI Agent 挂 MCP Client Tool |
 | [`dify/`](dify/) | Dify 插件市场里的 LinkDigest 插件（`jcaiagent7143-ui/linkdigest`），以及一个「链接 → 文案 → 改写」的最小工作流 |
 | [`openapi-import/`](openapi-import/) | 用 `https://linkdigest.dev/openapi.json` 在扣子这类平台生成插件；长视频的循环取结果；状态码 |

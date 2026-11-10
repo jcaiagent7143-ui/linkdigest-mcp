@@ -20,6 +20,8 @@
 
 Key 在 [linkdigest.dev/app/keys](https://linkdigest.dev/signin?next=/app/keys) 创建，注册送 10 积分（一次性），不用绑卡。只支持 stdio 的客户端用 `uvx linkdigest-mcp`（见下文）。
 
+**B站视频 → Markdown 笔记**（带时间的大纲、要点、逐字稿；分P 批量）：单文件命令行小工具 [`examples/bilibili`](examples/bilibili/)。
+
 | 平台 | 贴什么链接 | 读出来什么 |
 |---|---|---|
 | **小红书** | 笔记链接、`xhslink.com` 分享短链 | 正文、话题、互动数据；每张图的描述和图上文字（OCR）；视频笔记的逐字稿；分享页显示的热门评论 |

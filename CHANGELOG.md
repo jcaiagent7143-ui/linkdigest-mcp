@@ -3,6 +3,15 @@
 Dates are when the change reached this repository. The hosted service at
 linkdigest.dev changes independently; its prices are in the README.
 
+## 2026-11-11 — examples: bili2notes (Bilibili video → Markdown notes)
+
+- `examples/bilibili/bili2notes.py`: a single-file, standard-library CLI. A Bilibili link (BV id, b23.tv, `?p=N`, or a
+  whole share text) becomes a Markdown note with the timed `outline` (returned for long videos since 2026-11-10), key
+  points with their checked quotes, and the transcript with `[mm:ss]`. `--parts 1-10` reads a multi-part video's parts
+  through the batch endpoint from the `parts` list the API returns, printing each part's length and the credits it will
+  cost first and starting only on a yes (`--yes` for scripts). Without a key it prints the free summary. 23 offline
+  tests; run live on 2026-11-11 against a cached link (0 credits). No SDK or server change, no release.
+
 ## 2026-11-09 — 1.0.11: LangChain tool, LlamaIndex reader, link parser (Python SDK 0.2.5)
 
 - `linkdigest.integrations.langchain.LinkDigestTool` (`pip install "linkdigest-mcp[langchain]"`): a
