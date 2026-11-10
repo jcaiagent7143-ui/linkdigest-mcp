@@ -121,22 +121,31 @@ started minute; a viral breakdown or a translation adds one each. Then $5 once f
 
 ## Agent skills (OpenClaw, Hermes, Claude Code, Cursor and others)
 
-Eleven ready-made skills live in [`skills/`](skills). Each is one job, a `SKILL.md` plus one script that uses only the Python standard library. **No key needed for a first look**: without `LINKDIGEST_API_KEY` the script gives one free summary a day; with a key (10 free credits on sign-up, no card) it returns the full transcript and per-image text.
+23 ready-made skills live in [`skills/`](skills). Each is one job, a `SKILL.md` plus one script that uses only the Python standard library. The single-link readers (marked ★) work **without a key for a first look**: no `LINKDIGEST_API_KEY` gives a summary, up to 2 a day per address; with a key (10 free credits on sign-up, no card) they return the full transcript and per-image text.
 
 | Skill | Job |
 | --- | --- |
-| `xiaohongshu-note-to-text` | 小红书笔记转文字: a Xiaohongshu note, the text in every image, caption, stats |
-| `douyin-video-to-text` | 抖音视频转文字: a Douyin video's spoken words, on-screen text, chapters |
-| `douyin-search-to-text` | 抖音搜索转文字: search Douyin by topic (free), then read the videos you pick |
-| `tiktok-transcript` | A TikTok video's transcript with timestamps and captions |
-| `long-video-transcript` | 长视频转文字: lectures and podcasts up to 2 h, 1 credit per 2 minutes |
-| `linkdigest-xhs-note-ocr` | Xiaohongshu image notes, with the text inside every image |
-| `linkdigest-video-transcript` | Douyin / Xiaohongshu video to transcript and on-screen text |
-| `linkdigest-wechat-article-reader` | WeChat 公众号 articles: full text and every image's text |
-| `linkdigest-youtube-summary` | YouTube summary and timed transcript, translated to Chinese on request |
-| `linkdigest-xiaohongshu-douyin-reader` | Read Xiaohongshu / Douyin posts in English |
-| `linkdigest-viral-breakdown` | How a viral post is built, with quotes checked against the source |
-| `linkdigest-script-rewrite` | Extract a reference video's script and structure, then write your own |
+| `bilibili-video-to-text` | B站视频总结 / 转文字: a Bilibili video (BV link or b23.tv) as a timed transcript, on-screen text and key points |
+| `douyin-video-to-text` ★ | 抖音视频转文字: a Douyin video's spoken words, on-screen text, chapters |
+| `douyin-search-to-text` | 抖音搜索转文字: search Douyin by topic, then read the videos you pick |
+| `xiaohongshu-note-to-text` ★ | 小红书笔记转文字: a Xiaohongshu note, the text in every image, caption, stats |
+| `xiaohongshu-search-to-text` | Search Xiaohongshu (RedNote) by topic, then read the notes you pick |
+| `xiaohongshu-consumer-insight` | One Xiaohongshu note as consumer insight: audience, selling points, objections, purchase intent, each with a checked quote |
+| `xiaohongshu-douyin-compare` | 2–10 Xiaohongshu / Douyin / TikTok / YouTube links compared on one page |
+| `xiaohongshu-daily-draft` | A daily brief for one niche plus a ready-to-post draft by email; never touches or posts to your account |
+| `tiktok-transcript` ★ | A TikTok video's transcript with timestamps and captions |
+| `instagram-to-text` | An Instagram reel or post as transcript, on-screen text and caption |
+| `weibo-to-text` ★ | 微博转文字: a Weibo post's text, image text, video transcript and top comments |
+| `podcast-to-text` | 播客转文字: a 小宇宙 or Apple Podcasts episode as a timed transcript with show notes |
+| `long-video-transcript` ★ | 长视频转文字: lectures and replays up to 2 h, 1 credit per 2 minutes |
+| `linkdigest-xhs-note-ocr` ★ | Xiaohongshu image notes, with the text inside every image |
+| `linkdigest-video-transcript` ★ | Douyin / Xiaohongshu video to transcript and on-screen text |
+| `linkdigest-wechat-article-reader` ★ | WeChat 公众号 articles: full text and every image's text |
+| `linkdigest-youtube-summary` ★ | YouTube summary and timed transcript, translated to Chinese on request |
+| `linkdigest-xiaohongshu-douyin-reader` ★ | Read Xiaohongshu / Douyin posts in English |
+| `linkdigest-viral-breakdown` ★ | How a viral post is built, with quotes checked against the source |
+| `linkdigest-script-rewrite` ★ | Extract a reference video's script and structure, then write your own |
+| `linkdigest` | The general one: any social link or web page that returns nothing useful when fetched |
 | `xiaohongshu-pain-point-radar` | 痛点雷达: a category on Xiaohongshu + Douyin → pain points, needs and blockers counted per post by code (N/M), search demand from Baidu/Taobao/Bing suggestions, and gaps nobody answers; quotes checked word for word |
 | `overseas-pain-points` | 出海痛点: the same for overseas buyers on YouTube + TikTok, report in Chinese with the English originals |
 

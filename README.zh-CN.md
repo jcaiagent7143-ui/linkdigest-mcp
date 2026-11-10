@@ -141,17 +141,53 @@ claude mcp add --transport http linkdigest https://linkdigest.dev/mcp \
 
 ## Agent 技能（OpenClaw、Hermes、Claude Code、Cursor 等）
 
-[`skills/`](skills) 里有七个现成技能，每个只做一件事：一份 `SKILL.md` 加一个只用 Python 标准库的脚本，需要 `LINKDIGEST_API_KEY`。
+[`skills/`](skills) 里有 23 个现成的 Agent Skill，每个只做一件事：一份 `SKILL.md` 加一个只用 Python 标准库的脚本。读单条链接的技能（下表标 ★）没有 `LINKDIGEST_API_KEY` 也能先看摘要，每个地址每天 2 条；有 Key（注册送 10 积分，不用绑卡）给完整逐字稿和逐图文字。
+
+**视频总结 / 视频转文字 skill**
 
 | 技能 | 做什么 |
 | --- | --- |
-| `linkdigest-xhs-note-ocr` | 小红书图文笔记提取，连图片里的字 |
-| `linkdigest-video-transcript` | 抖音 / 小红书视频转文字（口播逐字稿 + 画面文字） |
-| `linkdigest-wechat-article-reader` | 微信公众号文章提取：全文 + 每张图的文字 |
-| `linkdigest-youtube-summary` | YouTube 视频总结和带时间戳的逐字稿，可译成中文 |
-| `linkdigest-xiaohongshu-douyin-reader` | 用英文读小红书 / 抖音（英文说明） |
-| `linkdigest-viral-breakdown` | 爆款拆解，引用逐字核对原文 |
-| `linkdigest-script-rewrite` | 提取对标视频的口播稿和结构，再仿写自己的脚本 |
+| `bilibili-video-to-text` | B站视频总结 skill：BV 链接或 b23.tv 短链 → 分段带时间的逐字稿、画面上的字、要点 |
+| `douyin-video-to-text` ★ | 抖音文案提取 skill：口播逐字稿、画面字幕、章节、要点、点赞评论数 |
+| `linkdigest-video-transcript` ★ | 抖音 / 小红书 / TikTok / YouTube / B站视频转文字（口播逐字稿 + 画面文字） |
+| `linkdigest-youtube-summary` ★ | YouTube 视频总结和带时间戳的逐字稿，可译成中文 |
+| `tiktok-transcript` ★ | TikTok 视频逐字稿、画面字幕、要点（英文说明） |
+| `long-video-transcript` ★ | 长视频转文字：讲座、课程、直播回放，最长 2 小时，每 2 分钟 1 积分 |
+| `podcast-to-text` | 播客转文字：小宇宙、Apple Podcasts 单集 → 带时间的逐字稿、shownotes、要点 |
+
+**小红书 skill**
+
+| 技能 | 做什么 |
+| --- | --- |
+| `xiaohongshu-note-to-text` ★ | 小红书笔记转文字：正文、每张图里的字（OCR）、视频笔记的逐字稿、分享页热评 |
+| `linkdigest-xhs-note-ocr` ★ | 小红书图文笔记提取，连图片里的字 |
+| `xiaohongshu-search-to-text` | 按话题搜小红书笔记，再把挑中的读成文字 |
+| `xiaohongshu-consumer-insight` | 小红书消费者洞察：受众、卖点、顾虑、购买意向，每条附核对过的原话 |
+| `xiaohongshu-douyin-compare` | 2–10 条小红书 / 抖音链接写成一页对比：共同主题、钩子、空白 |
+| `xiaohongshu-daily-draft` | 赛道日报 + 一篇照着能发的稿，发到邮箱；不碰你的账号，不替你发 |
+| `linkdigest-xiaohongshu-douyin-reader` ★ | 用英文读小红书 / 抖音（英文说明） |
+
+**抖音 skill**
+
+| 技能 | 做什么 |
+| --- | --- |
+| `douyin-search-to-text` | 按关键词搜抖音视频，再把挑中的转成文字 |
+| `linkdigest-viral-breakdown` ★ | 爆款拆解：钩子、结构节拍、标题公式，引用逐字核对原文 |
+| `linkdigest-script-rewrite` ★ | 提取对标视频的口播稿和结构，再仿写自己的脚本 |
+
+**公众号、微博、Instagram 和通用**
+
+| 技能 | 做什么 |
+| --- | --- |
+| `linkdigest-wechat-article-reader` ★ | 微信公众号文章提取：全文 Markdown + 每张图的文字 |
+| `weibo-to-text` ★ | 微博转文字：正文、图上的字、视频逐字稿、前几条热评 |
+| `instagram-to-text` | Instagram reel 和帖子转文字（英文说明） |
+| `linkdigest` | 通用：任何一条抓不到内容的社交链接或网页 |
+
+**选品和调研**
+
+| 技能 | 做什么 |
+| --- | --- |
 | `xiaohongshu-pain-point-radar` | 痛点雷达：一个品类在小红书 + 抖音上被抱怨什么、看重什么、搜什么，代码数出每条出现在几篇里（N/M），原话逐字核对，有人搜、没人讲的列成「机会」 |
 | `overseas-pain-points` | 出海痛点：同样的事放在 YouTube + TikTok，中文报告，英文原话保留 |
 
