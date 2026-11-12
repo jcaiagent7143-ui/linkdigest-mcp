@@ -10,7 +10,7 @@ LinkDigest 在 Dify 插件市场上有现成插件，ID 是 **`jcaiagent7143-ui/
 
 ## 安装和授权
 
-1. 在 <https://linkdigest.dev/app/keys> 创建 API Key（`ld_live_` 开头）。注册送 10 积分（一次性），不用绑卡。
+1. 在 <https://linkdigest.dev/signin?ref=github-dify-example&next=/app/keys> 创建 API Key（`ld_live_` 开头）。注册送 10 积分（一次性），不用绑卡。
 2. Dify → 插件 → 探索 Marketplace，搜索 **LinkDigest**，安装。
 3. 在插件的凭据里填入「API 密钥」。插件会调用 `GET /api/v1/digest/credential-check` 校验，不读链接、不扣积分。
 
@@ -52,6 +52,6 @@ LinkDigest 在 Dify 插件市场上有现成插件，ID 是 **`jcaiagent7143-ui/
 
 - 积分用完（402）：消息里带一个付款链接，打开就能付，不用登录。
 - 链接读不了（422）：删帖、私密账号或需要登录，消息写明原因。
-- Key 无效（401）：去 <https://linkdigest.dev/app/keys> 重新创建。
+- Key 无效（401）：去 <https://linkdigest.dev/signin?ref=github-dify-example&next=/app/keys> 重新创建。
 
 B站视频从 2026-10-24 起可读（走 B 站自己的嵌入播放器）。完整的平台列表见仓库首页的 [README.zh-CN.md](../../README.zh-CN.md#平台支持)。

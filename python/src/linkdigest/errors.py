@@ -15,7 +15,9 @@ from __future__ import annotations
 
 from typing import Any, Dict, Optional
 
-KEYS_URL = "https://linkdigest.dev/app/keys"
+# Tagged (2026-11-12): a developer who opens this from an SDK message is filed as
+# utm:sdk, not "direct". Through /signin: a signed-out /app/keys redirects and drops the tag.
+KEYS_URL = "https://linkdigest.dev/signin?ref=sdk&next=/app/keys"
 
 
 class LinkDigestError(Exception):
@@ -45,7 +47,7 @@ class InvalidRequestError(LinkDigestError):
 
 
 class AuthenticationError(LinkDigestError):
-    """401: no API key, or one that was revoked. Issue one at https://linkdigest.dev/app/keys."""
+    """401: no API key, or one that was revoked. Issue one at KEYS_URL."""
 
 
 class PaymentRequiredError(LinkDigestError):

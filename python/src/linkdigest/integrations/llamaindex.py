@@ -40,7 +40,7 @@ _NOT_CONTENT = ["credits", "cached", "job_id"]
 class LinkDigestReader(BaseReader):
     """Read social media links through https://linkdigest.dev.
 
-    api_key       Defaults to LINKDIGEST_API_KEY. Issue one at https://linkdigest.dev/app/keys.
+    api_key       Defaults to LINKDIGEST_API_KEY. Issue one at https://linkdigest.dev/signin?ref=llamaindex&next=/app/keys.
     depth         "full" (default), "transcript" (long videos, about half the price) or
                   "script" (the speech only, cheapest). load_data(depth=...) overrides it.
     translate_to  Also translate each digest, e.g. "en". +1 credit per link.

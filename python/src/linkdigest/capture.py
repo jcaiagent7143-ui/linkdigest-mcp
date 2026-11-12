@@ -377,7 +377,7 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     key = (args.api_key or os.environ.get(API_KEY_ENV, "")).strip()
     if not key and not args.dry_run:
-        print(f"an API key is required. Set {API_KEY_ENV} (or pass --api-key); create one at {site}/app/keys", file=err)
+        print(f"an API key is required. Set {API_KEY_ENV} (or pass --api-key); create one at {site}/signin?ref=sdk-capture&next=/app/keys", file=err)
         return EXIT_INPUT
 
     page_url = f"{site}/app/upload"

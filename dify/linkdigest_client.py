@@ -68,7 +68,7 @@ class LinkDigestClient:
         """
         r = self._s.get(f"{self._base}/api/v1/digest/credential-check", headers=self._headers(), timeout=20)
         if r.status_code == 401:
-            raise LinkDigestError("invalid API key — issue one at https://linkdigest.dev/app/keys", 401)
+            raise LinkDigestError("invalid API key — issue one at https://linkdigest.dev/signin?ref=dify&next=/app/keys", 401)
 
     def digest(
         self,
@@ -159,7 +159,7 @@ class LinkDigestClient:
     @staticmethod
     def _finish(r: requests.Response, fmt: str) -> Digest:
         if r.status_code == 401:
-            raise LinkDigestError("invalid API key — issue one at https://linkdigest.dev/app/keys", 401)
+            raise LinkDigestError("invalid API key — issue one at https://linkdigest.dev/signin?ref=dify&next=/app/keys", 401)
         if r.status_code == 402:
             # The API says why (the free credits are spent, or this link costs
             # more than is left) and, when buying would help, gives a pay link

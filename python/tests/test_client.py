@@ -85,7 +85,7 @@ def test_key_from_environment_and_base_url_override(monkeypatch):
 
 
 def test_missing_key_is_an_authentication_error_that_says_where_to_get_one():
-    with pytest.raises(AuthenticationError, match="linkdigest.dev/app/keys"):
+    with pytest.raises(AuthenticationError, match=r"linkdigest\.dev/signin\?ref=sdk&next=/app/keys"):
         LinkDigest()
 
 

@@ -69,7 +69,7 @@ class LinkDigestInput(BaseModel):
 class LinkDigestTool(BaseTool):
     """Read one social media link through https://linkdigest.dev.
 
-    api_key      Defaults to LINKDIGEST_API_KEY. Issue one at https://linkdigest.dev/app/keys.
+    api_key      Defaults to LINKDIGEST_API_KEY. Issue one at https://linkdigest.dev/signin?ref=langchain&next=/app/keys.
     output       "markdown" (default) or "json": what the model is given.
     max_credits  Your ceiling per link; a read over it is refused and costs nothing.
     max_wait     Seconds to wait for a long read before handing back its job id.

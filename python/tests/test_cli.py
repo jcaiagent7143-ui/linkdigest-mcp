@@ -90,7 +90,7 @@ def test_unreadable_link_exits_1(fake, capsys):
 
 def test_no_key_exits_2_and_points_to_the_keys_page(monkeypatch, capsys):
     code, _, err = run(capsys, "https://v.douyin.com/abc/")
-    assert code == 2 and "linkdigest.dev/app/keys" in err
+    assert code == 2 and "linkdigest.dev/signin?ref=sdk&next=/app/keys" in err
 
 
 def test_no_url_is_a_usage_error(fake, capsys):

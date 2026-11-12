@@ -18,7 +18,7 @@ When Claude calls `digest_url`, the link you gave (and the options for that call
 
 ## Setup
 
-LinkDigest is a paid service with a free start: 10 free credits on sign-up, no card. Create an API key at https://linkdigest.dev/app/keys and enter it when the plugin asks for "LinkDigest API key". The key is stored in your system's secure storage.
+LinkDigest is a paid service with a free start: 10 free credits on sign-up, no card. Create an API key at https://linkdigest.dev/signin?ref=claude-plugin&next=/app/keys and enter it when the plugin asks for "LinkDigest API key". The key is stored in your system's secure storage.
 
 ## Cost
 

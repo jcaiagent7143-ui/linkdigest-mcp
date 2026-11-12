@@ -14,7 +14,7 @@ curl -O https://raw.githubusercontent.com/jcaiagent7143-ui/linkdigest-mcp/main/e
 python3 bili2notes.py "https://www.bilibili.com/video/BV1pu411o7BE"
 
 # 有 Key：完整笔记（大纲 + 要点 + 逐字稿）
-export LINKDIGEST_API_KEY=ld_live_...        # 在 https://linkdigest.dev/app/keys 创建
+export LINKDIGEST_API_KEY=ld_live_...        # 在 https://linkdigest.dev/signin?ref=github-bili2notes&next=/app/keys 创建
 python3 bili2notes.py "https://www.bilibili.com/video/BV1pu411o7BE" -o note.md
 
 # 整段分享文字、b23.tv 短链、BV 号都可以直接贴
@@ -74,7 +74,7 @@ It does not download or transcribe anything itself: it calls the hosted
 ```bash
 curl -O https://raw.githubusercontent.com/jcaiagent7143-ui/linkdigest-mcp/main/examples/bilibili/bili2notes.py
 python3 bili2notes.py "https://www.bilibili.com/video/BV1pu411o7BE"            # no key: one free summary
-export LINKDIGEST_API_KEY=ld_live_...                                          # https://linkdigest.dev/app/keys
+export LINKDIGEST_API_KEY=ld_live_...                                          # https://linkdigest.dev/signin?ref=github-bili2notes&next=/app/keys
 python3 bili2notes.py "https://www.bilibili.com/video/BV1pu411o7BE" -o note.md  # the full note
 python3 bili2notes.py "https://www.bilibili.com/video/BV1JE411g7XF?p=2" --parts 1-10 --depth script --out-dir notes/
 ```

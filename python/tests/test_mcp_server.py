@@ -156,7 +156,7 @@ def test_tools_call_without_a_key_explains_and_sends_nothing():
     r = proxy(fake, key=None).handle(call(9))
     assert r["result"]["isError"] is True
     text = r["result"]["content"][0]["text"]
-    assert "LINKDIGEST_API_KEY" in text and "linkdigest.dev/app/keys" in text
+    assert "LINKDIGEST_API_KEY" in text and "linkdigest.dev/signin?ref=sdk&next=/app/keys" in text
     assert fake.requests == []
 
 

@@ -17,7 +17,7 @@
       "headers": [
         {
           "name": "Authorization",
-          "description": "Bearer token — an API key issued at https://linkdigest.dev/app/keys",
+          "description": "Bearer token — an API key issued at https://linkdigest.dev/signin?ref=mcp-registry&next=/app/keys",
           "isRequired": true,
           "isSecret": true
         }

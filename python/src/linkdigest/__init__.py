@@ -2,7 +2,7 @@
 
     from linkdigest import LinkDigest
 
-    ld = LinkDigest()  # reads LINKDIGEST_API_KEY; get one at https://linkdigest.dev/app/keys
+    ld = LinkDigest()  # reads LINKDIGEST_API_KEY; get one at https://linkdigest.dev/signin?ref=sdk&next=/app/keys
     d = ld.digest("https://v.douyin.com/xxxx/", breakdown=True)
     print(d.title, d.credits)
     print(d.markdown)

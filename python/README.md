@@ -30,7 +30,7 @@ pip install "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory
 ```
 
 All three read the API key from `LINKDIGEST_API_KEY`. Issue one at
-[linkdigest.dev/app/keys](https://linkdigest.dev/app/keys) — 10 free credits on sign-up, no card.
+[linkdigest.dev/app/keys](https://linkdigest.dev/signin?ref=pypi&next=/app/keys) — 10 free credits on sign-up, no card.
 
 ```python
 from linkdigest import LinkDigest
