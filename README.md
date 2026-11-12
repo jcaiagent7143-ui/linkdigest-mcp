@@ -128,6 +128,8 @@ started minute; a viral breakdown or a translation adds one each. Then $5 once f
 | `bilibili-video-to-text` | B站视频总结 / 转文字: a Bilibili video (BV link or b23.tv) as a timed transcript, on-screen text and key points |
 | `bilibili-course-notes` ★ | B站网课笔记: a lecture or a whole 分P course as Markdown notes — timed outline, key points with quotes, `[mm:ss]` transcript, one file per part |
 | `video-to-mindmap` | 视频转思维导图: a long video's timed outline as markmap Markdown (branches with start–end times) |
+| `douyin-batch-to-text` | 抖音批量视频转文字: a batch of Douyin links (one creator's series) read at once, one Markdown file per video plus an index table; speech-only read by default |
+| `xiaohongshu-batch-export` | 小红书笔记批量导出: a batch of Xiaohongshu notes as Markdown files — body, the words in every image (OCR), video transcript, hot comments — plus an index table |
 | `douyin-video-to-text` ★ | 抖音视频转文字: a Douyin video's spoken words, on-screen text, chapters |
 | `douyin-search-to-text` | 抖音搜索转文字: search Douyin by topic, then read the videos you pick |
 | `xiaohongshu-note-to-text` ★ | 小红书笔记转文字: a Xiaohongshu note, the text in every image, caption, stats |

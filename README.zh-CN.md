@@ -150,6 +150,8 @@ claude mcp add --transport http linkdigest https://linkdigest.dev/mcp \
 | `bilibili-video-to-text` | B站视频总结 skill：BV 链接或 b23.tv 短链 → 分段带时间的逐字稿、画面上的字、要点 |
 | `bilibili-course-notes` ★ | B站网课笔记 skill：一节课或整套分P 课程 → Markdown 笔记（带时间的大纲、附原话的要点、`[mm:ss]` 逐字稿，每 P 一个文件） |
 | `video-to-mindmap` | 视频转思维导图 skill：长视频的带时间大纲 → markmap 能画的 Markdown（分支标起止时间） |
+| `douyin-batch-to-text` | 抖音批量视频转文字 skill：一批抖音链接（一个博主的一整套视频）整批读完，每条一个 Markdown 文件 + 索引表；默认只要口播文案 |
+| `xiaohongshu-batch-export` | 小红书笔记批量导出 skill：一批笔记导出成 Markdown——正文、每张图上的字（OCR）、视频逐字稿、热评——附索引表 |
 | `douyin-video-to-text` ★ | 抖音文案提取 skill：口播逐字稿、画面字幕、章节、要点、点赞评论数 |
 | `linkdigest-video-transcript` ★ | 抖音 / 小红书 / TikTok / YouTube / B站视频转文字（口播逐字稿 + 画面文字） |
 | `linkdigest-youtube-summary` ★ | YouTube 视频总结和带时间戳的逐字稿，可译成中文 |
