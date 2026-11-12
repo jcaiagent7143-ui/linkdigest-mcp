@@ -141,13 +141,15 @@ claude mcp add --transport http linkdigest https://linkdigest.dev/mcp \
 
 ## Agent 技能（OpenClaw、Hermes、Claude Code、Cursor 等）
 
-[`skills/`](skills) 里有 23 个现成的 Agent Skill，每个只做一件事：一份 `SKILL.md` 加一个只用 Python 标准库的脚本。读单条链接的技能（下表标 ★）没有 `LINKDIGEST_API_KEY` 也能先看摘要，每个地址每天 2 条；有 Key（注册送 10 积分，不用绑卡）给完整逐字稿和逐图文字。
+[`skills/`](skills) 里有 25 个现成的 Agent Skill，每个只做一件事：一份 `SKILL.md` 加一个只用 Python 标准库的脚本。读单条链接的技能（下表标 ★）没有 `LINKDIGEST_API_KEY` 也能先看摘要，每个地址每天 2 条；有 Key（注册送 10 积分，不用绑卡）给完整逐字稿和逐图文字。
 
 **视频总结 / 视频转文字 skill**
 
 | 技能 | 做什么 |
 | --- | --- |
 | `bilibili-video-to-text` | B站视频总结 skill：BV 链接或 b23.tv 短链 → 分段带时间的逐字稿、画面上的字、要点 |
+| `bilibili-course-notes` ★ | B站网课笔记 skill：一节课或整套分P 课程 → Markdown 笔记（带时间的大纲、附原话的要点、`[mm:ss]` 逐字稿，每 P 一个文件） |
+| `video-to-mindmap` | 视频转思维导图 skill：长视频的带时间大纲 → markmap 能画的 Markdown（分支标起止时间） |
 | `douyin-video-to-text` ★ | 抖音文案提取 skill：口播逐字稿、画面字幕、章节、要点、点赞评论数 |
 | `linkdigest-video-transcript` ★ | 抖音 / 小红书 / TikTok / YouTube / B站视频转文字（口播逐字稿 + 画面文字） |
 | `linkdigest-youtube-summary` ★ | YouTube 视频总结和带时间戳的逐字稿，可译成中文 |
