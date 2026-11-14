@@ -1,0 +1,1505 @@
+{
+ "sampled_at": "2026-11-14T07:17:42+00:00",
+ "max_credits_per_link": 12,
+ "platforms": [
+  "bilibili",
+  "douyin",
+  "xiaohongshu",
+  "youtube"
+ ],
+ "summary": {
+  "linkdigest": {
+   "links": 24,
+   "reached": 24,
+   "speech": 16,
+   "speech_of": 24,
+   "picture": 22,
+   "picture_of": 24,
+   "comments": 6,
+   "comments_of": 24,
+   "by_platform": {
+    "bilibili": {
+     "links": 6,
+     "reached": 6
+    },
+    "douyin": {
+     "links": 6,
+     "reached": 6
+    },
+    "xiaohongshu": {
+     "links": 6,
+     "reached": 6
+    },
+    "youtube": {
+     "links": 6,
+     "reached": 6
+    }
+   },
+   "median_seconds": 30.3,
+   "credits": 108
+  },
+  "jina": {
+   "links": 24,
+   "reached": 14,
+   "speech": 0,
+   "speech_of": 16,
+   "picture": 0,
+   "picture_of": 22,
+   "comments": 0,
+   "comments_of": 6,
+   "by_platform": {
+    "bilibili": {
+     "links": 6,
+     "reached": 6
+    },
+    "douyin": {
+     "links": 6,
+     "reached": 2
+    },
+    "xiaohongshu": {
+     "links": 6,
+     "reached": 0
+    },
+    "youtube": {
+     "links": 6,
+     "reached": 6
+    }
+   },
+   "median_seconds": 9.2
+  },
+  "fetch": {
+   "links": 24,
+   "reached": 7,
+   "speech": 0,
+   "speech_of": 16,
+   "picture": 0,
+   "picture_of": 22,
+   "comments": 0,
+   "comments_of": 6,
+   "by_platform": {
+    "bilibili": {
+     "links": 6,
+     "reached": 6
+    },
+    "douyin": {
+     "links": 6,
+     "reached": 0
+    },
+    "xiaohongshu": {
+     "links": 6,
+     "reached": 0
+    },
+    "youtube": {
+     "links": 6,
+     "reached": 1
+    }
+   },
+   "median_seconds": 0.6
+  },
+  "ytdlp": {
+   "links": 24,
+   "reached": 12,
+   "speech": 3,
+   "speech_of": 0,
+   "picture": 0,
+   "picture_of": 0,
+   "comments": 0,
+   "comments_of": 0,
+   "by_platform": {
+    "bilibili": {
+     "links": 6,
+     "reached": 6
+    },
+    "douyin": {
+     "links": 6,
+     "reached": 0
+    },
+    "xiaohongshu": {
+     "links": 6,
+     "reached": 0
+    },
+    "youtube": {
+     "links": 6,
+     "reached": 6
+    }
+   },
+   "median_seconds": 1.6
+  }
+ },
+ "links": [
+  {
+   "n": 1,
+   "platform": "bilibili",
+   "url": "https://www.bilibili.com/video/BV1JVWq6aECe",
+   "title": "如果小时候幻想过的职业真的成真了？会是怎样？",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 24.2,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "video",
+     "duration_seconds": 167,
+     "read_seconds": 167,
+     "partial": false,
+     "caption_chars": 0,
+     "speech_seconds": 167,
+     "speech_segments": 1,
+     "picture_lines": 74,
+     "images_read": 1,
+     "images_total": 1,
+     "comments": 0,
+     "key_points": 8,
+     "credits": 4,
+     "cached": false,
+     "not_captured": 1
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 0.6,
+     "chars": 12260,
+     "reached": true,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.4,
+     "chars": 149162,
+     "reached": true,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "ytdlp": {
+     "status": 200,
+     "seconds": 2.5,
+     "reached": true,
+     "duration_seconds": 166.133,
+     "caption_tracks": [],
+     "auto_caption_tracks": 0,
+     "speech": null,
+     "picture": null,
+     "comments": null
+    }
+   }
+  },
+  {
+   "n": 2,
+   "platform": "bilibili",
+   "url": "https://www.bilibili.com/video/BV1DTWi62Eho",
+   "title": "我的中军老公",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 0.5,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "video",
+     "duration_seconds": 71,
+     "read_seconds": 71,
+     "partial": false,
+     "caption_chars": 0,
+     "speech_seconds": 0,
+     "speech_segments": 0,
+     "picture_lines": 44,
+     "images_read": 1,
+     "images_total": 1,
+     "comments": 0,
+     "key_points": 7,
+     "credits": 0,
+     "cached": true,
+     "not_captured": 2
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 9.7,
+     "chars": 5018,
+     "reached": true,
+     "wall": false,
+     "speech": null,
+     "picture": 0.0,
+     "comments": null
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.5,
+     "chars": 162357,
+     "reached": true,
+     "wall": false,
+     "speech": null,
+     "picture": 0.0,
+     "comments": null
+    },
+    "ytdlp": {
+     "status": 200,
+     "seconds": 1.5,
+     "reached": true,
+     "duration_seconds": 70.217,
+     "caption_tracks": [],
+     "auto_caption_tracks": 0,
+     "speech": null,
+     "picture": null,
+     "comments": null
+    }
+   }
+  },
+  {
+   "n": 3,
+   "platform": "bilibili",
+   "url": "https://www.bilibili.com/video/BV1rpWe6ZEWn",
+   "title": "全看过的这辈子有了",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 0.9,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "video",
+     "duration_seconds": 231,
+     "read_seconds": 231,
+     "partial": false,
+     "caption_chars": 0,
+     "speech_seconds": 231,
+     "speech_segments": 2,
+     "picture_lines": 87,
+     "images_read": 1,
+     "images_total": 1,
+     "comments": 0,
+     "key_points": 10,
+     "credits": 5,
+     "cached": false,
+     "not_captured": 1
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 10.4,
+     "chars": 16384,
+     "reached": true,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.4,
+     "chars": 164590,
+     "reached": true,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "ytdlp": {
+     "status": 200,
+     "seconds": 1.5,
+     "reached": true,
+     "duration_seconds": 230.08,
+     "caption_tracks": [],
+     "auto_caption_tracks": 0,
+     "speech": null,
+     "picture": null,
+     "comments": null
+    }
+   }
+  },
+  {
+   "n": 4,
+   "platform": "bilibili",
+   "url": "https://www.bilibili.com/video/BV1sFWq63E4i",
+   "title": "笑点一高大事件",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 31.7,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "video",
+     "duration_seconds": 303,
+     "read_seconds": 303,
+     "partial": false,
+     "caption_chars": 0,
+     "speech_seconds": 303,
+     "speech_segments": 8,
+     "picture_lines": 78,
+     "images_read": 1,
+     "images_total": 1,
+     "comments": 0,
+     "key_points": 8,
+     "credits": 7,
+     "cached": false,
+     "not_captured": 1
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 14.4,
+     "chars": 16688,
+     "reached": true,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.8,
+     "chars": 165757,
+     "reached": true,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "ytdlp": {
+     "status": 200,
+     "seconds": 1.8,
+     "reached": true,
+     "duration_seconds": 302.672,
+     "caption_tracks": [],
+     "auto_caption_tracks": 0,
+     "speech": null,
+     "picture": null,
+     "comments": null
+    }
+   }
+  },
+  {
+   "n": 5,
+   "platform": "bilibili",
+   "url": "https://www.bilibili.com/video/BV1nuWq6NENC",
+   "title": "⚡️黄仁勋 辞职巡演⚡️【AI MV大赛】",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 26.9,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "video",
+     "duration_seconds": 86,
+     "read_seconds": 86,
+     "partial": false,
+     "caption_chars": 30,
+     "speech_seconds": 86,
+     "speech_segments": 1,
+     "picture_lines": 13,
+     "images_read": 1,
+     "images_total": 1,
+     "comments": 0,
+     "key_points": 6,
+     "credits": 3,
+     "cached": false,
+     "not_captured": 1
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 10.9,
+     "chars": 9411,
+     "reached": true,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.5,
+     "chars": 200000,
+     "reached": true,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "ytdlp": {
+     "status": 200,
+     "seconds": 1.6,
+     "reached": true,
+     "duration_seconds": 85.545,
+     "caption_tracks": [],
+     "auto_caption_tracks": 0,
+     "speech": null,
+     "picture": null,
+     "comments": null
+    }
+   }
+  },
+  {
+   "n": 6,
+   "platform": "bilibili",
+   "url": "https://www.bilibili.com/video/BV1MaWv6rEo3",
+   "title": "臭肥鱼害我把情书交给辅导员了！【人和肥鱼03】",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 26.4,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "video",
+     "duration_seconds": 132,
+     "read_seconds": 132,
+     "partial": false,
+     "caption_chars": 69,
+     "speech_seconds": 132,
+     "speech_segments": 10,
+     "picture_lines": 19,
+     "images_read": 1,
+     "images_total": 1,
+     "comments": 0,
+     "key_points": 5,
+     "credits": 4,
+     "cached": false,
+     "not_captured": 1
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 11.1,
+     "chars": 17580,
+     "reached": true,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.5,
+     "chars": 185991,
+     "reached": true,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "ytdlp": {
+     "status": 200,
+     "seconds": 1.6,
+     "reached": true,
+     "duration_seconds": 131.494,
+     "caption_tracks": [],
+     "auto_caption_tracks": 0,
+     "speech": null,
+     "picture": null,
+     "comments": null
+    }
+   }
+  },
+  {
+   "n": 7,
+   "platform": "douyin",
+   "url": "https://www.douyin.com/video/7700549851688746875",
+   "title": "一勺汤汁一碗饭#美食分享#家常菜#葱烧豆腐做法#美食教程",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 35.2,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "video",
+     "duration_seconds": 24.4,
+     "read_seconds": 24.4,
+     "partial": false,
+     "caption_chars": 41,
+     "speech_seconds": 24.4,
+     "speech_segments": 2,
+     "picture_lines": 37,
+     "images_read": null,
+     "images_total": null,
+     "comments": 0,
+     "key_points": 8,
+     "credits": 2,
+     "cached": false,
+     "not_captured": 1
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 12.9,
+     "chars": 32274,
+     "reached": true,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.7,
+     "chars": 72914,
+     "reached": false,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "ytdlp": {
+     "status": 1,
+     "seconds": 0.6,
+     "reached": false
+    }
+   }
+  },
+  {
+   "n": 8,
+   "platform": "douyin",
+   "url": "https://www.douyin.com/video/7673992312967531817",
+   "title": "家常版梅菜扣肉做法，肥而不腻，软烂入味，有了这个梅菜蒸炒酱想吃梅菜扣肉就太方便了 #梅菜蒸炒酱 #梅菜扣肉",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 52.7,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "video",
+     "duration_seconds": 87.215,
+     "read_seconds": 87.215,
+     "partial": false,
+     "caption_chars": 45,
+     "speech_seconds": 87.2,
+     "speech_segments": 6,
+     "picture_lines": 33,
+     "images_read": null,
+     "images_total": null,
+     "comments": 0,
+     "key_points": 8,
+     "credits": 3,
+     "cached": false,
+     "not_captured": 1
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 11.3,
+     "chars": 3821,
+     "reached": false,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.6,
+     "chars": 72914,
+     "reached": false,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "ytdlp": {
+     "status": 1,
+     "seconds": 0.6,
+     "reached": false
+    }
+   }
+  },
+  {
+   "n": 9,
+   "platform": "douyin",
+   "url": "https://www.douyin.com/video/7642676328923188526",
+   "title": "中餐挑战22：今天做辣椒炒肉！ 简单的蔬菜和猪肉，通过爆炒竟然可以这么香！I love Chinese food！ \n⭐食材： 猪肉、辣椒、姜、蒜、葱\n做法：\n1️⃣ 猪肉切条，加淀粉、清水、料酒、生抽、蚝油和少许油，抓匀腌制一会儿\n2️⃣ 辣椒切丝，姜蒜葱切好备用\n3️⃣ 热油下猪肉炒熟盛出，再爆香姜蒜，倒入辣椒炒香\n4️⃣ 倒回猪肉，加料酒、老抽、盐调味，翻炒均匀，撒葱段出锅 \n#家常菜 #老",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 56.8,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "video",
+     "duration_seconds": 66.363,
+     "read_seconds": 66.363,
+     "partial": false,
+     "caption_chars": 107,
+     "speech_seconds": 66.4,
+     "speech_segments": 1,
+     "picture_lines": 22,
+     "images_read": null,
+     "images_total": null,
+     "comments": 0,
+     "key_points": 6,
+     "credits": 3,
+     "cached": false,
+     "not_captured": 1
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 17.7,
+     "chars": 3821,
+     "reached": false,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.5,
+     "chars": 72914,
+     "reached": false,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "ytdlp": {
+     "status": 1,
+     "seconds": 0.6,
+     "reached": false
+    }
+   }
+  },
+  {
+   "n": 10,
+   "platform": "douyin",
+   "url": "https://www.douyin.com/video/7636745930004153920",
+   "title": "鱼最简单又好吃的做法，#盐水泥猛鱼 #泥猛鱼家常做法 #晒晒我的厨艺 #创作者中心 #创作灵感",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 32.7,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "video",
+     "duration_seconds": 21.267,
+     "read_seconds": 21.267,
+     "partial": false,
+     "caption_chars": 47,
+     "speech_seconds": 21.3,
+     "speech_segments": 1,
+     "picture_lines": 0,
+     "images_read": null,
+     "images_total": null,
+     "comments": 0,
+     "key_points": 4,
+     "credits": 2,
+     "cached": false,
+     "not_captured": 1
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 11.7,
+     "chars": 3821,
+     "reached": false,
+     "wall": false,
+     "speech": 0.0,
+     "picture": null,
+     "comments": null
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.4,
+     "chars": 72914,
+     "reached": false,
+     "wall": false,
+     "speech": 0.0,
+     "picture": null,
+     "comments": null
+    },
+    "ytdlp": {
+     "status": 1,
+     "seconds": 0.5,
+     "reached": false
+    }
+   }
+  },
+  {
+   "n": 11,
+   "platform": "douyin",
+   "url": "https://www.douyin.com/video/7566895523078343985",
+   "title": "大家下午好，今天午饭分享，清炒贡菜，清脆爽口，大家一定要炒一炒吃一吃！以前我买回来的都不太好，这次买的特别新鲜，视频下方链接，大家放心购买，买回去冷冻保存一年都不坏哦！#贡菜的家常做法 @抖音小助手 @抖音创作小助手",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 111.1,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "video",
+     "duration_seconds": 220.938,
+     "read_seconds": 220.938,
+     "partial": false,
+     "caption_chars": 107,
+     "speech_seconds": 220.9,
+     "speech_segments": 37,
+     "picture_lines": 3,
+     "images_read": null,
+     "images_total": null,
+     "comments": 0,
+     "key_points": 8,
+     "credits": 5,
+     "cached": false,
+     "not_captured": 1
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 10.6,
+     "chars": 27962,
+     "reached": true,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 1.1,
+     "chars": 72914,
+     "reached": false,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "ytdlp": {
+     "status": 1,
+     "seconds": 1.2,
+     "reached": false
+    }
+   }
+  },
+  {
+   "n": 12,
+   "platform": "douyin",
+   "url": "https://www.douyin.com/video/7563286841978703123",
+   "title": "#虎皮鸡爪做法 #家常下饭菜 #美食记 #强烈推荐 #美食教程持续更新 虎皮鸡爪的做法",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 137.5,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "video",
+     "duration_seconds": 439.234,
+     "read_seconds": 439.234,
+     "partial": false,
+     "caption_chars": 44,
+     "speech_seconds": 439.2,
+     "speech_segments": 69,
+     "picture_lines": 63,
+     "images_read": null,
+     "images_total": null,
+     "comments": 0,
+     "key_points": 9,
+     "credits": 9,
+     "cached": false,
+     "not_captured": 1
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 15.1,
+     "chars": 3821,
+     "reached": false,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.7,
+     "chars": 72914,
+     "reached": false,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "ytdlp": {
+     "status": 1,
+     "seconds": 0.6,
+     "reached": false
+    }
+   }
+  },
+  {
+   "n": 13,
+   "platform": "xiaohongshu",
+   "url": "https://www.rednote.com/discovery/item/6ac97bb5000000001803a018",
+   "title": "【Sara】☕️ 咖啡巧克力酸奶早餐杯",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 24.0,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "video",
+     "duration_seconds": 25,
+     "read_seconds": 25,
+     "partial": false,
+     "caption_chars": 389,
+     "speech_seconds": 0,
+     "speech_segments": 0,
+     "picture_lines": 8,
+     "images_read": null,
+     "images_total": null,
+     "comments": 2,
+     "key_points": 7,
+     "credits": 2,
+     "cached": false,
+     "not_captured": 2
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 8.7,
+     "chars": 654,
+     "reached": false,
+     "wall": true,
+     "speech": null,
+     "picture": 0.0,
+     "comments": 0.0
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.4,
+     "chars": 200000,
+     "reached": false,
+     "wall": false,
+     "speech": null,
+     "picture": 0.0,
+     "comments": 0.0
+    },
+    "ytdlp": {
+     "status": 1,
+     "seconds": 8.1,
+     "reached": false
+    }
+   }
+  },
+  {
+   "n": 14,
+   "platform": "xiaohongshu",
+   "url": "https://www.xiaohongshu.com/explore/6a509bf70000000011019ca6",
+   "title": "无锡探店姐妹看过来💕 Drops咖啡邀你",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 17.4,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "images/text",
+     "duration_seconds": null,
+     "read_seconds": null,
+     "partial": false,
+     "caption_chars": 461,
+     "speech_seconds": 0,
+     "speech_segments": 0,
+     "picture_lines": 11,
+     "images_read": 3,
+     "images_total": 3,
+     "comments": 5,
+     "key_points": 10,
+     "credits": 1,
+     "cached": false,
+     "not_captured": 1
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 8.5,
+     "chars": 642,
+     "reached": false,
+     "wall": true,
+     "speech": null,
+     "picture": 0.0,
+     "comments": 0.0
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.5,
+     "chars": 200000,
+     "reached": false,
+     "wall": false,
+     "speech": null,
+     "picture": 0.0,
+     "comments": 0.0
+    },
+    "ytdlp": {
+     "status": 1,
+     "seconds": 1.7,
+     "reached": false
+    }
+   }
+  },
+  {
+   "n": 15,
+   "platform": "xiaohongshu",
+   "url": "https://www.xiaohongshu.com/explore/6a2424190000000015025dfe",
+   "title": "农大花园咖啡店，一杯宫崎骏的夏天喝进童话",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 28.9,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "images/text",
+     "duration_seconds": null,
+     "read_seconds": null,
+     "partial": false,
+     "caption_chars": 697,
+     "speech_seconds": 0,
+     "speech_segments": 0,
+     "picture_lines": 47,
+     "images_read": 16,
+     "images_total": 16,
+     "comments": 5,
+     "key_points": 10,
+     "credits": 3,
+     "cached": false,
+     "not_captured": 1
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 7.3,
+     "chars": 642,
+     "reached": false,
+     "wall": true,
+     "speech": null,
+     "picture": 0.0,
+     "comments": 0.0
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.6,
+     "chars": 200000,
+     "reached": false,
+     "wall": false,
+     "speech": null,
+     "picture": 0.0,
+     "comments": 0.0
+    },
+    "ytdlp": {
+     "status": 1,
+     "seconds": 6.4,
+     "reached": false
+    }
+   }
+  },
+  {
+   "n": 16,
+   "platform": "xiaohongshu",
+   "url": "https://www.xiaohongshu.com/explore/69e74ffa000000001a032455",
+   "title": "佛山探店·一家光线好又出片的咖啡店🍮",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 27.0,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "images/text",
+     "duration_seconds": null,
+     "read_seconds": null,
+     "partial": false,
+     "caption_chars": 299,
+     "speech_seconds": 0,
+     "speech_segments": 0,
+     "picture_lines": 19,
+     "images_read": 12,
+     "images_total": 12,
+     "comments": 5,
+     "key_points": 15,
+     "credits": 2,
+     "cached": false,
+     "not_captured": 1
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 6.8,
+     "chars": 642,
+     "reached": false,
+     "wall": true,
+     "speech": null,
+     "picture": 0.0,
+     "comments": 0.0
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.4,
+     "chars": 200000,
+     "reached": false,
+     "wall": false,
+     "speech": null,
+     "picture": 0.0,
+     "comments": 0.0
+    },
+    "ytdlp": {
+     "status": 1,
+     "seconds": 1.0,
+     "reached": false
+    }
+   }
+  },
+  {
+   "n": 17,
+   "platform": "xiaohongshu",
+   "url": "https://www.xiaohongshu.com/explore/69d8fb15000000002101190f",
+   "title": "广州咖啡厅探店丨荔湾区丨法式复古风",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 20.3,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "images/text",
+     "duration_seconds": null,
+     "read_seconds": null,
+     "partial": false,
+     "caption_chars": 250,
+     "speech_seconds": 0,
+     "speech_segments": 0,
+     "picture_lines": 7,
+     "images_read": 10,
+     "images_total": 10,
+     "comments": 5,
+     "key_points": 6,
+     "credits": 2,
+     "cached": false,
+     "not_captured": 1
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 7.1,
+     "chars": 642,
+     "reached": false,
+     "wall": true,
+     "speech": null,
+     "picture": 0.0,
+     "comments": 0.0
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.6,
+     "chars": 200000,
+     "reached": false,
+     "wall": false,
+     "speech": null,
+     "picture": 0.0,
+     "comments": 0.0
+    },
+    "ytdlp": {
+     "status": 1,
+     "seconds": 1.0,
+     "reached": false
+    }
+   }
+  },
+  {
+   "n": 18,
+   "platform": "xiaohongshu",
+   "url": "https://www.rednote.com/discovery/item/69c30e6e0000000022002e3b",
+   "title": "OC新晋宝藏咖啡厅☕️ ｜周末晒太阳好去处☀️",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 20.6,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "images/text",
+     "duration_seconds": null,
+     "read_seconds": null,
+     "partial": false,
+     "caption_chars": 749,
+     "speech_seconds": 0,
+     "speech_segments": 0,
+     "picture_lines": 15,
+     "images_read": 8,
+     "images_total": 8,
+     "comments": 5,
+     "key_points": 8,
+     "credits": 2,
+     "cached": false,
+     "not_captured": 1
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 6.4,
+     "chars": 654,
+     "reached": false,
+     "wall": true,
+     "speech": null,
+     "picture": 0.0,
+     "comments": 0.0
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.2,
+     "chars": 200000,
+     "reached": false,
+     "wall": false,
+     "speech": null,
+     "picture": 0.0,
+     "comments": 0.0
+    },
+    "ytdlp": {
+     "status": 1,
+     "seconds": 3.6,
+     "reached": false
+    }
+   }
+  },
+  {
+   "n": 19,
+   "platform": "youtube",
+   "url": "https://www.youtube.com/watch?v=JyfsJgfhWKM",
+   "title": "初学者如何学习编程（一个10年程序员的编程工作总结）",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 51.9,
+     "reached": true,
+     "title_matches_sample": false,
+     "kind": "video",
+     "duration_seconds": 556,
+     "read_seconds": 556,
+     "partial": false,
+     "caption_chars": 0,
+     "speech_seconds": 556,
+     "speech_segments": 68,
+     "picture_lines": 22,
+     "images_read": null,
+     "images_total": null,
+     "comments": 0,
+     "key_points": 6,
+     "credits": 11,
+     "cached": false,
+     "not_captured": 2
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 5.5,
+     "chars": 13328,
+     "reached": true,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.8,
+     "chars": 200000,
+     "reached": false,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "ytdlp": {
+     "status": 200,
+     "seconds": 2.1,
+     "reached": true,
+     "duration_seconds": 604,
+     "caption_tracks": [],
+     "auto_caption_tracks": 0,
+     "speech": null,
+     "picture": null,
+     "comments": null
+    }
+   }
+  },
+  {
+   "n": 20,
+   "platform": "youtube",
+   "url": "https://www.youtube.com/watch?v=j0tArdV9xec",
+   "title": "AI时代，普通人该如何学编程/转码/迅速上手项目？为什么传统CS科班教育落伍了？小白用AI工具，真的能成为合格程序员吗？AI时代到底还有没有必要学编程？",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 69.6,
+     "reached": true,
+     "title_matches_sample": false,
+     "kind": "video",
+     "duration_seconds": 2221,
+     "read_seconds": 2221,
+     "partial": false,
+     "caption_chars": 0,
+     "speech_seconds": 2221,
+     "speech_segments": 36,
+     "picture_lines": 8,
+     "images_read": null,
+     "images_total": null,
+     "comments": 0,
+     "key_points": 6,
+     "credits": 12,
+     "cached": false,
+     "not_captured": 2
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 6.7,
+     "chars": 20697,
+     "reached": true,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.7,
+     "chars": 200000,
+     "reached": false,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "ytdlp": {
+     "status": 200,
+     "seconds": 2.0,
+     "reached": true,
+     "duration_seconds": 2397,
+     "caption_tracks": [
+      "zh-Hans"
+     ],
+     "auto_caption_tracks": 1,
+     "speech": null,
+     "picture": null,
+     "comments": null
+    }
+   }
+  },
+  {
+   "n": 21,
+   "platform": "youtube",
+   "url": "https://www.youtube.com/watch?v=9Hku_7e-JSk",
+   "title": "3小时超快速入门Python | 动画教学【2025新版】【自学Python教程】【零基础Python】",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 49.7,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "images/text",
+     "duration_seconds": null,
+     "read_seconds": null,
+     "partial": false,
+     "caption_chars": 52,
+     "speech_seconds": 0,
+     "speech_segments": 0,
+     "picture_lines": 0,
+     "images_read": 1,
+     "images_total": 1,
+     "comments": 0,
+     "key_points": 5,
+     "credits": 0,
+     "cached": false,
+     "not_captured": 3
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 16.3,
+     "chars": 24794,
+     "reached": true,
+     "wall": false,
+     "speech": null,
+     "picture": null,
+     "comments": null
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 1.0,
+     "chars": 200000,
+     "reached": false,
+     "wall": false,
+     "speech": null,
+     "picture": null,
+     "comments": null
+    },
+    "ytdlp": {
+     "status": 200,
+     "seconds": 2.3,
+     "reached": true,
+     "duration_seconds": 11458,
+     "caption_tracks": [],
+     "auto_caption_tracks": 0,
+     "speech": null,
+     "picture": null,
+     "comments": null
+    }
+   }
+  },
+  {
+   "n": 22,
+   "platform": "youtube",
+   "url": "https://www.youtube.com/watch?v=oU-fh2S6tzU",
+   "title": "什么是编程啊 | 概念入门篇，新手自学编程第一步 | What is Programming?",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 18.3,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "video",
+     "duration_seconds": 215,
+     "read_seconds": 215,
+     "partial": false,
+     "caption_chars": 0,
+     "speech_seconds": 215,
+     "speech_segments": 22,
+     "picture_lines": 20,
+     "images_read": null,
+     "images_total": null,
+     "comments": 0,
+     "key_points": 4,
+     "credits": 5,
+     "cached": false,
+     "not_captured": 2
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 6.0,
+     "chars": 14882,
+     "reached": true,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.9,
+     "chars": 200000,
+     "reached": true,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "ytdlp": {
+     "status": 200,
+     "seconds": 1.4,
+     "reached": true,
+     "duration_seconds": 233,
+     "caption_tracks": [],
+     "auto_caption_tracks": 0,
+     "speech": null,
+     "picture": null,
+     "comments": null
+    }
+   }
+  },
+  {
+   "n": 23,
+   "platform": "youtube",
+   "url": "https://www.youtube.com/watch?v=GBi5IUvbxRE",
+   "title": "黄仁勋：“别再学编程，如果一切重来，我会学习。。。” 聊聊 AI 阴影下的程序员生存技能 | 回到Axton",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 67.1,
+     "reached": true,
+     "title_matches_sample": false,
+     "kind": "video",
+     "duration_seconds": 828,
+     "read_seconds": 828,
+     "partial": false,
+     "caption_chars": 0,
+     "speech_seconds": 828,
+     "speech_segments": 73,
+     "picture_lines": 16,
+     "images_read": null,
+     "images_total": null,
+     "comments": 0,
+     "key_points": 5,
+     "credits": 12,
+     "cached": false,
+     "not_captured": 2
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 8.3,
+     "chars": 31325,
+     "reached": true,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 4.9,
+     "chars": 200000,
+     "reached": false,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "ytdlp": {
+     "status": 200,
+     "seconds": 2.4,
+     "reached": true,
+     "duration_seconds": 897,
+     "caption_tracks": [
+      "zh-Hans"
+     ],
+     "auto_caption_tracks": 1,
+     "speech": null,
+     "picture": null,
+     "comments": null
+    }
+   }
+  },
+  {
+   "n": 24,
+   "platform": "youtube",
+   "url": "https://www.youtube.com/watch?v=qx6DRVTYeco",
+   "title": "26 年 AI 编程学习路线一条龙，8 分钟速通！#程序员 #ai #ai编程 #编程 #claude #codex #cursor #计算机",
+   "readers": {
+    "linkdigest": {
+     "status": 200,
+     "seconds": 40.9,
+     "reached": true,
+     "title_matches_sample": true,
+     "kind": "video",
+     "duration_seconds": 444,
+     "read_seconds": 444,
+     "partial": false,
+     "caption_chars": 0,
+     "speech_seconds": 444,
+     "speech_segments": 57,
+     "picture_lines": 26,
+     "images_read": null,
+     "images_total": null,
+     "comments": 0,
+     "key_points": 6,
+     "credits": 9,
+     "cached": false,
+     "not_captured": 2
+    },
+    "jina": {
+     "status": 200,
+     "seconds": 6.6,
+     "chars": 17654,
+     "reached": true,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "fetch": {
+     "status": 200,
+     "seconds": 0.7,
+     "chars": 200000,
+     "reached": false,
+     "wall": false,
+     "speech": 0.0,
+     "picture": 0.0,
+     "comments": null
+    },
+    "ytdlp": {
+     "status": 200,
+     "seconds": 1.4,
+     "reached": true,
+     "duration_seconds": 484,
+     "caption_tracks": [
+      "zh"
+     ],
+     "auto_caption_tracks": 1,
+     "speech": null,
+     "picture": null,
+     "comments": null
+    }
+   }
+  }
+ ]
+}
