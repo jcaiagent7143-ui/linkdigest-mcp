@@ -38,6 +38,10 @@ plugin source ([`dify/`](dify/)), the agent skill ([`skills/`](skills/)), exampl
 The hosted service behind `https://linkdigest.dev/mcp` and the API is operated by LinkDigest; its
 reading engine is not open source.
 
+## Measured, not claimed
+
+[Benchmark, 2026-11-14](benchmark/): 24 links sampled by rule before anything ran (Bilibili popular list; Douyin, Xiaohongshu and YouTube topic searches, 6 each), read four ways. LinkDigest got content on 23/24 (speech 16, text in picture 22, comments 6; one 3-hour YouTube video came back title-only). Jina Reader opened 14/24 posts (Xiaohongshu 0/6), a plain fetch 7/24, `yt-dlp` 12/24; none of the three got speech or picture text. Sampler, runner, scorer and per-link scores are in [`benchmark/`](benchmark/), so you can re-run it.
+
 ## The problem
 
 Fetching a social link yourself returns nothing useful. Share URLs are tokenised

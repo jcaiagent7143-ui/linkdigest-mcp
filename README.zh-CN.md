@@ -49,6 +49,10 @@ Key 在 [linkdigest.dev/app/keys](https://linkdigest.dev/signin?next=/app/keys) 
 Dify 插件源码（[`dify/`](dify/)），Agent 技能（[`skills/`](skills/)），示例，以及官方 MCP 注册表条目（[`server.json`](server.json)）。
 `https://linkdigest.dev/mcp` 和 API 背后的托管服务由 LinkDigest 运营，读取引擎不开源。
 
+## 实测，不是宣传
+
+[2026-11-14 测评](benchmark/)：24 条链接在任何读法运行前按规则抽取（B站热门；抖音、小红书、YouTube 话题搜索，各 6 条），用 4 种读法各读一遍。LinkDigest 23/24 条读到内容（口播 16、画面和图上文字 22、评论 6；一条 3 小时的 YouTube 视频只拿到标题）。Jina Reader 打开 14/24（小红书 0/6），直接抓网页 7/24，`yt-dlp` 12/24，三者都没有拿到口播或画面上的字。抽样、运行、打分脚本和逐条打分在 [`benchmark/`](benchmark/)，可以自己重跑。中文结果页：https://linkdigest.dev/zh/lianjie-duqu-ceping
+
 ## MCP 配置
 
 远程 MCP（Streamable HTTP），什么都不用装：
