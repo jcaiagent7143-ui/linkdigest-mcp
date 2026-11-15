@@ -225,6 +225,7 @@ Checked against real posts, not documentation.
 | Weibo 微博 | Works (since 2026-11-01) — text, photos, video, counts, top comments, through Weibo's own visitor page; posts only followers can see are refused, not charged |
 | WeChat 公众号 articles | Works — the full article, every image read |
 | Bilibili | Works (since 2026-10-24) — videos and b23.tv short links, through Bilibili's own embed player |
+| Hongguo 红果短剧 | Works (since 2026-11-15) — a drama page (`hongguoduanju.com/detail?series_id=…`): synopsis, tags, episodes, score and raters, likes, saves, heat, rank and the top viewer reviews. Episode players are answered with the browser-extension route, never fetched (robots.txt disallows them), not charged. What is winning: [English](https://linkdigest.dev/hongguo-short-drama-trends) · [中文](https://linkdigest.dev/zh/hongguo-duanju-ticai) |
 | 小宇宙 / Apple Podcasts | Works (since 2026-10-29) — episode transcripts |
 | TikTok | Works — short links resolve. Rate-limits under load |
 | YouTube | Works — native captions where published, otherwise a watched transcript |

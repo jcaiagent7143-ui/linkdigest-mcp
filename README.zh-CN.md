@@ -29,6 +29,7 @@ Key 在 [linkdigest.dev/app/keys](https://linkdigest.dev/signin?next=/app/keys) 
 | **B站** | `bilibili.com/video/BV…`（`?p=N` 读第 N P）、`b23.tv` | 带时间的逐字稿和画面文字，不依赖 CC 字幕；标题、UP 主、播放 / 点赞等数据 |
 | **公众号** | `mp.weixin.qq.com/s/…` | 正文（保留小标题、列表和链接的 Markdown）、公众号名、发布时间、每张配图的描述和文字 |
 | **微博** | 微博正文链接 | 正文、转评赞、配图和视频、话题、分享页显示的热评 |
+| **红果短剧** | `hongguoduanju.com/detail?series_id=…` 剧详情页 | 简介、标签、集数、评分和评分人数、点赞、收藏、热度、榜单名次、观众剧评（可做洞察和多部对比）；剧集播放页不由服务器读取，用浏览器插件在你自己的浏览器里读，不扣费。[红果短剧现在什么题材火](https://linkdigest.dev/zh/hongguo-duanju-ticai) |
 
 五个 MCP 工具：`digest_url`（读一条链接）、`compare_links`（一批链接出一页对比）、`search_links`（按关键词找小红书 / 抖音 / YouTube / X 的帖子和网页）、`check_balance`、`list_batches`。不下载视频，不提供视频文件；私密、已删除、需要登录才能看的内容读不了，读不出不扣积分。数据怎么来的见 [数据来源与合规](https://linkdigest.dev/zh/shuju-laiyuan)。
 
@@ -397,6 +398,7 @@ resolve(text).post_id                 # '7680883233307342947'（只读了一次�
 | X | 支持：带视频或图片的帖子；长文（Articles）只能读到首图 |
 | B站（哔哩哔哩） | 支持：`bilibili.com/video/BV…`、`b23.tv` 短链；带时间的逐字稿和画面文字，不依赖 CC 字幕 |
 | 微博 | 支持：正文、转评赞、画面文字和分享页显示的热评 |
+| 红果短剧 | 支持（2026-11-15 起）：剧详情页；剧集播放页不读（robots.txt 不允许），给出浏览器插件的读法，不扣费 |
 | 公众号文章 | 支持：`mp.weixin.qq.com/s/…` 短链接（长链接 `?__biz=…` 常被微信要求验证） |
 | 小宇宙 / Apple 播客 | 支持：单集链接（不是节目主页），带时间的逐字稿 |
 | Instagram | 支持：reel 和图片帖子（多图帖读第一张） |
