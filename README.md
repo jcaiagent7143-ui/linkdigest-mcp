@@ -153,6 +153,7 @@ started minute; a viral breakdown or a translation adds one each. Then $5 once f
 | `linkdigest-xiaohongshu-douyin-reader` ★ | Read Xiaohongshu / Douyin posts in English |
 | `linkdigest-viral-breakdown` ★ | How a viral post is built, with quotes checked against the source |
 | `linkdigest-script-rewrite` ★ | Extract a reference video's script and structure, then write your own |
+| `viral-video-remake` | Read a viral video, then write a brief that borrows its structure (not its content) for the video skill you use (HyperFrames, huashu-art-motion…) |
 | `linkdigest` | The general one: any social link or web page that returns nothing useful when fetched |
 | `xiaohongshu-pain-point-radar` | 痛点雷达: a category on Xiaohongshu + Douyin → pain points, needs and blockers counted per post by code (N/M), search demand from Baidu/Taobao/Bing suggestions, and gaps nobody answers; quotes checked word for word |
 | `overseas-pain-points` | 出海痛点: the same for overseas buyers on YouTube + TikTok, report in Chinese with the English originals |

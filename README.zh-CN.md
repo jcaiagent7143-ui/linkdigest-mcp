@@ -182,6 +182,7 @@ claude mcp add --transport http linkdigest https://linkdigest.dev/mcp \
 | `douyin-search-to-text` | 按关键词搜抖音视频，再把挑中的转成文字 |
 | `linkdigest-viral-breakdown` ★ | 爆款拆解：钩子、结构节拍、标题公式，引用逐字核对原文 |
 | `linkdigest-script-rewrite` ★ | 提取对标视频的口播稿和结构，再仿写自己的脚本 |
+| `viral-video-remake` | 爆款同款视频：读懂对标爆款，写成只借结构的同款脚本说明，交给你装的视频 skill（HyperFrames、huashu-art-motion…）去做 |
 
 **公众号、微博、Instagram 和通用**
 
