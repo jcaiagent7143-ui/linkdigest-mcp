@@ -89,6 +89,89 @@ the tool still lists and `tools/call` returns a 401 that says where to get one.
 }
 ```
 
+**Codex CLI**
+
+```
+export LINKDIGEST_API_KEY=ld_live_...
+codex mcp add linkdigest --url https://linkdigest.dev/mcp --bearer-token-env-var LINKDIGEST_API_KEY
+```
+
+which writes this to `~/.codex/config.toml`:
+
+```toml
+[mcp_servers.linkdigest]
+url = "https://linkdigest.dev/mcp"
+bearer_token_env_var = "LINKDIGEST_API_KEY"
+```
+
+**Gemini CLI**
+
+```
+gemini mcp add -s user --transport http \
+  --header "Authorization: Bearer ld_live_..." \
+  linkdigest https://linkdigest.dev/mcp
+```
+
+In `~/.gemini/settings.json` the key is `httpUrl` (there, `url` means the older SSE transport).
+
+**VS Code** — `.vscode/mcp.json`
+
+```json
+{
+  "servers": {
+    "linkdigest": {
+      "type": "http",
+      "url": "https://linkdigest.dev/mcp",
+      "headers": { "Authorization": "Bearer ld_live_..." }
+    }
+  }
+}
+```
+
+**Cline** — `cline_mcp_settings.json` (MCP Servers → Configure). Name the transport: without `type`, Cline assumes the older SSE one.
+
+```json
+{
+  "mcpServers": {
+    "linkdigest": {
+      "type": "streamableHttp",
+      "url": "https://linkdigest.dev/mcp",
+      "headers": { "Authorization": "Bearer ld_live_..." }
+    }
+  }
+}
+```
+
+**Kiro** (`.kiro/settings/mcp.json`) and **Trae** (Settings → MCP → Add → Create Manually) take the same block as
+Cursor above: `url` and `headers` under `mcpServers`.
+
+**Windsurf** — open the MCP config file from Cascade's MCP settings and add the server with `serverUrl`:
+
+```json
+{
+  "mcpServers": {
+    "linkdigest": {
+      "serverUrl": "https://linkdigest.dev/mcp",
+      "headers": { "Authorization": "Bearer ld_live_..." }
+    }
+  }
+}
+```
+
+**Cherry Studio** — Settings → MCP → MCP Servers → Add → Import from JSON, with the Cline block above
+(`"type": "streamableHttp"`).
+
+These were read from each client's own documentation on 2026-11-19
+([Codex](https://github.com/openai/codex/blob/main/codex-rs/cli/src/mcp_cmd.rs),
+[Gemini CLI](https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md),
+[VS Code](https://code.visualstudio.com/docs/agents/reference/mcp-configuration),
+[Cline](https://docs.cline.bot/mcp/configuring-mcp-servers),
+[Kiro](https://kiro.dev/docs/mcp/configuration/),
+[Trae](https://docs.trae.ai/ide/add-mcp-servers),
+[Windsurf](https://docs.devin.ai/windsurf/plugins/cascade/mcp)); the Gemini CLI and Claude Code commands were also
+checked against the installed tools' `--help`. Clients change these formats: if one of them refuses the block,
+the mcp-remote form below works in any client that can start a command.
+
 **stdio-only clients** — through [mcp-remote](https://github.com/geelen/mcp-remote) (Node.js):
 
 ```json
@@ -193,6 +276,44 @@ being asked.
 
 A long video may not finish inside one call. When that happens the result names a
 job id; call the tool again with that `job_id` and no `url` to collect it.
+
+## Search: a topic in, posts out
+
+`search_links(query, platform, limit, digest)` finds posts on a topic, so an agent can start from a
+question instead of a link.
+
+| Argument | Notes |
+|---|---|
+| `query` | The topic, in any language. Chinese words find the most on Xiaohongshu and Douyin. |
+| `platform` | `xiaohongshu`, `douyin`, `youtube`, `x` or `web`. |
+| `limit` | 1 to 10 links (default 5). |
+| `digest` | `true` also reads the results as one batch and writes a comparison over them; collect it with `compare_links` and the `batch_id`. |
+
+```
+search_links(query="京都 住宿 攻略", platform="xiaohongshu", limit=5)
+→ 1. [2025-09-30] 🇯🇵京都赏枫全攻略（含住宿推荐 — https://www.xiaohongshu.com/explore/… — 住进京都老街，每天被枫叶和古都晨光唤醒…
+  2. …
+  This search: 4 credits.
+digest_url(url="<one of them>")
+```
+
+A search that finds posts costs 4 credits on Xiaohongshu and Douyin and 1 elsewhere. **A search that
+finds nothing is free.**
+
+What it searches is the public web's index of each platform, not the platform's own logged-in search:
+no login, no session, no cookie of yours or ours. That index is a subset of the platform. The example
+above returned five on-topic notes in 3.3 s (2026-11-19); a narrow topic can return nothing, and the
+answer then says so, charges nothing, and for Xiaohongshu hands back the same search as an address to
+open in your own browser, where the [extension](https://linkdigest.dev/extension) reads the page you see.
+Results are filtered to post links `digest_url` can read and to posts that mention the topic.
+
+## The other tools
+
+| Tool | What it does |
+|---|---|
+| `compare_links(urls)` | Reads 1 to 20 links as one batch and writes one comparison over them: the themes, hooks and claims they share, the objections readers raise and the gaps none of them cover, every example naming the link it came from. Call again with `batch_id` to collect. Each link at its usual price, plus 1 credit per 10 links. |
+| `list_batches()` | The account's last batches, newest first, including the ones the browser extension started from your own Xiaohongshu or Douyin tab. Starts nothing, costs nothing. |
+| `check_balance()` | Credits left, what each kind of read costs, and where to buy more. Without a key it returns the prices. |
 
 ## What comes back
 

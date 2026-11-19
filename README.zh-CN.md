@@ -120,6 +120,76 @@ claude mcp add --transport http linkdigest https://linkdigest.dev/mcp \
   --header "Authorization: Bearer ld_live_..."
 ```
 
+**Codex CLI**：
+
+```bash
+export LINKDIGEST_API_KEY=ld_live_...
+codex mcp add linkdigest --url https://linkdigest.dev/mcp --bearer-token-env-var LINKDIGEST_API_KEY
+```
+
+写进 `~/.codex/config.toml` 的是：
+
+```toml
+[mcp_servers.linkdigest]
+url = "https://linkdigest.dev/mcp"
+bearer_token_env_var = "LINKDIGEST_API_KEY"
+```
+
+**Gemini CLI**：
+
+```bash
+gemini mcp add -s user --transport http \
+  --header "Authorization: Bearer ld_live_..." \
+  linkdigest https://linkdigest.dev/mcp
+```
+
+手写 `~/.gemini/settings.json` 时字段名是 `httpUrl`（那里的 `url` 指旧的 SSE）。
+
+**VS Code**：`.vscode/mcp.json`
+
+```json
+{
+  "servers": {
+    "linkdigest": {
+      "type": "http",
+      "url": "https://linkdigest.dev/mcp",
+      "headers": { "Authorization": "Bearer ld_live_..." }
+    }
+  }
+}
+```
+
+**Cline**：`cline_mcp_settings.json`（MCP Servers → Configure）。要写明传输类型，不写 `type` 时 Cline 会按旧的 SSE 处理：
+
+```json
+{
+  "mcpServers": {
+    "linkdigest": {
+      "type": "streamableHttp",
+      "url": "https://linkdigest.dev/mcp",
+      "headers": { "Authorization": "Bearer ld_live_..." }
+    }
+  }
+}
+```
+
+**Kiro**：`.kiro/settings/mcp.json`，和上面 Trae 那段一样（`mcpServers` 下写 `url` 和 `headers`）。
+
+**Windsurf**：在 Cascade 的 MCP 设置里打开 MCP 配置文件，字段名是 `serverUrl`：
+
+```json
+{
+  "mcpServers": {
+    "linkdigest": {
+      "serverUrl": "https://linkdigest.dev/mcp",
+      "headers": { "Authorization": "Bearer ld_live_..." }
+    }
+  }
+}
+```
+
+以上写法在 2026-11-19 对照了各客户端自己的文档（[Codex](https://github.com/openai/codex/blob/main/codex-rs/cli/src/mcp_cmd.rs)、[Gemini CLI](https://github.com/google-gemini/gemini-cli/blob/main/docs/tools/mcp-server.md)、[VS Code](https://code.visualstudio.com/docs/agents/reference/mcp-configuration)、[Cline](https://docs.cline.bot/mcp/configuring-mcp-servers)、[Kiro](https://kiro.dev/docs/mcp/configuration/)、[Windsurf](https://docs.devin.ai/windsurf/plugins/cascade/mcp)），Gemini CLI 和 Claude Code 的命令还对照了本机工具的 `--help`。客户端会改格式：哪个不认，就用上面的 mcp-remote 写法，能启动命令的客户端都能用。
+
 **通义灵码（Qoder CN）**：它的 MCP 文档只给了 SSE 类型的远程示例，Streamable HTTP 加请求头能不能用，我们还没验证过。最稳的是用 stdio：上面的 mcp-remote，或者下面的 `uvx`。
 
 **魔搭 MCP 广场**：已上架 https://modelscope.cn/mcp/servers/JCAI714/linkdigest （托管，可直接部署）。上面两段 JSON 也是魔搭解析的格式（远程 `streamable_http` 和 `npx mcp-remote`）。
@@ -264,6 +334,37 @@ $ curl -sL 'https://xhslink.com/o/1WiQ1QI6Uc0' | grep -o '<title>.*</title>'
 一次调用大约 20 秒内返回。20 秒内读不完的内容（长视频、图片很多的图文笔记）不会报错，而是返回一个任务号（job id）；agent 隔 15 秒左右再调一次 `digest_url`，**只传 `job_id`、不传 `url`**，就能取回结果。重新发 `url` 会从头再读一遍。
 
 通过平台代理的 MCP（比如魔搭）可能还有平台自己的超时，长视频更要靠这个两步调用。Python SDK 和命令行会自动等待，不需要你处理（见下）。
+
+## 搜索：给一个话题，返回帖子
+
+`search_links(query, platform, limit, digest)` 按话题找帖子，agent 可以从一个问题开始，不需要你先贴链接。
+
+| 参数 | 说明 |
+|---|---|
+| `query` | 话题，任何语言都行。小红书和抖音上用中文词找到的最多 |
+| `platform` | `xiaohongshu`、`douyin`、`youtube`、`x` 或 `web` |
+| `limit` | 1 到 10 条链接（默认 5） |
+| `digest` | `true` 时把结果当一个批次读完并写一份对比，用 `compare_links` 加 `batch_id` 取回 |
+
+```
+search_links(query="京都 住宿 攻略", platform="xiaohongshu", limit=5)
+→ 1. [2025-09-30] 🇯🇵京都赏枫全攻略（含住宿推荐 — https://www.xiaohongshu.com/explore/… — 住进京都老街，每天被枫叶和古都晨光唤醒…
+  2. …
+  This search: 4 credits.
+digest_url(url="<其中一条>")
+```
+
+找到帖子的搜索：小红书和抖音 4 积分，其他 1 积分。**没找到不扣费。**
+
+它搜的是公开网页对各平台的索引，不是平台自己登录后的搜索：不登录、不用会话、不用你的或我们的 cookie。这个索引只是平台的一部分。上面的例子在 3.3 秒内返回了 5 条切题的笔记（2026-11-19）；话题很窄时可能一条都没有，这时会直接说明、不扣费，小红书还会给出同一个搜索的地址，你在自己的浏览器里打开，用[扩展](https://linkdigest.dev/extension)读你看到的那一页。结果只保留 `digest_url` 读得了的帖子链接，并且帖子里确实提到这个话题。
+
+## 其他工具
+
+| 工具 | 做什么 |
+|---|---|
+| `compare_links(urls)` | 把 1 到 20 条链接当一个批次读完，写一份对比：共同的主题、开头和说法，读者提出的异议，大家都没讲到的空白，每个例子都注明出自哪条链接。再带 `batch_id` 调一次取回结果。每条链接按原价，另加每 10 条 1 积分 |
+| `list_batches()` | 这个账号最近的批次，新的在前，包括浏览器扩展从你自己的小红书或抖音页面发起的。不启动任何任务，不扣费 |
+| `check_balance()` | 剩余积分、各种读取的价格、在哪里购买。不带 Key 时只返回价格 |
 
 ## Python SDK 和命令行
 

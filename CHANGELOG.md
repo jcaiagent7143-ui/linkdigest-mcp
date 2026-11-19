@@ -3,6 +3,18 @@
 Dates are when the change reached this repository. The hosted service at
 linkdigest.dev changes independently; its prices are in the README.
 
+## 2026-11-19 — 1.0.12: search and the other tools are documented
+
+- README (English and 中文): `search_links` (a topic in, posts out, on xiaohongshu, douyin, youtube, x and the web;
+  4 credits on Xiaohongshu and Douyin when it finds posts, 1 elsewhere, nothing found is free), `compare_links`,
+  `list_batches` and `check_balance`. The server has had these tools for weeks; the README described only
+  `digest_url`. The search example is a live run of 2026-11-19 (five on-topic notes in 3.3 s).
+- `server.json`: the registry description now names search and Bilibili ("Search Xiaohongshu and Douyin; read
+  Douyin, RedNote, Bilibili, TikTok, YouTube, X links as text"); the PyPI package entry points at 0.2.5, the
+  version that has been on PyPI since 2026-11-09. No SDK or server change, no release.
+- Install: Codex CLI, Gemini CLI, VS Code, Cline, Kiro, Windsurf (and Trae and Cherry Studio in the English README), each read
+  from the client's own documentation on 2026-11-19. Codex CLI connected 149 times in the week before with no instructions here.
+
 ## 2026-11-11 — examples: bili2notes (Bilibili video → Markdown notes)
 
 - `examples/bilibili/bili2notes.py`: a single-file, standard-library CLI. A Bilibili link (BV id, b23.tv, `?p=N`, or a
