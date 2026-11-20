@@ -3,6 +3,17 @@
 Dates are when the change reached this repository. The hosted service at
 linkdigest.dev changes independently; its prices are in the README.
 
+## 2026-11-20 — Toutiao (今日头条) is a supported platform
+
+- The hosted service reads Toutiao articles and videos since 2026-11-20: a browser read of `toutiao.com/article/<id>/`
+  and `/video/<id>/`, no login. A `/group/` or `/item/` share link is read through its article address, because
+  Toutiao's robots.txt disallows the share forms; the result says which address was read. 微头条 (`/w/`), columns and
+  live pages are not read. Measured that day: a plain request to an article address answered 72,914 bytes with no
+  visible text; the read returned the full article with 6 images, and a 4:15 video's transcript in 40 timed segments.
+- README (English and 中文): the platform rows, and a new skill `skills/toutiao-to-text` (今日头条转文字). The skills
+  count in the README said 25; there are 30.
+- No change to the MCP server, its tools or the SDK.
+
 ## 2026-11-19 — 1.0.12: search and the other tools are documented
 
 - README (English and 中文): `search_links` (a topic in, posts out, on xiaohongshu, douyin, youtube, x and the web;

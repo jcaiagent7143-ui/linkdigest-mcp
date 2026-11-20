@@ -208,7 +208,7 @@ started minute; a viral breakdown or a translation adds one each. Then $5 once f
 
 ## Agent skills (OpenClaw, Hermes, Claude Code, Cursor and others)
 
-25 ready-made skills live in [`skills/`](skills). Each is one job, a `SKILL.md` plus one script that uses only the Python standard library. The single-link readers (marked ★) work **without a key for a first look**: no `LINKDIGEST_API_KEY` gives a summary, up to 2 a day per address; with a key (10 free credits on sign-up, no card) they return the full transcript and per-image text.
+30 ready-made skills live in [`skills/`](skills). Each is one job, a `SKILL.md` plus one script that uses only the Python standard library. The single-link readers (marked ★) work **without a key for a first look**: no `LINKDIGEST_API_KEY` gives a summary, up to 2 a day per address; with a key (10 free credits on sign-up, no card) they return the full transcript and per-image text.
 
 | Skill | Job |
 | --- | --- |
@@ -227,6 +227,7 @@ started minute; a viral breakdown or a translation adds one each. Then $5 once f
 | `tiktok-transcript` ★ | A TikTok video's transcript with timestamps and captions |
 | `instagram-to-text` | An Instagram reel or post as transcript, on-screen text and caption |
 | `weibo-to-text` ★ | 微博转文字: a Weibo post's text, image text, video transcript and top comments |
+| `toutiao-to-text` ★ | 今日头条转文字: a Toutiao article's full text and image text, or a video's timed transcript |
 | `podcast-to-text` | 播客转文字: a 小宇宙 or Apple Podcasts episode as a timed transcript with show notes |
 | `long-video-transcript` ★ | 长视频转文字: lectures and replays up to 2 h, 1 credit per 2 minutes |
 | `linkdigest-xhs-note-ocr` ★ | Xiaohongshu image notes, with the text inside every image |
@@ -347,6 +348,7 @@ Checked against real posts, not documentation.
 | WeChat 公众号 articles | Works — the full article, every image read |
 | Bilibili | Works (since 2026-10-24) — videos and b23.tv short links, through Bilibili's own embed player |
 | Hongguo 红果短剧 | Works (since 2026-11-15) — a drama page (`hongguoduanju.com/detail?series_id=…`): synopsis, tags, episodes, score and raters, likes, saves, heat, rank and the top viewer reviews. Episode players are answered with the browser-extension route, never fetched (robots.txt disallows them), not charged. What is winning: [English](https://linkdigest.dev/hongguo-short-drama-trends) · [中文](https://linkdigest.dev/zh/hongguo-duanju-ticai) |
+| Toutiao 今日头条 | Works (since 2026-11-20) — articles (`toutiao.com/article/<id>/`) and videos (`/video/<id>/`), read in a browser with no login: title, publisher, date, the full text and every image for an article; a timed transcript for a video. A `/group/` or `/item/` share link is read through its article address, since Toutiao's robots.txt disallows the share forms. 微头条 (`/w/`), columns and live pages are not read, not charged |
 | 小宇宙 / Apple Podcasts | Works (since 2026-10-29) — episode transcripts |
 | TikTok | Works — short links resolve. Rate-limits under load |
 | YouTube | Works — native captions where published, otherwise a watched transcript |

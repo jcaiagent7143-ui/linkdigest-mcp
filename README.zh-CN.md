@@ -30,6 +30,7 @@ Key 在 [linkdigest.dev/app/keys](https://linkdigest.dev/signin?next=/app/keys) 
 | **公众号** | `mp.weixin.qq.com/s/…` | 正文（保留小标题、列表和链接的 Markdown）、公众号名、发布时间、每张配图的描述和文字 |
 | **微博** | 微博正文链接 | 正文、转评赞、配图和视频、话题、分享页显示的热评 |
 | **红果短剧** | `hongguoduanju.com/detail?series_id=…` 剧详情页 | 简介、标签、集数、评分和评分人数、点赞、收藏、热度、榜单名次、观众剧评（可做洞察和多部对比）；剧集播放页不由服务器读取，用浏览器插件在你自己的浏览器里读，不扣费。[红果短剧现在什么题材火](https://linkdigest.dev/zh/hongguo-duanju-ticai) |
+| **今日头条** | `toutiao.com/article/<编号>/`、`/video/<编号>/`，以及 App 分享的 `/group/`、`/item/` 链接 | 文章：标题、作者、发布日期、正文全文、每张配图的描述和文字；视频：带时间的口播逐字稿和画面文字。分享链接只用来取编号，实际请求文章地址（头条的 robots.txt 不允许访问分享地址）。[今日头条文案提取](https://linkdigest.dev/zh/toutiao-wenan-tiqu) |
 
 五个 MCP 工具：`digest_url`（读一条链接）、`compare_links`（一批链接出一页对比）、`search_links`（按关键词找小红书 / 抖音 / YouTube / X 的帖子和网页）、`check_balance`、`list_batches`。不下载视频，不提供视频文件；私密、已删除、需要登录才能看的内容读不了，读不出不扣积分。数据怎么来的见 [数据来源与合规](https://linkdigest.dev/zh/shuju-laiyuan)。
 
@@ -216,7 +217,7 @@ gemini mcp add -s user --transport http \
 
 ## Agent 技能（OpenClaw、Hermes、Claude Code、Cursor 等）
 
-[`skills/`](skills) 里有 25 个现成的 Agent Skill，每个只做一件事：一份 `SKILL.md` 加一个只用 Python 标准库的脚本。读单条链接的技能（下表标 ★）没有 `LINKDIGEST_API_KEY` 也能先看摘要，每个地址每天 2 条；有 Key（注册送 10 积分，不用绑卡）给完整逐字稿和逐图文字。
+[`skills/`](skills) 里有 30 个现成的 Agent Skill，每个只做一件事：一份 `SKILL.md` 加一个只用 Python 标准库的脚本。读单条链接的技能（下表标 ★）没有 `LINKDIGEST_API_KEY` 也能先看摘要，每个地址每天 2 条；有 Key（注册送 10 积分，不用绑卡）给完整逐字稿和逐图文字。
 
 **视频总结 / 视频转文字 skill**
 
@@ -262,6 +263,7 @@ gemini mcp add -s user --transport http \
 | --- | --- |
 | `linkdigest-wechat-article-reader` ★ | 微信公众号文章提取：全文 Markdown + 每张图的文字 |
 | `weibo-to-text` ★ | 微博转文字：正文、图上的字、视频逐字稿、前几条热评 |
+| `toutiao-to-text` ★ | 今日头条转文字：文章正文和图上的字，视频带时间的口播逐字稿 |
 | `instagram-to-text` | Instagram reel 和帖子转文字（英文说明） |
 | `linkdigest` | 通用：任何一条抓不到内容的社交链接或网页 |
 
@@ -500,6 +502,7 @@ resolve(text).post_id                 # '7680883233307342947'（只读了一次�
 | B站（哔哩哔哩） | 支持：`bilibili.com/video/BV…`、`b23.tv` 短链；带时间的逐字稿和画面文字，不依赖 CC 字幕 |
 | 微博 | 支持：正文、转评赞、画面文字和分享页显示的热评 |
 | 红果短剧 | 支持（2026-11-15 起）：剧详情页；剧集播放页不读（robots.txt 不允许），给出浏览器插件的读法，不扣费 |
+| 今日头条 | 支持（2026-11-20 起）：文章和视频，不用登录；微头条（`/w/`）、专栏、直播页不读，不扣费 |
 | 公众号文章 | 支持：`mp.weixin.qq.com/s/…` 短链接（长链接 `?__biz=…` 常被微信要求验证） |
 | 小宇宙 / Apple 播客 | 支持：单集链接（不是节目主页），带时间的逐字稿 |
 | Instagram | 支持：reel 和图片帖子（多图帖读第一张） |
