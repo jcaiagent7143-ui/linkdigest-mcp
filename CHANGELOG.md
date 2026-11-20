@@ -3,6 +3,12 @@
 Dates are when the change reached this repository. The hosted service at
 linkdigest.dev changes independently; its prices are in the README.
 
+## 2026-11-20 — 1.0.13: the registry description names Toutiao and Weibo
+
+- `server.json`: "Read Douyin, RedNote, Bilibili, Toutiao, Weibo, YouTube, TikTok as text; search RedNote and Douyin"
+  (98 characters; the registry allows 100). Both platforms have been read by the hosted service for a while
+  (Weibo since 2026-11-01, Toutiao since 2026-11-20). No server, tool or SDK change.
+
 ## 2026-11-20 — Toutiao (今日头条) is a supported platform
 
 - The hosted service reads Toutiao articles and videos since 2026-11-20: a browser read of `toutiao.com/article/<id>/`
