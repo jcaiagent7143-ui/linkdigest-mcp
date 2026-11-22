@@ -6,6 +6,15 @@ The intelligence infrastructure for AI agents: turn a social media or web link i
 text a language model can read — **transcript, on-screen text, image
 descriptions, caption and metadata**, with quotes checked against the post.
 
+**JavaScript / TypeScript:** a zero-dependency client is in [`js/`](js/README.md):
+
+```ts
+import { LinkDigest } from "linkdigest";
+const ld = new LinkDigest(); // LINKDIGEST_API_KEY
+const d = await ld.digest("https://v.douyin.com/…/", { depth: "script" });
+const found = await ld.search("牛肉面 探店", { platform: "douyin", limit: 10 });
+```
+
 **A Chinese social media API for AI agents:** Xiaohongshu (RedNote, 小红书), Douyin (抖音),
 Weibo (微博), WeChat Official Account articles (公众号), Bilibili and 小宇宙 / Apple Podcasts episodes — plus
 TikTok, YouTube, X and Instagram — read into timed transcripts, OCR of every image and frame, top

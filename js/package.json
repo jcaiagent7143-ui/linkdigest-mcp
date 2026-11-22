@@ -1,0 +1,53 @@
+{
+  "name": "linkdigest",
+  "version": "0.1.0",
+  "description": "TypeScript/JavaScript client for LinkDigest \u2014 the intelligence infrastructure for AI agents: read Douyin, Xiaohongshu (RedNote), Bilibili, TikTok, YouTube, X and web links into structured, verifiable data.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test test/*.test.mjs",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "keywords": [
+    "linkdigest",
+    "douyin",
+    "xiaohongshu",
+    "rednote",
+    "bilibili",
+    "tiktok",
+    "youtube",
+    "transcript",
+    "ai-agents",
+    "mcp",
+    "social-media-api",
+    "web-scraping",
+    "llm"
+  ],
+  "homepage": "https://linkdigest.dev/docs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp.git",
+    "directory": "js"
+  },
+  "license": "MIT",
+  "sideEffects": false,
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
