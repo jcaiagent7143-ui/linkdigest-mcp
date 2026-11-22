@@ -39,7 +39,7 @@ LinkDigest 只读、不发布：它不登录你的小红书或抖音账号，也
 1. Schedule Trigger（每天几点跑）
 2. HTTP Request「搜索」：同上，但 Body 去掉 `digest`，`limit` 设 10 —— 只返回 `results`（链接、标题、摘要），搜到才扣搜索的积分，搜不到不扣。
 3. Split Out：拆开 `results`。
-4. **Remove Duplicates**：Operation 选 *Remove Items Processed in Previous Executions*，Keep Items Where 选 *Value Is New*，Value to Dedupe On 填 `{{ $json.url }}`。n8n 会记住以前跑过的链接，只放新的过去（默认记 10,000 条；文档说明它在条目经过时就记下，所以放在读取之前、且读取失败的那条以后不会再重试）。
+4. **Remove Duplicates**：Operation 选 *Remove Items Processed in Previous Executions*，Keep Items Where 选 *Value Is New*，Value to Dedupe On 填 `{{ $json.url }}`。n8n 会记住以前跑过的链接，只放新的过去（默认记 10,000 条；节点源码里检查和记录是同一步（checkProcessedAndRecord），条目经过时就记下，所以放在读取之前、且读取失败的那条以后不会再重试）。
 5. Aggregate：把剩下的 `url` 合成一个列表；列表为空就到此结束，不用再调用。
 6. HTTP Request「批量读取」：`POST https://linkdigest.dev/api/v1/digest/batch`，Body `{ "urls": {{ JSON.stringify($json.url) }}, "depth": "script" }`（只要口播文案；要画面文字和要点就去掉 `depth`；要对比加 `"synthesis": true`）。
 7. Wait + `GET /api/v1/digest/batch/<batch_id>?include=digests`，同 A。
