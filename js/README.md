@@ -9,16 +9,18 @@ TypeScript client for [LinkDigest](https://linkdigest.dev), the intelligence inf
 
 ## Install
 
-Not on npm yet. Build it from this repository:
+From the GitHub release (no npm account needed):
 
 ```bash
-cd js && npm install && npm run build   # dist/index.js + dist/index.d.ts
+npm install https://github.com/jcaiagent7143-ui/linkdigest-mcp/releases/download/js-v0.1.0/linkdigest-0.1.0.tgz
 ```
+
+Or build it from this repository: `cd js && npm install && npm run build` (dist/index.js + dist/index.d.ts). The npm registry name `linkdigest` will follow.
 
 ## Quick start
 
 ```ts
-import { LinkDigest } from "linkdigest"; // or "./js/dist/index.js" before the npm release
+import { LinkDigest } from "linkdigest";
 
 const ld = new LinkDigest(); // reads LINKDIGEST_API_KEY; get a key at https://linkdigest.dev/app/keys
 
