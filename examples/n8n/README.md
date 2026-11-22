@@ -47,6 +47,14 @@ LinkDigest 只读、不发布：它不登录你的小红书或抖音账号，也
 
 这样每天只为新帖子付读取的积分。
 
+**可直接导入的工作流：** [`douyin-daily-new-only.json`](douyin-daily-new-only.json)（n8n → Workflows → Import from File）。导入后：三个 HTTP Request 节点都选你自己的 Header Auth 凭据（Name `Authorization`，Value `Bearer ld_live_…`）；改「Search Douyin」里的搜索词；最后的「Write to your sheet here」换成飞书 / Google Sheets 节点；再打开 Schedule Trigger。
+
+2026-11-22 在本机 n8n 2.48.7 上用测试账号实际跑了两次（搜索 `limit` 改成 3）：
+- 第一次：搜到 3 条，3 条都是新的；批量读取约 2 分钟读完。搜索 4 积分，读取共 2 积分（其中 1 条以前有人读过，0 积分）。
+- 第二次：搜到同样的 3 条，Remove Duplicates 全部挡下（3 条进了 Discarded 输出），流程到这一步就结束，只扣搜索的 4 积分。
+
+返回格式注意两点：`digests` 是按链接分的对象（`{ "<链接>": { "transcript": [...], "raw_markdown": "…" } }`），不是数组；`items[].status` 除了 `queued`、`running`、`done`、`error`，还有 `cached`（以前读过，0 积分）。
+
 ## 做法二：AI Agent + MCP Client Tool
 
 | 字段 | 填什么 |

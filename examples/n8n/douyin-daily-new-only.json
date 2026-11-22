@@ -1,0 +1,332 @@
+{
+  "id": "ldDouyinDaily001",
+  "name": "Douyin topic every day — only new videos, read as text (LinkDigest)",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Run now",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "name": "Every day at 08:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://linkdigest.dev/api/v1/search",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"query\": \"牛肉面 探店\",\n  \"platform\": \"douyin\",\n  \"limit\": 10\n}"
+      },
+      "name": "Search Douyin",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        240,
+        100
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "ldHeaderAuth0001",
+          "name": "LinkDigest API key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "results",
+        "options": {}
+      },
+      "name": "Split Out results",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        480,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "removeItemsSeenInPreviousExecutions",
+        "logic": "removeItemsWithAlreadySeenKeyValues",
+        "dedupeValue": "={{ $json.url }}",
+        "options": {}
+      },
+      "name": "Only links not seen before",
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 2,
+      "position": [
+        720,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "url"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "One list of URLs",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        960,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://linkdigest.dev/api/v1/digest/batch",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ urls: $json.url, depth: 'script' }) }}"
+      },
+      "name": "Start batch read",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1200,
+        100
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "ldHeaderAuth0001",
+          "name": "LinkDigest API key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 60,
+        "unit": "seconds"
+      },
+      "name": "Wait 1 min",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1440,
+        100
+      ],
+      "webhookId": "5b8c1f0e-6d1e-4c55-9a43-3d2f1b7e9a10"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "=https://linkdigest.dev/api/v1/digest/batch/{{ $('Start batch read').first().json.batch_id }}?include=digests",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "name": "Get batch",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1680,
+        100
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "ldHeaderAuth0001",
+          "name": "LinkDigest API key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "6f1d2c3a-0b4e-4f6a-8c7d-1e2f3a4b5c6d",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "done",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "name": "Batch done?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1920,
+        100
+      ]
+    },
+    {
+      "parameters": {},
+      "name": "Write to your sheet here",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        2160,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Run now": {
+      "main": [
+        [
+          {
+            "node": "Search Douyin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Every day at 08:00": {
+      "main": [
+        [
+          {
+            "node": "Search Douyin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Douyin": {
+      "main": [
+        [
+          {
+            "node": "Split Out results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out results": {
+      "main": [
+        [
+          {
+            "node": "Only links not seen before",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Only links not seen before": {
+      "main": [
+        [
+          {
+            "node": "One list of URLs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "One list of URLs": {
+      "main": [
+        [
+          {
+            "node": "Start batch read",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start batch read": {
+      "main": [
+        [
+          {
+            "node": "Wait 1 min",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 1 min": {
+      "main": [
+        [
+          {
+            "node": "Get batch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get batch": {
+      "main": [
+        [
+          {
+            "node": "Batch done?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Batch done?": {
+      "main": [
+        [
+          {
+            "node": "Write to your sheet here",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait 1 min",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}
