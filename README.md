@@ -2,7 +2,7 @@
 
 **中文文档：[README.zh-CN.md](README.zh-CN.md)** — 小红书 MCP / 抖音 MCP / B站 MCP / 公众号链接读取：MCP 服务器 + API、Python SDK、命令行，价格以人民币标注。
 
-The social media reading layer for AI agents: turn a social media link into
+The intelligence infrastructure for AI agents: turn a social media or web link into
 text a language model can read — **transcript, on-screen text, image
 descriptions, caption and metadata**, with quotes checked against the post.
 
