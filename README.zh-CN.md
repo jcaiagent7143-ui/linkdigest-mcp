@@ -1,5 +1,7 @@
 # LinkDigest MCP：小红书 MCP / 抖音 MCP / B站 MCP / 公众号链接读取（MCP 服务器 + API）
 
+[![jcaiagent7143-ui/linkdigest-mcp MCP server](https://glama.ai/mcp/servers/jcaiagent7143-ui/linkdigest-mcp/badges/score.svg)](https://glama.ai/mcp/servers/jcaiagent7143-ui/linkdigest-mcp)
+
 [English](README.md) · 简体中文
 
 **一个托管的 MCP 服务器和 REST API：把小红书、抖音、B站、公众号、微博的链接读成 AI Agent 能用的文本**——逐字稿、视频画面里的字（带大致时间）、每张图的描述和图上文字（OCR）、正文、要点和互动数据。小宇宙 / Apple 播客、TikTok、YouTube、X、Instagram 也能读。读取在 [linkdigest.dev](https://linkdigest.dev) 的服务器上完成，**不需要你的平台账号或 Cookie**，本地不用装 ffmpeg、浏览器或语音识别。

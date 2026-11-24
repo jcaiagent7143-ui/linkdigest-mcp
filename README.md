@@ -1,5 +1,7 @@
 # LinkDigest MCP server
 
+[![jcaiagent7143-ui/linkdigest-mcp MCP server](https://glama.ai/mcp/servers/jcaiagent7143-ui/linkdigest-mcp/badges/score.svg)](https://glama.ai/mcp/servers/jcaiagent7143-ui/linkdigest-mcp)
+
 **中文文档：[README.zh-CN.md](README.zh-CN.md)** — 小红书 MCP / 抖音 MCP / B站 MCP / 公众号链接读取：MCP 服务器 + API、Python SDK、命令行，价格以人民币标注。
 
 The intelligence infrastructure for AI agents: turn a social media or web link into
