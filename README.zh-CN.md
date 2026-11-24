@@ -219,7 +219,7 @@ gemini mcp add -s user --transport http \
 
 ## Agent 技能（OpenClaw、Hermes、Claude Code、Cursor 等）
 
-[`skills/`](skills) 里有 30 个现成的 Agent Skill，每个只做一件事：一份 `SKILL.md` 加一个只用 Python 标准库的脚本。读单条链接的技能（下表标 ★）没有 `LINKDIGEST_API_KEY` 也能先看摘要，每个地址每天 2 条；有 Key（注册送 10 积分，不用绑卡）给完整逐字稿和逐图文字。
+[`skills/`](skills) 里有 33 个现成的 Agent Skill，每个只做一件事：一份 `SKILL.md` 加一个只用 Python 标准库的脚本。读单条链接的技能（下表标 ★）没有 `LINKDIGEST_API_KEY` 也能先看摘要，每个地址每天 2 条；有 Key（注册送 10 积分，不用绑卡）给完整逐字稿和逐图文字。
 
 **视频总结 / 视频转文字 skill**
 
@@ -266,6 +266,9 @@ gemini mcp add -s user --transport http \
 | `linkdigest-wechat-article-reader` ★ | 微信公众号文章提取：全文 Markdown + 每张图的文字 |
 | `weibo-to-text` ★ | 微博转文字：正文、图上的字、视频逐字稿、前几条热评 |
 | `toutiao-to-text` ★ | 今日头条转文字：文章正文和图上的字，视频带时间的口播逐字稿 |
+| `twitter-to-text` ★ | 推特转文字：X / Twitter 帖子的正文、每张图上的字，视频帖的带时间逐字稿 |
+| `video-to-article` ★ | 视频转文章：先读视频（逐字稿、画面文字、核对过的要点），再只根据这些写成公众号 / 小红书 / 博客文章 |
+| `video-transcript-translate` | 视频逐字稿翻译：带时间的逐字稿 + 整篇译文（抖音 / 小红书 / B站 → 英文，YouTube / TikTok → 中文） |
 | `instagram-to-text` | Instagram reel 和帖子转文字（英文说明） |
 | `linkdigest` | 通用：任何一条抓不到内容的社交链接或网页 |
 

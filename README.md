@@ -219,7 +219,7 @@ started minute; a viral breakdown or a translation adds one each. Then $5 once f
 
 ## Agent skills (OpenClaw, Hermes, Claude Code, Cursor and others)
 
-30 ready-made skills live in [`skills/`](skills). Each is one job, a `SKILL.md` plus one script that uses only the Python standard library. The single-link readers (marked ★) work **without a key for a first look**: no `LINKDIGEST_API_KEY` gives a summary, up to 2 a day per address; with a key (10 free credits on sign-up, no card) they return the full transcript and per-image text.
+33 ready-made skills live in [`skills/`](skills). Each is one job, a `SKILL.md` plus one script that uses only the Python standard library. The single-link readers (marked ★) work **without a key for a first look**: no `LINKDIGEST_API_KEY` gives a summary, up to 2 a day per address; with a key (10 free credits on sign-up, no card) they return the full transcript and per-image text.
 
 | Skill | Job |
 | --- | --- |
@@ -239,6 +239,9 @@ started minute; a viral breakdown or a translation adds one each. Then $5 once f
 | `instagram-to-text` | An Instagram reel or post as transcript, on-screen text and caption |
 | `weibo-to-text` ★ | 微博转文字: a Weibo post's text, image text, video transcript and top comments |
 | `toutiao-to-text` ★ | 今日头条转文字: a Toutiao article's full text and image text, or a video's timed transcript |
+| `twitter-to-text` ★ | 推特转文字: an X / Twitter post's text, the words in every photo, and a video post's timed transcript |
+| `video-to-article` ★ | 视频转文章: reads a video (transcript, on-screen text, checked key points), then writes a 公众号 / 小红书 / blog article from that only |
+| `video-transcript-translate` | 视频逐字稿翻译: a video's timed transcript plus a full translation (抖音 / 小红书 / B站 → English, YouTube / TikTok → 中文) |
 | `podcast-to-text` | 播客转文字: a 小宇宙 or Apple Podcasts episode as a timed transcript with show notes |
 | `long-video-transcript` ★ | 长视频转文字: lectures and replays up to 2 h, 1 credit per 2 minutes |
 | `linkdigest-xhs-note-ocr` ★ | Xiaohongshu image notes, with the text inside every image |
