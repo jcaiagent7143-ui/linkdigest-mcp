@@ -1,7 +1,7 @@
 ---
 name: bilibili-video-summary
 description: "B站视频总结 / Bilibili video summary. 用户发来 B 站视频（BV 号、bilibili.com/video 链接、b23.tv 短链或分享文字），想知道「这个视频讲了什么」「值不值得看」「结论是什么」时使用。先给一段话的总结和几条要点，每条要点附它依据的原话（口播的带时间，画面上的注明画面），可以核对，不是凭标题猜。不登录 B 站、不要 Cookie、不下载视频；读不了不扣费。1 分钟视频 2 积分，之后每分钟 1 积分。需要 LinkDigest API Key（注册送 10 积分，不用绑卡）。"
-version: 1.0.0
+version: 1.0.1
 homepage: https://linkdigest.dev/zh/bilibili-ai-zongjie?ref=skill-bilibili-video-summary
 metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/app/keys 创建"}]}}
 required_environment_variables:

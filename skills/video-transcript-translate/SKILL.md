@@ -1,7 +1,7 @@
 ---
 name: video-transcript-translate
 description: "视频翻译 · 逐字稿翻译 / Video transcript translate: read a video link and return its spoken transcript with timestamps plus a full translation — 抖音、小红书、B站 videos into English (出海 research, subtitles, sharing with a foreign team), or YouTube、TikTok、X videos into Chinese. On-screen text is read too. Use when someone wants to know exactly what a foreign-language video says, needs a translated transcript to subtitle or quote, or is studying overseas competitors' videos. No login or cookies; needs an API key for the translation (+1 credit)."
-version: 1.0.0
+version: 1.0.1
 homepage: https://linkdigest.dev/zh/docs?ref=skill-video-transcript-translate
 metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":false,"description":"LinkDigest API key (ld_live_…), needed for the translation. Without it the script only returns a short free summary, two a day."}]}}
 required_environment_variables:

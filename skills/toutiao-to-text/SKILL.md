@@ -1,7 +1,7 @@
 ---
 name: toutiao-to-text
 description: "今日头条转文字 / 今日头条文案提取 / 头条文章提取 / 今日头条 API：一条头条链接读成文字——文章的标题、作者、发布日期、正文全文、每张配图的描述和图上的字；视频的口播逐字稿（带时间）和画面文字；再加逐字核对的要点。用户发来 toutiao.com 或 m.toutiao.com 的文章、视频链接，要提取正文、扒视频文案、让 AI 总结或改写时使用。不用登录头条，不用 Cookie，不用自己起浏览器。文章 1 积分起，1 分钟视频 2 积分；注册送 10 积分。"
-version: 1.0.0
+version: 1.0.1
 homepage: https://linkdigest.dev/zh/toutiao-api?ref=skill-toutiao-to-text
 metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":false,"description":"可选。LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/signin?ref=skill-toutiao-to-text&next=/app/keys 创建，注册送 10 积分；没有 Key 时每天可免费看 2 条摘要"}],"homepage":"https://linkdigest.dev/zh/toutiao-api?ref=skill-toutiao-to-text"}}
 required_environment_variables:

@@ -1,7 +1,7 @@
 ---
 name: instagram-to-text
 description: "Instagram reel and post to text / Instagram 转文字. Use when someone shares an instagram.com/reel/… or /p/… link and wants the spoken script, the words shown on screen, the caption, key points or a summary — for research, notes, competitor analysis or rewriting. Returns the transcript with times, on-screen text, caption, hashtags and engagement counts, without logging in to Instagram. A post is 1 credit; a reel adds 1 per started minute; links anyone has read before are free; failed reads are free. Needs a LinkDigest API key (10 free credits on sign-up, no card)."
-version: 1.0.0
+version: 1.0.2
 homepage: https://linkdigest.dev/platforms?ref=skill-instagram-to-text
 metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API key (starts with ld_live_), create it at https://linkdigest.dev/signin?ref=skill-instagram-to-text&next=/app/keys — 10 free credits on sign-up"}],"homepage":"https://linkdigest.dev/platforms?ref=skill-instagram-to-text"}}
 required_environment_variables:

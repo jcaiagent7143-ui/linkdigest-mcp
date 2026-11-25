@@ -1,7 +1,7 @@
 ---
 name: bilibili-subtitle-text
 description: "B站字幕提取 / Bilibili subtitles to text. 用户要拿到一条 B 站视频的字幕文字（BV 号、bilibili.com/video 链接、b23.tv 短链或整段分享文字），用来复制、翻译、做字幕稿或交给 AI 继续处理时使用。视频有 UP 主字幕就用字幕，没有就做语音识别，每段带开始时间。只读口播，最省钱：每开始 2 分钟 1 积分，不收基础积分。不登录 B 站、不要 Cookie、不下载视频；读不了不扣费。需要 LinkDigest API Key（注册送 10 积分，不用绑卡）。"
-version: 1.0.0
+version: 1.0.1
 homepage: https://linkdigest.dev/zh/bilibili-zimu-tiqu?ref=skill-bilibili-subtitle-text
 metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/app/keys 创建"}]}}
 required_environment_variables:

@@ -1,7 +1,7 @@
 ---
 name: video-to-article
 description: "视频转文章 / Video to article: turn one 抖音、小红书、B站、YouTube、TikTok or X video link into a written article (公众号文章、小红书图文、博客) built from what is actually said and shown in it. The skill first reads the video — a timestamped speech transcript, the text on screen, and key points checked against the source — then writes the article from that material only, quoting the speaker where it helps. Use when someone pastes a video link and wants it as an article, a post, a newsletter section or show notes. No login or cookies; works without an API key (a short free summary, two a day)."
-version: 1.0.0
+version: 1.0.1
 homepage: https://linkdigest.dev/zh/docs?ref=skill-video-to-article
 metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":false,"description":"Optional. LinkDigest API key (ld_live_…). Without it: a short free summary, two a day. With it: the full transcript, on-screen text and checked key points the article is written from."}]}}
 required_environment_variables:
