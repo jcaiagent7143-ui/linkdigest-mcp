@@ -219,11 +219,13 @@ started minute; a viral breakdown or a translation adds one each. Then $5 once f
 
 ## Agent skills (OpenClaw, Hermes, Claude Code, Cursor and others)
 
-33 ready-made skills live in [`skills/`](skills). Each is one job, a `SKILL.md` plus one script that uses only the Python standard library. The single-link readers (marked ★) work **without a key for a first look**: no `LINKDIGEST_API_KEY` gives a summary, up to 2 a day per address; with a key (10 free credits on sign-up, no card) they return the full transcript and per-image text.
+35 ready-made skills live in [`skills/`](skills). Each is one job, a `SKILL.md` plus one script that uses only the Python standard library. The single-link readers (marked ★) work **without a key for a first look**: no `LINKDIGEST_API_KEY` gives a summary, up to 2 a day per address; with a key (10 free credits on sign-up, no card) they return the full transcript and per-image text.
 
 | Skill | Job |
 | --- | --- |
 | `bilibili-video-to-text` | B站视频总结 / 转文字: a Bilibili video (BV link or b23.tv) as a timed transcript, on-screen text and key points |
+| `bilibili-subtitle-text` | B站字幕提取: a Bilibili video's spoken words only (uploader subtitles or speech recognition), timed by segment, 1 credit per 2 minutes |
+| `bilibili-video-summary` | B站视频总结: a summary and key points of a Bilibili video, each point with the quote it rests on |
 | `bilibili-course-notes` ★ | B站网课笔记: a lecture or a whole 分P course as Markdown notes — timed outline, key points with quotes, `[mm:ss]` transcript, one file per part |
 | `video-to-mindmap` | 视频转思维导图: a long video's timed outline as markmap Markdown (branches with start–end times) |
 | `douyin-batch-to-text` | 抖音批量视频转文字: a batch of Douyin links (one creator's series) read at once, one Markdown file per video plus an index table; speech-only read by default |

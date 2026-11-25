@@ -219,13 +219,15 @@ gemini mcp add -s user --transport http \
 
 ## Agent 技能（OpenClaw、Hermes、Claude Code、Cursor 等）
 
-[`skills/`](skills) 里有 33 个现成的 Agent Skill，每个只做一件事：一份 `SKILL.md` 加一个只用 Python 标准库的脚本。读单条链接的技能（下表标 ★）没有 `LINKDIGEST_API_KEY` 也能先看摘要，每个地址每天 2 条；有 Key（注册送 10 积分，不用绑卡）给完整逐字稿和逐图文字。
+[`skills/`](skills) 里有 35 个现成的 Agent Skill，每个只做一件事：一份 `SKILL.md` 加一个只用 Python 标准库的脚本。读单条链接的技能（下表标 ★）没有 `LINKDIGEST_API_KEY` 也能先看摘要，每个地址每天 2 条；有 Key（注册送 10 积分，不用绑卡）给完整逐字稿和逐图文字。
 
 **视频总结 / 视频转文字 skill**
 
 | 技能 | 做什么 |
 | --- | --- |
 | `bilibili-video-to-text` | B站视频总结 skill：BV 链接或 b23.tv 短链 → 分段带时间的逐字稿、画面上的字、要点 |
+| `bilibili-subtitle-text` | B站字幕提取：只读口播（有 UP 主字幕用字幕，没有就语音识别），分段带时间，每 2 分钟 1 积分 |
+| `bilibili-video-summary` | B站视频总结：一段话总结 + 几条要点，每条附它依据的原话 |
 | `bilibili-course-notes` ★ | B站网课笔记 skill：一节课或整套分P 课程 → Markdown 笔记（带时间的大纲、附原话的要点、`[mm:ss]` 逐字稿，每 P 一个文件） |
 | `video-to-mindmap` | 视频转思维导图 skill：长视频的带时间大纲 → markmap 能画的 Markdown（分支标起止时间） |
 | `douyin-batch-to-text` | 抖音批量视频转文字 skill：一批抖音链接（一个博主的一整套视频）整批读完，每条一个 Markdown 文件 + 索引表；默认只要口播文案 |
