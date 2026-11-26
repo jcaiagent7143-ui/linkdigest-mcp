@@ -458,6 +458,22 @@ VectorStoreIndex.from_documents(docs).as_query_engine().query("What do these vid
 
 `depth="script"` reads the speech only, the cheapest read. Example: [`examples/python/llamaindex_reader.py`](examples/python/llamaindex_reader.py).
 
+## Already using Firecrawl? Change the base URL
+
+`POST https://linkdigest.dev/v1/scrape` and `/v2/scrape` answer in Firecrawl's shape (`{"success": true, "data": {"markdown": "...", "metadata": {...}}}`), so a tool that already calls Firecrawl's `scrape` reads Xiaohongshu, Douyin and Bilibili links by changing two settings: the base URL and the key.
+
+```python
+from firecrawl import Firecrawl
+
+fc = Firecrawl(api_key="ld_live_...", api_url="https://linkdigest.dev")
+doc = fc.scrape("https://www.bilibili.com/video/BV1pGWT6DEg6", formats=["markdown"])
+print(doc.metadata.title, len(doc.markdown))
+```
+
+Run on 2026-11-26 with `firecrawl-py` 4.57.0, `@mendable/firecrawl-js` 4.54.0, LangChain's `FireCrawlLoader` and LlamaIndex's `FireCrawlWebReader` (both with `api_url="https://linkdigest.dev", mode="scrape"`). It is the same read as `POST /api/v1/digest`: the same key, credits and refusals.
+
+What it is not: Markdown only (ask for `html`, `links` or `screenshot` and `data.warning` names what was left out), and scrape only (no crawl, map, search or batch). A first read of a video can outlast one request; the call then answers 408 with `code: "SCRAPE_TIMEOUT"` and a `poll_url`, and the same request sent again collects the read and is billed once. [The four snippets and what came back](https://linkdigest.dev/blog/firecrawl-sdk-xiaohongshu-douyin-bilibili).
+
 ## Link parsing (offline, free, no key)
 
 `linkdigest.links` finds the real link in pasted share text and names the post it points to — platform,
