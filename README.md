@@ -219,7 +219,7 @@ started minute; a viral breakdown or a translation adds one each. Then $5 once f
 
 ## Agent skills (OpenClaw, Hermes, Claude Code, Cursor and others)
 
-36 ready-made skills live in [`skills/`](skills). Each is one job, a `SKILL.md` plus one script that uses only the Python standard library. The single-link readers (marked ★) work **without a key for a first look**: no `LINKDIGEST_API_KEY` gives a summary, up to 2 a day per address; with a key (10 free credits on sign-up, no card) they return the full transcript and per-image text.
+39 ready-made skills live in [`skills/`](skills). Each is one job, a `SKILL.md` plus one script that uses only the Python standard library. The single-link readers (marked ★) work **without a key for a first look**: no `LINKDIGEST_API_KEY` gives a summary, up to 2 a day per address; with a key (10 free credits on sign-up, no card) they return the full transcript and per-image text.
 
 | Skill | Job |
 | --- | --- |
@@ -232,6 +232,9 @@ started minute; a viral breakdown or a translation adds one each. Then $5 once f
 | `xiaohongshu-batch-export` | 小红书笔记批量导出: a batch of Xiaohongshu notes as Markdown files — body, the words in every image (OCR), video transcript, hot comments — plus an index table |
 | `douyin-video-to-text` ★ | 抖音视频转文字: a Douyin video's spoken words, on-screen text, chapters |
 | `douyin-creator-card` | 抖音博主主页信息: a Douyin creator's public profile from the app's profile share link (name, bio, follower / like / post counts, 抖音号, IP location); no post list |
+| `douyin-video-summary` ★ | 抖音视频总结: what a Douyin video says, as a paragraph and key points, each with the line of speech (and its time) it rests on |
+| `douyin-subtitle-text` | 抖音字幕提取 / 口播文案: only the spoken words of a Douyin video, timed by segment; the cheapest read (speech only) |
+| `video-to-notes` ★ | 视频转笔记: a knowledge video (Douyin, Bilibili, Xiaohongshu, YouTube, TikTok) as study notes — points with quotes and times, the figures and terms to check, the steps it gives; one creator's many videos into notes plus an index |
 | `douyin-search-to-text` | 抖音搜索转文字: search Douyin by topic, then read the videos you pick |
 | `xiaohongshu-note-to-text` ★ | 小红书笔记转文字: a Xiaohongshu note, the text in every image, caption, stats |
 | `xiaohongshu-search-to-text` | Search Xiaohongshu (RedNote) by topic, then read the notes you pick |

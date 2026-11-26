@@ -219,7 +219,7 @@ gemini mcp add -s user --transport http \
 
 ## Agent 技能（OpenClaw、Hermes、Claude Code、Cursor 等）
 
-[`skills/`](skills) 里有 36 个现成的 Agent Skill，每个只做一件事：一份 `SKILL.md` 加一个只用 Python 标准库的脚本。读单条链接的技能（下表标 ★）没有 `LINKDIGEST_API_KEY` 也能先看摘要，每个地址每天 2 条；有 Key（注册送 10 积分，不用绑卡）给完整逐字稿和逐图文字。
+[`skills/`](skills) 里有 39 个现成的 Agent Skill，每个只做一件事：一份 `SKILL.md` 加一个只用 Python 标准库的脚本。读单条链接的技能（下表标 ★）没有 `LINKDIGEST_API_KEY` 也能先看摘要，每个地址每天 2 条；有 Key（注册送 10 积分，不用绑卡）给完整逐字稿和逐图文字。
 
 **视频总结 / 视频转文字 skill**
 
@@ -234,6 +234,9 @@ gemini mcp add -s user --transport http \
 | `xiaohongshu-batch-export` | 小红书笔记批量导出 skill：一批笔记导出成 Markdown——正文、每张图上的字（OCR）、视频逐字稿、热评——附索引表 |
 | `douyin-video-to-text` ★ | 抖音文案提取 skill：口播逐字稿、画面字幕、章节、要点、点赞评论数 |
 | `douyin-creator-card` | 抖音博主主页信息：主页分享链接 → 粉丝数、获赞、作品数、简介、抖音号、IP 属地（不含作品列表） |
+| `douyin-video-summary` ★ | 抖音视频总结：一段话总结 + 几条要点，每条附口播里对应的原话和时间 |
+| `douyin-subtitle-text` | 抖音字幕提取 / 口播文案：只读视频里说的话，分段带时间，只读口播所以最省 |
+| `video-to-notes` ★ | 视频转笔记：知识类视频（抖音、B站、小红书、YouTube、TikTok）→ 学习笔记（要点附原话和时间、要核对的数字和名词、能照着做的步骤）；一位博主的很多条视频逐条成笔记再汇总目录 |
 | `linkdigest-video-transcript` ★ | 抖音 / 小红书 / TikTok / YouTube / B站视频转文字（口播逐字稿 + 画面文字） |
 | `linkdigest-youtube-summary` ★ | YouTube 视频总结和带时间戳的逐字稿，可译成中文 |
 | `tiktok-transcript` ★ | TikTok 视频逐字稿、画面字幕、要点（英文说明） |
