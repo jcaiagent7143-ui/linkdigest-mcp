@@ -219,7 +219,7 @@ gemini mcp add -s user --transport http \
 
 ## Agent 技能（OpenClaw、Hermes、Claude Code、Cursor 等）
 
-[`skills/`](skills) 里有 39 个现成的 Agent Skill，每个只做一件事：一份 `SKILL.md` 加一个只用 Python 标准库的脚本。读单条链接的技能（下表标 ★）没有 `LINKDIGEST_API_KEY` 也能先看摘要，每个地址每天 2 条；有 Key（注册送 10 积分，不用绑卡）给完整逐字稿和逐图文字。
+[`skills/`](skills) 里有 40 个现成的 Agent Skill，每个只做一件事：一份 `SKILL.md` 加一个只用 Python 标准库的脚本。读单条链接的技能（下表标 ★）没有 `LINKDIGEST_API_KEY` 也能先看摘要，每个地址每天 2 条；有 Key（注册送 10 积分，不用绑卡）给完整逐字稿和逐图文字。
 
 **视频总结 / 视频转文字 skill**
 
@@ -260,6 +260,7 @@ gemini mcp add -s user --transport http \
 | 技能 | 做什么 |
 | --- | --- |
 | `douyin-search-to-text` | 按关键词搜抖音视频，再把挑中的转成文字 |
+| `xiaohongshu-douyin-last-30-days` | 近30天小红书 / 抖音讨论总结：一个话题最近 30 天（可调）两个平台发了什么，读最新的几条，按赞、评论、收藏排序，给 agent 写简报用。找到的是几条，不是全量 |
 | `linkdigest-viral-breakdown` ★ | 爆款拆解：钩子、结构节拍、标题公式，引用逐字核对原文 |
 | `linkdigest-script-rewrite` ★ | 提取对标视频的口播稿和结构，再仿写自己的脚本 |
 | `hongguo-drama-research` | 红果短剧 / AI短剧选题：读榜单前 N 部剧的评分、热度、标签和观众剧评，出一页对比（带原话） |
