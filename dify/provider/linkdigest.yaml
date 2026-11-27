@@ -25,6 +25,7 @@ credentials_for_provider:
 tools:
   - tools/digest_url.yaml
   - tools/market_radar.yaml
+  - tools/topic_pulse.yaml
 extra:
   python:
     source: provider/linkdigest.py

@@ -43,7 +43,7 @@ python3 scripts/rank.py --page home           # 首页（热播）
 python3 scripts/rank.py --no-insight          # 不做剧评洞察，每部少 1 积分
 
 # 单部剧
-python3 scripts/linkdigest.py "https://hongguoduanju.com/detail?series_id=<id>" --format json
+python3 scripts/linkdigest.py "https://hongguoduanju.com/detail?series_id=7705028289206684734" --format json
 ```
 
 输出：一张表（剧名 / 集数 · 评分 · 热度 · 榜单 / 标签），再加一页对比（题材、标签、观众夸和骂的点，带原话）。`--format json` 拿到每部剧的完整数据。

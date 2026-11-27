@@ -31,6 +31,10 @@ DEADLINE_SECONDS = 210
 # A radar (POST /api/v1/radar) usually takes 10-20 minutes; a Dify tool waits
 # this long, then answers with the started run's id to fetch later.
 RADAR_WAIT_SECONDS = 100
+# Topic Pulse (POST /api/v1/pulse) takes roughly 2-5 minutes when it reads
+# Xiaohongshu or Douyin, and about half a minute on Hacker News alone; the tool
+# waits this long, then answers with the started run's id to fetch later.
+PULSE_WAIT_SECONDS = 100
 
 
 class LinkDigestError(Exception):
@@ -152,6 +156,43 @@ class LinkDigestClient:
         summary = r.json()
         if markdown and summary.get("status") == "done":
             md = self._s.get(f"{self._base}/api/v1/radar/{radar_id}", params={"format": "md"}, headers=self._headers(), timeout=40)
+            if md.status_code == 200:
+                summary["markdown"] = md.text
+        return summary
+
+    def pulse(self, topic: str, days: int = 30, sources: list[str] | None = None, size: str = "quick", language: str = "zh-CN", wait_seconds: int = PULSE_WAIT_SECONDS) -> dict[str, Any]:
+        """Start a Topic Pulse (2026-11-27) and wait up to `wait_seconds` for it.
+        `sources` None lets the API choose by the topic. A run that reads
+        Xiaohongshu or Douyin usually outlasts a Dify tool call, so the common
+        answer is the started run: its pulse_id, to fetch with pulse_result()."""
+        body: dict[str, Any] = {"topic": topic, "days": days, "size": size, "language": language}
+        if sources:
+            body["sources"] = sources
+        r = self._s.post(
+            f"{self._base}/api/v1/pulse",
+            headers={**self._headers(), "Content-Type": "application/json"},
+            json=body,
+            timeout=60,
+        )
+        if r.status_code not in (200, 202):
+            self._finish(r, "json")  # raises with the API's own message (402 carries the pay link)
+        started = r.json()
+        pulse_id = str(started.get("pulse_id") or "")
+        deadline = time.monotonic() + max(0, wait_seconds)
+        summary = started
+        while summary.get("status") not in ("done", "failed") and time.monotonic() < deadline:
+            time.sleep(POLL_SECONDS)
+            summary = self.pulse_result(pulse_id, markdown=False)
+        return summary
+
+    def pulse_result(self, pulse_id: str, markdown: bool = False) -> dict[str, Any]:
+        """One look at a pulse: the summary JSON (202 while it runs), plus its Markdown brief when done and asked."""
+        r = self._s.get(f"{self._base}/api/v1/pulse/{pulse_id}", headers=self._headers(), timeout=60)
+        if r.status_code not in (200, 202):
+            self._finish(r, "json")
+        summary = r.json()
+        if markdown and summary.get("status") == "done":
+            md = self._s.get(f"{self._base}/api/v1/pulse/{pulse_id}", params={"format": "md"}, headers=self._headers(), timeout=60)
             if md.status_code == 200:
                 summary["markdown"] = md.text
         return summary

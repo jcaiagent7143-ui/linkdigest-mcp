@@ -38,6 +38,12 @@ One product category, brand or competitor in, one report out: what people search
 | `size` | optional | `quick` 12 posts (default), `standard` 24, `deep` 48 |
 | `language` | optional | `zh-CN` (default), `en` or `ja` |
 
+**`topic_pulse(topic, days, sources, size, language)`** - Topic Pulse (new in 0.1.8)
+
+One topic and a window of 1 to 90 days in, one cited brief out: the posts about it published inside that window on Xiaohongshu and Douyin (plus Hacker News stories for an English topic), the newest 6 / 12 / 24 read in full, every item ranked by code (engagement, freshness, how much of the topic it carries), and a brief whose points are followed by word-for-word quotes that were checked against the text that was read. A coverage table says what each source returned; a source that failed is said to have failed. It samples the newest posts and is not a full count. Reddit, X and YouTube are not searched.
+
+A run that reads Xiaohongshu or Douyin usually takes 2 to 5 minutes, longer than one tool call: the first call answers with a `pulse_id`, the second call with only that `pulse_id` returns the brief (free). Cost is the sum of its parts and is said as `estimate` before it runs: about 22 credits for a quick run on the two apps; posts already read cost nothing; the Hacker News listing is free.
+
 ## What comes back
 
 - `transcript` with timecodes, and `transcript_source` — `native_captions` (exact, from the platform) or `asr` (speech recognition)
@@ -59,6 +65,8 @@ One product category, brand or competitor in, one report out: what people search
 | Bilibili | videos and b23.tv short links, through Bilibili's own embed player (since 2026-10-24) |
 | Instagram | reels and video posts; photo posts read from Instagram's own embed page (a carousel gives its first slide) |
 | Weibo | posts with their text, counts, the text in images, a video's speech and top comments |
+| Hongguo | drama pages (hongguoduanju.com/detail?series_id=…): synopsis, tags, episodes, rating, likes / saves / heat, rank label, filing number and top reviews. A player link (/player/<series_id>) reads as the drama; an episode's tracks are encrypted, so play one in a browser and read it with the extension |
+| Toutiao | articles and videos read in a browser with no login; a /group/ or /item/ share link is read through its article form, the only form Toutiao's robots.txt allows; its short-post form (/w/) is not read |
 | WeChat articles | mp.weixin.qq.com/s/… Official Account articles |
 | Podcasts | Xiaoyuzhou and Apple Podcasts episodes, transcribed |
 

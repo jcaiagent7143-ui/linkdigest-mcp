@@ -1,0 +1,108 @@
+identity:
+  name: topic_pulse
+  author: jcaiagent7143-ui
+  label:
+    en_US: Topic Pulse
+    zh_Hans: 近期热议
+description:
+  human:
+    en_US: One topic and a window of days in, one cited brief out - the posts about it from inside that window on Xiaohongshu and Douyin (plus Hacker News stories for English topics), the newest ones read in full, every item ranked by code, and each point followed by word-for-word quotes that were checked against the text. A sample of the newest posts, not a full count. A run usually takes 2-5 minutes - start it, then fetch with pulse_id.
+    zh_Hans: 输入一个话题和天数，拿回一页带出处的简报：小红书和抖音在这段时间里发布的帖子（英文话题可加 Hacker News），最新的几条读全文，由代码排序，每个观点后面是逐字核对过的原话。读的是最新几条的抽样，不是全量统计。一次通常 2–5 分钟：先开始，再用 pulse_id 取结果。
+  llm: Use this to answer "what have people been saying about X lately" from Chinese social media. It finds posts about the topic published inside the last N days on Xiaohongshu and Douyin (and Hacker News stories), reads the newest 6-24 in full, ranks them in code and returns a brief whose points carry verified word-for-word quotes and links, plus a coverage table per source. First call - pass topic (and days, sources, size, language); when the run outlasts the call the answer carries a pulse_id. Second call - pass only pulse_id to fetch the brief (free). It samples the newest posts; it is not a full count, and Reddit, X and YouTube are not searched.
+parameters:
+  - name: topic
+    type: string
+    required: false
+    label:
+      en_US: Topic
+      zh_Hans: 话题
+    human_description:
+      en_US: What to look for, e.g. Claude Code. Leave empty when fetching with pulse_id.
+      zh_Hans: 要看的话题，例如 露营车。用 pulse_id 取结果时留空。
+    llm_description: The topic, product, brand or event to look for (1-60 characters). Leave empty when passing pulse_id.
+    form: llm
+  - name: pulse_id
+    type: string
+    required: false
+    label:
+      en_US: Pulse ID
+      zh_Hans: 简报 ID
+    human_description:
+      en_US: The id a started run returned; fetches its brief (free).
+      zh_Hans: 开始时返回的 id；用它取简报（不扣费）。
+    llm_description: The pulse_id from an earlier call, to fetch that run's brief. Leave empty to start a new run.
+    form: llm
+  - name: days
+    type: number
+    required: false
+    default: 30
+    label:
+      en_US: Window (days)
+      zh_Hans: 时间窗口（天）
+    human_description:
+      en_US: How far back to look, 1 to 90 days. Posts older than the window are not read.
+      zh_Hans: 往回看多少天，1 到 90。窗口之外的帖子不读。
+    llm_description: How many days back to look, 1-90 (default 30).
+    form: form
+  - name: sources
+    type: select
+    required: false
+    default: auto
+    label:
+      en_US: Sources
+      zh_Hans: 来源
+    human_description:
+      en_US: auto picks by the topic (a Chinese topic reads Xiaohongshu + Douyin; any other adds Hacker News). The Hacker News listing costs no credits.
+      zh_Hans: auto 按话题选（中文话题读小红书 + 抖音，其他话题再加 Hacker News）。Hacker News 列表不收积分。
+    llm_description: auto, social (Xiaohongshu + Douyin), all (plus Hacker News) or hackernews.
+    form: form
+    options:
+      - value: auto
+        label: { en_US: Auto (by the topic), zh_Hans: 自动（按话题） }
+      - value: social
+        label: { en_US: Xiaohongshu + Douyin, zh_Hans: 小红书 + 抖音 }
+      - value: all
+        label: { en_US: Xiaohongshu + Douyin + Hacker News, zh_Hans: 小红书 + 抖音 + Hacker News }
+      - value: hackernews
+        label: { en_US: Hacker News only, zh_Hans: 只看 Hacker News }
+  - name: size
+    type: select
+    required: false
+    default: quick
+    label:
+      en_US: Size
+      zh_Hans: 条数
+    human_description:
+      en_US: quick reads 6 posts, standard 12, deep 24. At most 5 credits a post; posts already read cost nothing.
+      zh_Hans: 速查读 6 条、标准 12 条、深度 24 条。每条最多 5 积分，读过的内容 0 积分。
+    llm_description: quick (6 posts), standard (12) or deep (24).
+    form: form
+    options:
+      - value: quick
+        label: { en_US: Quick (6), zh_Hans: 速查（6 条） }
+      - value: standard
+        label: { en_US: Standard (12), zh_Hans: 标准（12 条） }
+      - value: deep
+        label: { en_US: Deep (24), zh_Hans: 深度（24 条） }
+  - name: language
+    type: select
+    required: false
+    default: zh-CN
+    label:
+      en_US: Brief language
+      zh_Hans: 简报语言
+    human_description:
+      en_US: The brief's language; quotes stay in the post's own language.
+      zh_Hans: 简报用的语言；原话保留帖子的语言。
+    llm_description: zh-CN, en or ja.
+    form: form
+    options:
+      - value: zh-CN
+        label: { en_US: Chinese, zh_Hans: 中文 }
+      - value: en
+        label: { en_US: English, zh_Hans: 英文 }
+      - value: ja
+        label: { en_US: Japanese, zh_Hans: 日文 }
+extra:
+  python:
+    source: tools/topic_pulse.py
