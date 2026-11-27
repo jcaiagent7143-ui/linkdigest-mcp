@@ -49,6 +49,13 @@ plugin source ([`dify/`](dify/)), the agent skill ([`skills/`](skills/)), exampl
 The hosted service behind `https://linkdigest.dev/mcp` and the API is operated by LinkDigest; its
 reading engine is not open source.
 
+## Recent updates
+
+- **2026-11-28 · Xiaohongshu creator profiles.** A profile link (`xiaohongshu.com/user/profile/…`) now reads as the profile: the creator's card (name, ID, bio, the follower and likes-and-saves figures as Xiaohongshu rounds them) and the notes on the page's first screen, each with its title, type, pinned flag and like, save and comment counts. 1 credit. Xiaohongshu gives a signed-out visitor no links to those notes, so none are listed; a note is still read from its own share link.
+- **2026-11-28 · A warning before the credits run out.** A successful read carries `low_balance: true` and the pay links once what is left pays for fewer than three more reads of the same size, so an agent can tell its user before a run stops at a 402.
+- **2026-11-27 · Bilibili counts.** `stats.plays` is filled on Bilibili reads (it was fetched and dropped before), and `stats.coins` and `stats.danmaku` are new.
+- **2026-11-27 · A 750-credit pack** (¥108 / $15), between 250 and 2,000 at the same price per credit.
+
 ## Measured, not claimed
 
 [Benchmark, 2026-11-14](benchmark/): 24 links sampled by rule before anything ran (Bilibili popular list; Douyin, Xiaohongshu and YouTube topic searches, 6 each), read four ways. LinkDigest got content on 23/24 (speech 16, text in picture 22, comments 6; one 3-hour YouTube video came back title-only). Jina Reader opened 14/24 posts (Xiaohongshu 0/6), a plain fetch 7/24, `yt-dlp` 12/24; none of the three got speech or picture text. Sampler, runner, scorer and per-link scores are in [`benchmark/`](benchmark/), so you can re-run it.

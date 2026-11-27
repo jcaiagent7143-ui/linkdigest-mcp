@@ -1,7 +1,7 @@
 ---
 name: xiaohongshu-note-summary
 description: "小红书笔记总结 / Xiaohongshu (RedNote) note summary. 用户发来小红书笔记（xiaohongshu.com、xhslink.com、rednote.com 链接或整段分享文字），想知道「这篇笔记讲了什么」「值不值得看完」「结论和推荐是什么」时使用。读的是笔记本身：正文、每张图里的字（OCR）和图片描述，视频笔记读口播和画面文字；先给一段话总结和几条要点，每条要点附它出自第几张图或哪句原话，可以核对，不是凭标题猜。没有 Key 也能先免费看一条摘要；完整内容需要 LinkDigest API Key（注册送 10 积分）。不登录小红书、不要 Cookie、不下载图片；读不了不扣费。"
-version: 1.0.0
+version: 1.0.1
 homepage: https://linkdigest.dev/zh/xiaohongshu-biji-tiqu?ref=skill-xiaohongshu-note-summary
 metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":false,"description":"可选。LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/signin?ref=skill-xiaohongshu-note-summary&next=/app/keys 创建，注册送 10 积分；没有 Key 时每个地址每天可免费看 2 条摘要"}],"homepage":"https://linkdigest.dev/zh/xiaohongshu-biji-tiqu?ref=skill-xiaohongshu-note-summary"}}
 required_environment_variables:
@@ -52,7 +52,8 @@ Sign-up gives 10 credits once, no card.
 ## When the note cannot be read
 
 - 「当前笔记暂时无法浏览」 or "not on the web right now": Xiaohongshu shows this note only inside its app or to a signed-in browser. Retrying the same link returns the same answer and nothing is charged. Tell the user so; do not try other spellings of the link. The reader's own signed-in browser with the extension (https://linkdigest.dev/extension) can read the page they see.
-- A profile link, a product page or a search page is not a note: ask for one note's share link.
+- A creator's profile link is read as the profile, not as a note: the creator's card and the titles and like, save and comment counts of the notes on the page's first screen. Xiaohongshu gives a signed-out visitor no links to those notes, so none come back; to summarise one of them, ask the user for that note's own share link.
+- A product page or a search page is not a note: ask for one note's share link.
 - A deleted or private note cannot be read by anyone.
 
 ## Other jobs
