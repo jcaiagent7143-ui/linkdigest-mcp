@@ -316,8 +316,9 @@ search_links(query="京都 住宿 攻略", platform="xiaohongshu", limit=5)
 → 1. [2025-09-30] 🇯🇵京都赏枫全攻略（含住宿推荐 — https://www.xiaohongshu.com/explore/… — 住进京都老街，每天被枫叶和古都晨光唤醒…
   2. …
   This search: 4 credits.
-digest_url(url="<one of them>")
 ```
+
+Pass any link it returns to `digest_url` exactly as returned.
 
 A search that finds posts costs 4 credits on Xiaohongshu and Douyin and 1 elsewhere. **A search that
 finds nothing is free.**
@@ -328,6 +329,44 @@ above returned five on-topic notes in 3.3 s (2026-11-19); a narrow topic can ret
 answer then says so, charges nothing, and for Xiaohongshu hands back the same search as an address to
 open in your own browser, where the [extension](https://linkdigest.dev/extension) reads the page you see.
 Results are filtered to post links `digest_url` can read and to posts that mention the topic.
+
+## Topic Pulse (近期热议): what a topic's last 30 days look like
+
+Added 2026-11-27. One topic and a window of 1 to 90 days (default 30) in, one cited brief out. It is a
+REST endpoint, not an MCP tool: the tool list above is unchanged.
+
+```bash
+curl -s https://linkdigest.dev/api/v1/pulse \
+  -H "Authorization: Bearer $LINKDIGEST_API_KEY" -H "Content-Type: application/json" \
+  -d '{"topic": "Claude Code", "days": 30, "sources": ["xiaohongshu", "douyin", "hackernews"], "size": "quick", "language": "en"}'
+# → 202 with "pulse_id", "estimate" (the credits it will cost) and "poll" (the address to collect it from).
+# GET the "poll" address with the same header until it stops answering 202; add ?format=md for Markdown.
+```
+
+What it does, in order:
+
+1. Searches Xiaohongshu and Douyin for the topic and keeps only posts from inside the window. A post's
+   date is read from its id before any credit is spent, so an old post is never read. Hacker News
+   stories come from its official public API, free.
+2. Reads the newest 6 / 12 / 24 posts in full (`size` quick / standard / deep): the text in every image,
+   the speech of every video, the top comments.
+3. Ranks every item in code, not by a model: engagement on a fixed log scale per source, freshness, and
+   how much of the topic the post carries. Posts about the same story are merged.
+4. Writes a brief in which every point cites its posts with word-for-word quotes, and code checks each
+   quote against the text that was read. A coverage table says what each source returned; a source
+   that failed is said to have failed, never to be quiet.
+
+| | |
+|---|---|
+| Price | The sum of its parts, said as `estimate` before it runs: 4 credits per social search that finds posts, each post at its normal price (capped at 5), the brief 1 credit plus 1 per started 10 items. About 22 (quick), 35 (standard), 60 (deep) on the two apps, one more with Hacker News; cached posts are free. |
+| Time | Roughly 2 to 5 minutes with Xiaohongshu or Douyin; a Hacker News-only run took 31 s and 2 credits (2026-11-27). |
+| Fewer than 3 items in the window | No brief is written and the brief is not charged. |
+| Not searched yet | Reddit, X and YouTube. |
+| Never | A login, a cookie, or a crawl of a whole platform. |
+
+From an agent, the [`xiaohongshu-douyin-last-30-days`](skills/xiaohongshu-douyin-last-30-days) skill
+calls it with `--brief`. In the console it is the 近期热议 page: <https://linkdigest.dev/app/pulse>.
+Full reference: <https://linkdigest.dev/docs#pulse>.
 
 ## The other tools
 
