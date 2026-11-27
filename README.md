@@ -219,7 +219,7 @@ started minute; a viral breakdown or a translation adds one each. Then $5 once f
 
 ## Agent skills (OpenClaw, Hermes, Claude Code, Cursor and others)
 
-40 ready-made skills live in [`skills/`](skills). Each is one job, a `SKILL.md` plus one script that uses only the Python standard library. The single-link readers (marked ★) work **without a key for a first look**: no `LINKDIGEST_API_KEY` gives a summary, up to 2 a day per address; with a key (10 free credits on sign-up, no card) they return the full transcript and per-image text.
+41 ready-made skills live in [`skills/`](skills). Each is one job, a `SKILL.md` plus one script that uses only the Python standard library. The single-link readers (marked ★) work **without a key for a first look**: no `LINKDIGEST_API_KEY` gives a summary, up to 2 a day per address; with a key (10 free credits on sign-up, no card) they return the full transcript and per-image text.
 
 | Skill | Job |
 | --- | --- |
@@ -237,6 +237,7 @@ started minute; a viral breakdown or a translation adds one each. Then $5 once f
 | `video-to-notes` ★ | 视频转笔记: a knowledge video (Douyin, Bilibili, Xiaohongshu, YouTube, TikTok) as study notes — points with quotes and times, the figures and terms to check, the steps it gives; one creator's many videos into notes plus an index |
 | `douyin-search-to-text` | 抖音搜索转文字: search Douyin by topic, then read the videos you pick |
 | `xiaohongshu-douyin-last-30-days` | 近30天小红书 / 抖音讨论总结: what both apps posted about a topic in the last 30 days (window adjustable) — the newest posts read, ranked by likes / comments / saves, as an evidence pack for the agent's brief. Finds a handful of posts, not a census |
+| `xiaohongshu-note-summary` ★ | 小红书笔记总结: what one note says, as a paragraph and points, each point traced to the picture or the line it comes from. Reads the text in every image and a video note's speech |
 | `xiaohongshu-note-to-text` ★ | 小红书笔记转文字: a Xiaohongshu note, the text in every image, caption, stats |
 | `xiaohongshu-search-to-text` | Search Xiaohongshu (RedNote) by topic, then read the notes you pick |
 | `xiaohongshu-consumer-insight` | One Xiaohongshu note as consumer insight: audience, selling points, objections, purchase intent, each with a checked quote |
