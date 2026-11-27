@@ -395,7 +395,7 @@ from linkdigest import LinkDigest, PaymentRequiredError
 
 ld = LinkDigest()  # 读环境变量 LINKDIGEST_API_KEY
 
-d = ld.digest("https://v.douyin.com/xxxx/", breakdown=True)
+d = ld.digest("https://v.douyin.com/VeXgdE_QwTE", breakdown=True)
 print(d.title, d.author, f"{d.credits} 积分", "（缓存，免费）" if d.cached else "")
 for seg in d.transcript:            # [{t: 秒, text}]
     print(f"[{seg['t']:>6.1f}s] {seg['text']}")
@@ -403,7 +403,7 @@ print(d.breakdown["hook"])          # 爆款拆解的开头钩子
 print(d.markdown)                   # 整条内容的 Markdown
 
 # 英文译文 + 只读开头（视频超出时长上限时）
-d = ld.digest("https://xhslink.com/o/xxxx", translate_to="en", partial_ok=True)
+d = ld.digest("https://www.xiaohongshu.com/discovery/item/6a6bf662000000002402de7e?xsec_token=CBCe01s1uyd2C8uMx6ycYcnEwPV5_31OX1u_I19FCSd54=&xsec_source=app_share", translate_to="en", partial_ok=True)
 
 try:
     ld.digest("https://v.douyin.com/yyyy/", max_credits=3)   # 超过 3 积分就不读，也不扣
@@ -419,8 +419,8 @@ except PaymentRequiredError as e:
 命令行：
 
 ```bash
-linkdigest "https://v.douyin.com/xxxx/"                    # Markdown 输出到 stdout
-linkdigest "https://xhslink.com/o/xxxx" --breakdown        # 加爆款拆解
+linkdigest "https://v.douyin.com/VeXgdE_QwTE"                    # Markdown 输出到 stdout
+linkdigest "https://www.xiaohongshu.com/discovery/item/6a6bf662000000002402de7e?xsec_token=CBCe01s1uyd2C8uMx6ycYcnEwPV5_31OX1u_I19FCSd54=&xsec_source=app_share" --breakdown        # 加爆款拆解
 linkdigest "<链接>" --translate en --json > post.json      # 完整 JSON
 pbpaste | linkdigest -                                     # 直接粘贴整段分享文案
 linkdigest --job <job_id>                                  # 取回还在处理的任务
@@ -441,7 +441,7 @@ from langchain.agents import create_agent
 from linkdigest.integrations.langchain import LinkDigestTool
 
 agent = create_agent("anthropic:claude-sonnet-5-5", tools=[LinkDigestTool(max_credits=10)])
-agent.invoke({"messages": [{"role": "user", "content": "这条视频卖的是什么？https://v.douyin.com/xxxx/"}]})
+agent.invoke({"messages": [{"role": "user", "content": "这条视频卖的是什么？https://v.douyin.com/VeXgdE_QwTE"}]})
 ```
 
 `LinkDigestTool(output="json")` 改为给模型精简的 JSON。示例：[`examples/python/langchain_agent.py`](examples/python/langchain_agent.py)。
@@ -455,7 +455,7 @@ agent.invoke({"messages": [{"role": "user", "content": "这条视频卖的是什
 from llama_index.core import VectorStoreIndex
 from linkdigest.integrations.llamaindex import LinkDigestReader
 
-docs = LinkDigestReader(depth="script").load_data(["https://v.douyin.com/xxxx/", "https://b23.tv/xxxx"])
+docs = LinkDigestReader(depth="script").load_data(["https://v.douyin.com/VeXgdE_QwTE", "https://www.bilibili.com/video/BV1pGWT6DEg6"])
 VectorStoreIndex.from_documents(docs).as_query_engine().query("这些视频有什么共同点？")
 ```
 

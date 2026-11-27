@@ -1,7 +1,7 @@
 ---
 name: douyin-video-summary
 description: "抖音视频总结 / Douyin video summary. 用户发来抖音视频（douyin.com/video 链接、v.douyin.com 短链或整段分享文字），想知道「这条视频讲了什么」「值不值得看完」「结论是什么」时使用。读的是视频本身：口播（语音识别，带时间）和画面上的字，先给一段话总结和几条要点，每条要点附口播里对应的原话和时间，可以核对，不是凭标题猜。没有 Key 也能先免费看一条摘要；完整逐字稿需要 LinkDigest API Key（注册送 10 积分）。不登录抖音、不要 Cookie、不下载视频；读不了不扣费。"
-version: 1.0.0
+version: 1.0.1
 homepage: https://linkdigest.dev/zh/douyin-shipin-zongjie?ref=skill-douyin-video-summary
 metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":false,"description":"可选。LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/signin?ref=skill-douyin-video-summary&next=/app/keys 创建，注册送 10 积分；没有 Key 时每个地址每天可免费看 2 条摘要"}],"homepage":"https://linkdigest.dev/zh/douyin-shipin-zongjie?ref=skill-douyin-video-summary"}}
 required_environment_variables:
@@ -19,7 +19,7 @@ A Douyin share link gives a server an app shell: the content is in the audio and
 1. Read the link the user gave (a `douyin.com/video/...` link, a `v.douyin.com` short link, or the whole share text):
    ```bash
    export LINKDIGEST_API_KEY=ld_live_...   # https://linkdigest.dev/signin?ref=skill-douyin-video-summary&next=/app/keys  (optional, see below)
-   python3 {baseDir}/scripts/linkdigest.py --format json "https://v.douyin.com/xxxxxxx/"
+   python3 {baseDir}/scripts/linkdigest.py --format json "https://v.douyin.com/VeXgdE_QwTE"
    ```
    Copy a short link exactly as given: the code after `v.douyin.com/` is case-sensitive. Share text with quotes or line breaks goes in on standard input: `printf '%s' "$SHARE_TEXT" | python3 {baseDir}/scripts/linkdigest.py --format json -`.
 2. Answer in this order:

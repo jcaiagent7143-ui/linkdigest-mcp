@@ -13,7 +13,7 @@ descriptions, caption and metadata**, with quotes checked against the post.
 ```ts
 import { LinkDigest } from "linkdigest";
 const ld = new LinkDigest(); // LINKDIGEST_API_KEY
-const d = await ld.digest("https://v.douyin.com/…/", { depth: "script" });
+const d = await ld.digest("https://v.douyin.com/VeXgdE_QwTE", { depth: "script" });
 const found = await ld.search("牛肉面 探店", { platform: "douyin", limit: 10 });
 ```
 
@@ -28,7 +28,7 @@ today: Zhihu, Kuaishou. Overview: [linkdigest.dev/china-social-media-api](https:
 ```bash
 # A Douyin video's spoken script (文案), 1 credit per started 2 minutes
 curl -X POST https://linkdigest.dev/api/v1/digest -H "Authorization: Bearer ld_live_..." \
-  -H "Content-Type: application/json" -d '{"url": "https://v.douyin.com/xxxxxxx/", "depth": "script"}'
+  -H "Content-Type: application/json" -d '{"url": "https://v.douyin.com/VeXgdE_QwTE", "depth": "script"}'
 ```
 
 Hosted, remote (streamable HTTP). Nothing to install or run. For stdio-only clients and scripts,
@@ -451,14 +451,14 @@ In [`python/`](python/): MIT, Python 3.10+, standard library only.
 ```bash
 pip install linkdigest-mcp          # PyPI; or from this repo: pip install "git+https://github.com/jcaiagent7143-ui/linkdigest-mcp#subdirectory=python"
 export LINKDIGEST_API_KEY=ld_live_...
-linkdigest "https://v.douyin.com/xxxx/" --breakdown       # Markdown to stdout
+linkdigest "https://v.douyin.com/VeXgdE_QwTE" --breakdown       # Markdown to stdout
 linkdigest capture ./video.mp4 --url "<link>"              # a video you already have: sound + frames extracted here, never uploaded
 ```
 
 ```python
 from linkdigest import LinkDigest
 
-d = LinkDigest().digest("https://xhslink.com/o/xxxx", translate_to="en")
+d = LinkDigest().digest("https://www.xiaohongshu.com/discovery/item/6a6bf662000000002402de7e?xsec_token=CBCe01s1uyd2C8uMx6ycYcnEwPV5_31OX1u_I19FCSd54=&xsec_source=app_share", translate_to="en")
 print(d.title, d.credits, d.cached)
 print(d.markdown)
 ```
@@ -480,7 +480,7 @@ from langchain.agents import create_agent
 from linkdigest.integrations.langchain import LinkDigestTool
 
 agent = create_agent("anthropic:claude-sonnet-5-5", tools=[LinkDigestTool(max_credits=10)])
-agent.invoke({"messages": [{"role": "user", "content": "What does this video sell? https://v.douyin.com/xxxx/"}]})
+agent.invoke({"messages": [{"role": "user", "content": "What does this video sell? https://v.douyin.com/VeXgdE_QwTE"}]})
 ```
 
 `LinkDigestTool(output="json")` gives the model compact JSON instead. Example: [`examples/python/langchain_agent.py`](examples/python/langchain_agent.py).
@@ -496,7 +496,7 @@ accepts. A link that cannot be read is logged and skipped (`errors="raise"` to s
 from llama_index.core import VectorStoreIndex
 from linkdigest.integrations.llamaindex import LinkDigestReader
 
-docs = LinkDigestReader(depth="script").load_data(["https://v.douyin.com/xxxx/", "https://b23.tv/xxxx"])
+docs = LinkDigestReader(depth="script").load_data(["https://v.douyin.com/VeXgdE_QwTE", "https://www.bilibili.com/video/BV1pGWT6DEg6"])
 VectorStoreIndex.from_documents(docs).as_query_engine().query("What do these videos have in common?")
 ```
 
