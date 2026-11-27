@@ -1,7 +1,7 @@
 ---
 name: hongguo-drama-research
 description: "红果短剧 / AI短剧选题研究：读红果短剧官网的榜单（AI剧、真人剧、漫剧），把前 N 部剧的简介、标签、集数、评分和评分人数、点赞、收藏、热度、榜单名次和观众剧评读出来，再出一页对比：什么题材和标签在榜上、观众夸什么骂什么（带原话）。也能读单部剧的详情页链接。编剧、AI短剧团队、短剧解说和投稿前做选题时使用。只读公开的剧详情页，不读剧集视频。需要 LINKDIGEST_API_KEY。"
-version: 1.0.1
+version: 1.0.2
 homepage: https://linkdigest.dev/zh/docs?ref=skill-hongguo-drama-research
 metadata: {"openclaw":{"requires":{"env":["LINKDIGEST_API_KEY"],"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/signin?ref=skill-hongguo-drama-research&next=/app/keys 创建"}],"homepage":"https://linkdigest.dev/zh/docs?ref=skill-hongguo-drama-research"}}
 required_environment_variables:
