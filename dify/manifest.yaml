@@ -9,6 +9,9 @@ description:
   en_US: "Turn a Xiaohongshu, Douyin, TikTok, YouTube or X link into text: transcript with timecodes, on-screen text, every image described and OCR'd, caption and metadata."
   zh_Hans: "把小红书、抖音、TikTok、YouTube 或 X 链接转成文本：带时间戳的转写、屏幕文字、逐图描述与 OCR、正文与元数据。"
 icon: icon.png
+tags:
+  - social
+  - videos
 repo: https://github.com/jcaiagent7143-ui/linkdigest-mcp
 contact: apify@linkdigest.dev
 network:
