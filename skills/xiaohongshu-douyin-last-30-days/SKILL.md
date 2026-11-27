@@ -1,7 +1,7 @@
 ---
 name: xiaohongshu-douyin-last-30-days
 description: "近30天小红书 / 抖音在说什么 (Last 30 days on Xiaohongshu & Douyin). 给一个话题、产品、品牌或人名，搜小红书和抖音最近 30 天（可调）发的帖子，读出每条里说的话（视频口播、图上的字）和点赞、评论、收藏数，按互动排序，交给 agent 写一份带出处的简报：大家在说什么、谁说的、哪天、多少人赞。用于做选题、看产品口碑、会前查一个话题。英文社区（Reddit、X、YouTube）有开源技能 last30days 在做；这个只做小红书和抖音。搜索找到的是网页已收录的帖子，通常只有几条，不是全量。不登录平台、不要 Cookie。需要 LinkDigest API Key（注册送 10 积分）。"
-version: 1.0.0
+version: 1.1.0
 homepage: https://linkdigest.dev/zh/docs?ref=skill-xiaohongshu-douyin-last-30-days
 metadata: {"openclaw":{"requires":{"anyBins":["python3"]},"primaryEnv":"LINKDIGEST_API_KEY","envVars":[{"name":"LINKDIGEST_API_KEY","required":true,"description":"LinkDigest API Key（ld_live_ 开头），在 https://linkdigest.dev/signin?ref=skill-xiaohongshu-douyin-last-30-days&next=/app/keys 创建，注册送 10 积分"}],"homepage":"https://linkdigest.dev/zh/docs?ref=skill-xiaohongshu-douyin-last-30-days"}}
 required_environment_variables:
@@ -31,6 +31,28 @@ python3 {baseDir}/scripts/last30.py "Claude Code"
 
 Each post's date comes from its own id, so the window is exact. Posts are read newest first, taking turns between the two platforms. Douyin videos are read for speech only (the cheapest read).
 
+## One call, with the brief already written (`--brief`)
+
+```bash
+python3 {baseDir}/scripts/last30.py "Claude Code" --brief                 # 小红书 + 抖音, 30 days, 6 posts
+python3 {baseDir}/scripts/last30.py "露营车" --brief --days 14 --read 12   # a 14-day window, 12 posts
+python3 {baseDir}/scripts/last30.py "Claude Code" --brief --hackernews    # plus Hacker News stories (free)
+```
+
+With `--brief` the server does the whole run (LinkDigest's Topic Pulse, 近期热议, `POST /api/v1/pulse`) and the script prints its report:
+
+- the searches are asked with the window, and a post dated outside it is dropped before any credit is spent on reading it;
+- every item is ranked by code: engagement on a fixed scale per platform, freshness inside the window, and how much of the topic its own words carry; posts telling the same story are merged;
+- a summary and up to six themes, each quoting its posts word for word. Every quote is checked against the post's own text by code and marked ✓; a quote that is not found is marked ✗ and counts for nothing;
+- a coverage table per platform. A platform that could not be searched is said to have failed. It is never reported as quiet;
+- a share link that opens without signing in (30 days).
+
+Window 1 to 90 days. `--read` picks the size: up to 6 posts, up to 12, or 24. A run takes about 2 to 5 minutes. Use `--format json` for the data. Without `--brief` the script works as described below and the agent writes the brief itself.
+
+When you pass the report on: keep the warnings at its top, keep the ✓ quotes as they are, and do not add claims the report does not make.
+
+Measured on 2026-11-27, "Claude Code", 30 days, `--brief --platforms xiaohongshu --hackernews`: 43 seconds and 7 credits (the four Xiaohongshu posts had been read before, so only the search and the brief were charged; an hour earlier the same run with fresh reads took 194 seconds and 12 credits). 6 posts found, 4 inside the window, 10 Hacker News stories; four themes, two of them quoting Xiaohongshu; 9 quotes, all checked.
+
 ## What comes back
 
 A Markdown pack, most-engaged first (likes + 2 × comments + saves + shares):
@@ -56,6 +78,10 @@ Do not add what the posts did not say, and do not fill a thin result with genera
 Run on 2026-11-26 for "Claude Code", 30 days: Xiaohongshu search found 7 posts, 3 inside the window; Douyin found 1, 0 inside. The 3 were read in about two and a half minutes for 17 credits in all. The most-engaged had 10,400 likes, 535 comments and 16,900 saves.
 
 That is typical. The search goes through what the open web has indexed, so it returns a handful of posts, the newest ones can be days late, and a narrow topic can return none. This skill is a way to read the best of what is findable, not a census.
+
+## Price of `--brief`
+
+The same parts, added up by the server and said before the run starts: 4 credits per platform search that finds posts, each post at its normal price (capped at 5 a post), and 2 to 4 credits for the brief. Typical: about 22 credits for 6 posts on both platforms, 35 for 12, 60 for 24; posts someone already read are free. Fewer than 3 items inside the window: no brief is written or charged. Hacker News is free.
 
 ## Price
 

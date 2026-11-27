@@ -5,6 +5,7 @@
     python3 last30.py "露营装备" --days 14 --read 4
     python3 last30.py "扫地机器人" --read 0             # list what was found, read nothing
     python3 last30.py "AI 编程" --platforms douyin --format json
+    python3 last30.py "Claude Code" --brief             # one hosted run: ranked, summed up, every quote checked
 
 Search finds the posts (it knows each post's date from its id, so the window is exact); the reads
 bring back what was said (speech as text, the words in the images) and the like / comment / save
@@ -26,6 +27,7 @@ import urllib.error
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import linkdigest as ld  # noqa: E402
 
+PULSE = "https://linkdigest.dev/api/v1/pulse"
 SEARCH = "https://linkdigest.dev/api/v1/search"
 DIGEST = "https://linkdigest.dev/api/v1/digest"
 NAMES = {"xiaohongshu": "小红书", "douyin": "抖音"}
@@ -82,6 +84,64 @@ def read(key: str, url: str, platform: str, max_credits: int, timeout: int = 600
     return status, payload
 
 
+def brief(key: str, topic: str, days: int, platforms: list[str], read_n: int, hackernews: bool, fmt: str) -> int:
+    """One hosted run (Topic Pulse, 近期热议): the server searches with the window, drops every
+    post dated outside it before a read is paid for, reads the rest, ranks every item in code and
+    writes a brief whose every point quotes its posts (the quotes are checked against the posts'
+    own words). Prints the report; the run's cost is on its first lines."""
+    size = "quick" if read_n <= 6 else "standard" if read_n <= 12 else "deep"
+    body = {"topic": topic, "days": days, "size": size, "sources": platforms + (["hackernews"] if hackernews else [])}
+    try:
+        status, _headers, payload = ld.call("POST", PULSE, key, body, timeout=60)
+    except (urllib.error.URLError, OSError) as err:
+        ld.log(f"连不上 linkdigest.dev: {err}{ld.net_hint(err)}")
+        return ld.EXIT_ERROR
+    if status == 401:
+        ld.log(f"Key 无效（401）。在 {ld.KEYS_URL} 重新创建。")
+        return ld.EXIT_AUTH
+    if status == 402:
+        ld.log(f"积分不够这次运行（402，未扣费）：{ld.field(payload, 'error', '')} 付款链接：{ld.field(payload, 'starter_url', '') or ld.field(payload, 'buy_url', '')}")
+        return ld.EXIT_PAYMENT
+    if status != 202 or not ld.field(payload, "pulse_id"):
+        ld.log(f"没能开始（HTTP {status}）：{str(ld.field(payload, 'error', ''))[:200]}")
+        return ld.EXIT_ERROR
+    poll = ld.field(payload, "poll") or f"{PULSE}/{payload['pulse_id']}"
+    ld.log(f"已开始：预计约 {ld.field(payload, 'estimate', '?')} 积分，窗口 {ld.field(payload, 'window', {})}；一般 2–5 分钟")
+    deadline, last = time.time() + 20 * 60, ""
+    while time.time() < deadline:
+        time.sleep(10)
+        try:
+            status, _headers, payload = ld.call("GET", poll, key, timeout=60)
+        except (urllib.error.URLError, OSError):
+            continue  # one lost poll is not the end of the run
+        state = ld.field(payload, "status", "")
+        if state != last:
+            last = state
+            ld.log({"searching": "搜索中…", "reading": "在读帖子…", "aggregating": "在写总结…"}.get(state, state))
+        if state in ("done", "failed"):
+            break
+    else:
+        ld.log(f"20 分钟还没结束，先停在这里；稍后用同一个 Key GET {poll} 取结果。")
+        return ld.EXIT_ERROR
+    if fmt == "json":
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+        return ld.EXIT_OK if state == "done" else ld.EXIT_ERROR
+    if state == "failed":
+        print(f"# 近 {days} 天：{topic}\n\n没有写成总结：{ld.field(payload, 'error', '')}\n\n花了 {ld.field(payload, 'credits_total', 0)} 积分。\n")
+        for c in ld.field(payload, "coverage", []) or []:
+            print(f"- {c.get('source')}: {c.get('state')} · found {c.get('found')} · in window {c.get('in_window')}" + (f" · {c['note']}" if c.get("note") else ""))
+        return ld.EXIT_ERROR
+    try:
+        status, _headers, text = ld.call("GET", poll + "?format=md", key, timeout=60)
+    except (urllib.error.URLError, OSError) as err:
+        ld.log(f"结果已生成，但取 Markdown 时断了：{err}。GET {poll}?format=md 再取一次。")
+        return ld.EXIT_ERROR
+    print(text if isinstance(text, str) else (ld.field(ld.field(payload, "pulse", {}) or {}, "markdown", "") or json.dumps(payload, ensure_ascii=False)))
+    if ld.field(payload, "share_url"):
+        print(f"\n分享链接（不用登录就能打开，30 天有效）：{payload['share_url']}")
+    return ld.EXIT_OK
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description="近 N 天小红书 / 抖音在说什么 · the last N days on Xiaohongshu and Douyin")
     p.add_argument("topic", help="话题、产品、品牌或人名，如 Claude Code、露营装备")
@@ -90,6 +150,8 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--read", type=int, default=6, help="读最新的几条（默认 6；0 = 只列出找到的，不读）")
     p.add_argument("--max-credits", type=int, default=8, help="每条最多花多少积分，超过的不读、不扣费（默认 8）")
     p.add_argument("--format", choices=["markdown", "json"], default="markdown")
+    p.add_argument("--brief", action="store_true", help="交给服务器一次做完：按热度排序、写好总结、每条引用都核对过（近期热议）")
+    p.add_argument("--hackernews", action="store_true", help="只和 --brief 一起用：再加上 Hacker News 上的讨论（免费）")
     args = p.parse_args(argv)
 
     key = os.environ.get("LINKDIGEST_API_KEY", "").strip()
@@ -100,6 +162,12 @@ def main(argv: list[str] | None = None) -> int:
     if not platforms or any(x not in NAMES for x in platforms) or not 1 <= args.days <= 365 or not 0 <= args.read <= 20:
         ld.log("--platforms 只能是 xiaohongshu、douyin；--days 是 1 到 365；--read 是 0 到 20")
         return ld.EXIT_USAGE
+
+    if args.brief:
+        if args.days > 90 or args.read < 1:
+            ld.log("--brief 的时间窗是 1 到 90 天，--read 至少 1（6 条以内 quick，12 条以内 standard，再多 deep）")
+            return ld.EXIT_USAGE
+        return brief(key, args.topic, args.days, platforms, args.read, args.hackernews, args.format)
 
     cutoff = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=args.days)).date().isoformat()
     found, searched, spent = [], [], 0
