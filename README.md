@@ -51,6 +51,7 @@ reading engine is not open source.
 
 ## Recent updates
 
+- **2026-11-28 · Video reads are faster.** A step before speech recognition decoded the whole picture just to check for silence; the check now rides on the audio-extraction pass. The same 2:22 Douyin video, read on the live service: 107 s before, 27 to 40 s after (four reads). Our measured read times by platform and video length are on [this page](https://linkdigest.dev/zh/shipin-zhuanwenzi-tai-man) (Chinese).
 - **2026-11-28 · Xiaohongshu creator profiles.** A profile link (`xiaohongshu.com/user/profile/…`) now reads as the profile: the creator's card (name, ID, bio, the follower and likes-and-saves figures as Xiaohongshu rounds them) and the notes on the page's first screen, each with its title, type, pinned flag and like, save and comment counts. 1 credit. Xiaohongshu gives a signed-out visitor no links to those notes, so none are listed; a note is still read from its own share link.
 - **2026-11-28 · A warning before the credits run out.** A successful read carries `low_balance: true` and the pay links once what is left pays for fewer than three more reads of the same size, so an agent can tell its user before a run stops at a 402.
 - **2026-11-27 · Bilibili counts.** `stats.plays` is filled on Bilibili reads (it was fetched and dropped before), and `stats.coins` and `stats.danmaku` are new.
